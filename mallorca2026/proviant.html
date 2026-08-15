@@ -45,6 +45,11 @@ ul.items li:first-child{border-top:0}
 .itxt{flex:1}
 .del{border:0;background:none;color:#c8352c;font-size:15px;cursor:pointer;padding:2px 8px}
 .beer{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+.dgrid{display:grid;grid-template-columns:1fr 84px 84px;gap:6px 8px;align-items:center;margin-top:8px}
+.dgrid .dh{font-size:12px;color:var(--mut);text-align:center}
+.dgrid .dn{font-size:14px}
+.dgrid input{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px 6px;
+  font-size:15px;text-align:center;background:#fafbfc}
 .beer label{font-size:13px;color:var(--mut);display:block}
 .beer input{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px;
   font-size:16px;background:#fafbfc}
@@ -75,9 +80,11 @@ footer{color:var(--mut);font-size:12.5px;line-height:1.6;margin-top:22px;
 </nav>
 <div class="wrap">
   <h1>Einkaufsplanung</h1>
-  <p class="sub">Jeder trägt ein, was er <b>mitbringt</b> (besondere Weine, Spezialitäten …)
-  und was er sich für <b>Frühstück / Mittag / Abend</b> wünscht. Daraus entsteht unten die
-  gemeinsame, abhakbare Einkaufsliste für den Großeinkauf am Samstag. 9 Crew · 7 Tage.</p>
+  <p class="sub">Jeder trägt ein, was er <b>mitbringt</b> (besondere Weine, Spezialitäten …),
+  seinen <b>Getränke-Tagesbedarf</b> und Wünsche für <b>Frühstück / Mittag / Abend</b>.
+  Daraus entsteht unten die abhakbare Einkaufsliste. Der Ersteinkauf am Samstag ist bewusst
+  <b>knapp</b> geplant: Die Route führt über Stadthäfen mit Supermärkten — nachgekauft wird
+  unterwegs (nur Cabrera hat keinen Einkauf). 9 Crew · 7 Tage.</p>
   <div id="banner"></div>
 
   <div class="card">
@@ -102,24 +109,31 @@ footer{color:var(--mut);font-size:12.5px;line-height:1.6;margin-top:22px;
   </div>
 
   <div class="card">
-    <h2>🍺 Bier-Kalkulator</h2>
-    <div class="beer">
-      <div><label>Biertrinker an Bord</label><input type="number" id="beerN" min="0" max="9" value="8"></div>
-      <div><label>Dosen/Flaschen (0,33 l) pro Person &amp; Tag</label><input type="number" id="beerP" min="0" max="8" step="0.5" value="2"></div>
+    <h2>🥤 Getränke — jeder für sich</h2>
+    <p class="sub" style="margin:0 0 4px">Jeder trägt seinen eigenen Tagesbedarf ein
+    (Richtwerte vorausgefüllt: 2 Biere, 1,5 l Wasser).</p>
+    <div class="dgrid" id="dGrid"></div>
+    <div class="beer" style="margin-top:12px">
+      <div><label>Ersteinkauf für … Tage (Sa–Mo)</label>
+        <input type="number" id="dDays" min="1" max="7" value="3"></div>
+      <div><label style="visibility:hidden">.</label>
+        <div class="lhint" style="padding-top:12px">Stadthäfen = Supermarkt vor Ort → knapp
+        planen, unterwegs nachkaufen. Nur Cabrera (Do-Nacht) hat keinen Einkauf.</div></div>
     </div>
     <div class="beerres" id="beerRes"></div>
   </div>
 
   <div class="card">
     <h2>🛒 Einkaufsliste (generiert)</h2>
-    <p class="sub" style="margin:0 0 4px">Basis-Richtwerte + Bier-Kalkulator + alle Wünsche.
+    <p class="sub" style="margin:0 0 4px">Basis-Richtwerte + Getränkeplanung + alle Wünsche.
     Beim Einkauf abhaken — Haken sind für alle sichtbar. Was jemand mitbringt, steht unten
     als „nicht kaufen“.</p>
     <div id="shop"></div>
   </div>
 
-  <footer>Mengen sind Richtwerte für 9 Personen / 7 Tage — an Bord anpassen. Vertrauensbasis,
-  kein Login; Einträge löschen nur die eigenen. (MUSTER-Seite: voll funktionsfähig.)</footer>
+  <footer>Mengen sind Richtwerte — an Bord anpassen. Ersteinkauf bewusst knapp: Stadthäfen
+  erlauben täglichen Nachkauf, nur Cabrera nicht. Vertrauensbasis, kein Login; Einträge löschen
+  nur die eigenen. (MUSTER-Seite: voll funktionsfähig.)</footer>
 </div>
 <script>
 'use strict';
@@ -130,8 +144,10 @@ const CREW=9, DAYS=7;
 const CATS=['Frühstück','Mittag','Abend','Getränke','Sonstiges'];
 const $=id=>document.getElementById(id);
 const live=!!DB_URL;
-let data={bring:{},wish:{},beer:null,check:{}};
+let data={bring:{},wish:{},drinks:{},ersttage:3,check:{}};
 let wCat=CATS[0];
+const DEF={b:2,w:1.5};
+const san=n=>n.replace(/[.#$/\[\]]/g,'').replace(/\s+/g,'_');
 
 $('banner').className=live?'b-live':'b-demo';
 $('banner').innerHTML=live?'🟢 Live — Einträge und Haken sind für alle sichtbar.':
@@ -148,10 +164,12 @@ function loc(){localStorage.setItem('prov2026',JSON.stringify(data));}
 async function load(){
   if(live){try{const r=await fetch(DB_URL+'/prov.json');
     if(r.ok){const d=(await r.json())||{};
-      data={bring:d.bring||{},wish:d.wish||{},beer:d.beer||null,check:d.check||{}};}}catch(e){}}
+      data={bring:d.bring||{},wish:d.wish||{},drinks:d.drinks||{},
+            ersttage:d.ersttage||3,check:d.check||{}};}}catch(e){}}
   else{try{data=JSON.parse(localStorage.getItem('prov2026')||'{}');
-    data.bring=data.bring||{};data.wish=data.wish||{};data.check=data.check||{};}catch(e){}}
-  if(data.beer){$('beerN').value=data.beer.n;$('beerP').value=data.beer.p;}
+    data.bring=data.bring||{};data.wish=data.wish||{};data.drinks=data.drinks||{};
+    data.ersttage=data.ersttage||3;data.check=data.check||{};}catch(e){}}
+  $('dDays').value=data.ersttage;
   render();
 }
 $('bAdd').onclick=async()=>{const t=$('bTxt').value.trim();if(!t)return;
@@ -164,17 +182,25 @@ $('wAdd').onclick=async()=>{const t=$('wTxt').value.trim();if(!t)return;
   await dbPut('/wish/'+id,data.wish[id]);$('wTxt').value='';render();};
 async function delItem(kind,id){delete data[kind][id];
   await dbDel('/'+kind+'/'+id);render();}
-async function saveBeer(){const n=+$('beerN').value||0,p=+$('beerP').value||0;
-  data.beer={n,p};await dbPut('/beer',data.beer);render();}
-$('beerN').onchange=saveBeer;$('beerP').onchange=saveBeer;
+async function saveDrink(key,field,val){
+  const d=data.drinks[key]||{b:DEF.b,w:DEF.w};
+  d[field]=Math.max(0,+val||0);data.drinks[key]=d;
+  await dbPut('/drinks/'+key,d);render();}
+async function saveDays(v){data.ersttage=Math.min(7,Math.max(1,+v||3));
+  await dbPut('/ersttage',data.ersttage);render();}
+document.getElementById('dDays').onchange=e=>saveDays(e.target.value);
 async function toggleCheck(id,on){
   if(on){data.check[id]=true;await dbPut('/check/'+id,true);}
   else{delete data.check[id];await dbDel('/check/'+id);}
   render();}
 
-function beerCalc(){const n=+$('beerN').value||0,p=+$('beerP').value||0;
-  const tot=Math.ceil(n*p*DAYS), res=Math.ceil(tot*1.1), trays=Math.ceil(res/24);
-  return {tot,res,trays};}
+function drinkCalc(){
+  let bDay=0,wDay=0;
+  NAMES.forEach(n=>{const d=data.drinks[san(n)]||DEF;bDay+=(+d.b||0);wDay+=(+d.w||0);});
+  const t=data.ersttage;
+  return {bDay,wDay,
+    bFirst:Math.ceil(bDay*t*1.1), wFirst:Math.ceil(wDay*t*1.1),
+    bWeek:Math.ceil(bDay*DAYS), wWeek:Math.ceil(wDay*DAYS)};}
 function esc(s){return s.replace(/</g,'&lt;');}
 
 function render(){
@@ -198,16 +224,25 @@ function render(){
         <span class="who">${e.who}</span><span class="itxt">${esc(e.txt)}</span>
         <button class="del" onclick="delItem('wish','${id}')">✕</button></li>`;}).join('');
   }).join('')||'<li style="color:#5b6773">Noch keine Wünsche.</li>';
-  /* Bier */
-  const b=beerCalc();
-  $('beerRes').innerHTML=`Für ${$('beerN').value} Trinker × ${$('beerP').value} pro Tag × ${DAYS} Tage:
-    <b>${b.tot} Dosen</b> — mit 10 % Reserve <b>${b.res}</b>
-    ≈ <b>${b.trays} Trays</b> (24er). Dazu unten Wasser &amp; Alkoholfreies nicht vergessen.`;
+  /* Getränke pro Person */
+  $('dGrid').innerHTML='<span class="dh"></span><span class="dh">🍺 Bier (0,33)/Tag</span><span class="dh">💧 Wasser l/Tag</span>'+
+    NAMES.map(n=>{const k=san(n),d=data.drinks[k]||DEF;
+      return `<span class="dn">${n}${data.drinks[k]?'':' <span class="lhint">(Richtwert)</span>'}</span>
+        <input type="number" min="0" max="10" step="0.5" value="${d.b}"
+          onchange="saveDrink('${k}','b',this.value)">
+        <input type="number" min="0" max="6" step="0.5" value="${d.w}"
+          onchange="saveDrink('${k}','w',this.value)">`;}).join('');
+  const dc=drinkCalc();
+  $('beerRes').innerHTML=`Tagesbedarf Crew: <b>${dc.bDay} Biere</b> · <b>${dc.wDay.toFixed(1).replace('.',',')} l Wasser</b>.
+    <br>Ersteinkauf (${data.ersttage} Tage, +10 % Reserve): <b>${dc.bFirst} Dosen</b> ≈ ${Math.ceil(dc.bFirst/24)} Trays ·
+    <b>${dc.wFirst} l</b> ≈ ${Math.ceil(dc.wFirst/9)} Sixpacks 1,5 l.
+    <br><span class="lhint">Wochenbedarf zur Orientierung: ${dc.bWeek} Biere / ${dc.wWeek} l — der Rest wird
+    in den Stadthäfen nachgekauft; spätestens Mi (Cala Figuera) für Cabrera + Freitag auffüllen.</span>`;
   /* Einkaufsliste */
-  const wl=Math.ceil(CREW*DAYS*1.5);
   const base=[
-    ['wasser',`Wasser still/prickelnd — ca. ${wl} l (1,5 l p. P./Tag) ≈ ${Math.ceil(wl/9)} Sixpacks 1,5 l`],
-    ['bier',`Bier — ${b.res} × 0,33 l ≈ ${b.trays} Trays (aus Kalkulator)`],
+    ['wasser',`Wasser still/prickelnd — Ersteinkauf ${dc.wFirst} l ≈ ${Math.ceil(dc.wFirst/9)} Sixpacks 1,5 l (Rest unterwegs)`],
+    ['bier',`Bier — Ersteinkauf ${dc.bFirst} × 0,33 l ≈ ${Math.ceil(dc.bFirst/24)} Trays (Rest unterwegs)`],
+    ['nachkauf','Nachkauf-Plan: Supermärkte in Colònia de Sant Jordi, Portocolom, Porto Cristo; Mi in Cala Figuera Vorrat für Do (Cabrera) + Fr auffüllen'],
     ['softd','Softdrinks/Säfte, Tonic — nach Geschmack'],
     ['kaffee','Kaffee (Bord-Maschine prüfen!), Tee, Milch (H-Milch)'],
     ['fruehst','Frühstücks-Basis: Brot/Toast, Butter, Marmelade, Eier, Müsli, Joghurt, Obst'],
