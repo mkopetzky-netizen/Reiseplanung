@@ -238,34 +238,88 @@ function render(){
     <b>${dc.wFirst} l</b> ≈ ${Math.ceil(dc.wFirst/9)} Sixpacks 1,5 l.
     <br><span class="lhint">Wochenbedarf zur Orientierung: ${dc.bWeek} Biere / ${dc.wWeek} l — der Rest wird
     in den Stadthäfen nachgekauft; spätestens Mi (Cala Figuera) für Cabrera + Freitag auffüllen.</span>`;
-  /* Einkaufsliste */
-  const base=[
-    ['wasser',`Wasser still/prickelnd — Ersteinkauf ${dc.wFirst} l ≈ ${Math.ceil(dc.wFirst/9)} Sixpacks 1,5 l (Rest unterwegs)`],
-    ['bier',`Bier — Ersteinkauf ${dc.bFirst} × 0,33 l ≈ ${Math.ceil(dc.bFirst/24)} Trays (Rest unterwegs)`],
-    ['nachkauf','Nachkauf-Plan: Supermärkte in Colònia de Sant Jordi, Portocolom, Porto Cristo; Mi in Cala Figuera Vorrat für Do (Cabrera) + Fr auffüllen'],
-    ['softd','Softdrinks/Säfte, Tonic — nach Geschmack'],
-    ['kaffee','Kaffee (Bord-Maschine prüfen!), Tee, Milch (H-Milch)'],
-    ['fruehst','Frühstücks-Basis: Brot/Toast, Butter, Marmelade, Eier, Müsli, Joghurt, Obst'],
-    ['snack','Badestopp-Snacks: Ensaimada, Kekse, Nüsse, Chips'],
-    ['grill','2× Abend an Bord (Cabrera + Reserve): Grillgut/Pasta, Sobrassada, Käse, Salat'],
-    ['gewuerz','Basics: Öl, Salz, Pfeffer, Zitronen, Knoblauch, Zucker'],
-    ['sonst','Müllsäcke, Küchenrolle, Spülmittel, Sonnencreme-Reserve'],
-    ['hierbas','Hierbas (Sundowner-Empfehlung aus dem Audio-Guide) + Wein nach Mitbring-Lage']
+  /* Einkaufsliste — nach Supermarkt-Sortiment, mit Mitbring-Abgleich */
+  const MARKET=[
+   ['🥬 Obst & Gemüse',[
+    ['obst','Obst: Bananen, Äpfel, Zitrusfrüchte, Melone','obst|banane|apfel|äpfel|orange|melone|trauben'],
+    ['gemuese','Salat & Gemüse: Tomaten, Gurken, Paprika, Salat','gemüse|tomate|gurke|paprika|salat|zucchini'],
+    ['zitknob','Zitronen & Knoblauch & Zwiebeln','zitrone|knoblauch|zwiebel']]],
+   ['🥖 Brot & Backwaren',[
+    ['brot','Brot/Toast für Frühstück & Badestopps','brot|toast|baguette|semmel|gebäck'],
+    ['ensaimada','Ensaimada (die mallorquinische Frühstücksschnecke)','ensaimada']]],
+   ['🧀 Kühlregal & Molkerei',[
+    ['butter','Butter, H-Milch, Joghurt','butter|milch|joghurt|jogurt'],
+    ['eier','Eier','eier|ei'],
+    ['kaese','Käse (z. B. Manchego, Mahón)','käse|kaese|manchego|mahon']]],
+   ['🥓 Wurst & Aufschnitt',[
+    ['sobrassada','Sobrassada (lokale Spezialität, auch für den Cabrera-Abend)','sobrassada'],
+    ['schinken','Serrano/Aufschnitt/Salami','schinken|serrano|salami|aufschnitt|speck|wurst']]],
+   ['🥫 Vorräte & Trockenes',[
+    ['pasta','Pasta + Sugo (Bordabende: Cabrera + Reserve)','pasta|nudel|sugo|reis'],
+    ['muesli','Müsli, Marmelade, Honig','müsli|muesli|marmelade|honig'],
+    ['kaffee','Kaffee (Bord-Maschine prüfen!), Tee','kaffee|espresso|tee'],
+    ['gewuerz','Öl, Salz, Pfeffer, Zucker','öl|oel|salz|pfeffer|zucker|essig']]],
+   ['🥨 Snacks',[
+    ['snack','Kekse, Nüsse, Chips für Badestopps','keks|nüsse|nuss|chips|schoko|snack']]],
+   ['🥤 Getränke',[
+    ['wasser',`Wasser still/prickelnd — Ersteinkauf ${dc.wFirst} l ≈ ${Math.ceil(dc.wFirst/9)} Sixpacks 1,5 l (Rest unterwegs)`,'wasser'],
+    ['softd','Softdrinks, Säfte, Tonic','cola|limo|saft|softdrink|tonic|schweppes|eistee']]],
+   ['🍷 Bier · Wein · Spirituosen',[
+    ['bier',`Bier — Ersteinkauf ${dc.bFirst} × 0,33 l ≈ ${Math.ceil(dc.bFirst/24)} Trays (Rest unterwegs)`,'bier'],
+    ['wein','Wein — Menge nach Mitbring-Lage (siehe unten)','wein|veltliner|riesling|rioja|cava|sekt|rot|weiß|rosé'],
+    ['hierbas','Hierbas (Sundowner-Empfehlung aus dem Audio-Guide)','hierbas|likör|gin|schnaps|rum']]],
+   ['🧻 Haushalt & Drogerie',[
+    ['haushalt','Müllsäcke, Küchenrolle, Spülmittel, Alufolie/Zip-Beutel','müllsack|küchenrolle|spülmittel|alufolie|zip'],
+    ['drogerie','Sonnencreme-Reserve, After-Sun','sonnencreme|after|mücken']]]
   ];
-  const groups=[['Basis (Richtwerte)',base.map(x=>({id:'base-'+x[0],txt:x[1]}))]];
-  CATS.forEach(c=>{
-    const es=wIds.filter(id=>data.wish[id].cat===c)
-      .map(id=>({id:'w-'+id,txt:data.wish[id].txt+' ('+data.wish[id].who+')'}));
-    if(es.length)groups.push(['Wünsche · '+c,es]);
-  });
-  if(bIds.length)groups.push(['Wird mitgebracht — nicht kaufen',
-    bIds.map(id=>({id:'nb-'+id,txt:data.bring[id].txt+' (bringt '+data.bring[id].who+')',no:true}))]);
-  $('shop').innerHTML=groups.map(([t,items])=>`<div class="lgrp"><h3>${t}</h3>${
-    items.map(it=>{const on=!!data.check[it.id];
+  /* Mitbring-Abgleich: bringt jemand etwas, das zu einem Listenpunkt passt? */
+  const bringEntries=bIds.map(id=>data.bring[id]);
+  function bringMatches(kw){
+    if(!kw)return[];
+    const re=new RegExp('('+kw+')','i');
+    return bringEntries.filter(e=>re.test(e.txt));
+  }
+  function wishGroup(txt){
+    for(const [g,items] of MARKET)for(const it of items)
+      if(it[2]&&new RegExp('('+it[2]+')','i').test(txt))return g;
+    return null;
+  }
+  const usedBring=new Set();
+  let html=MARKET.map(([g,items])=>{
+    const rows=items.map(it=>{
+      const [iid,txt,kw]=it;const id='m-'+iid;const on=!!data.check[id];
+      const bm=bringMatches(kw);bm.forEach(e=>usedBring.add(e.txt+e.who));
+      const hint=bm.length?`<div class="lhint" style="margin:2px 0 0 30px">🎁 wird (teilweise) mitgebracht: ${
+        bm.map(e=>`„${esc(e.txt)}“ (${e.who})`).join(', ')} — Menge reduzieren</div>`:'';
       return `<div class="litem${on?' done':''}">
-        <input type="checkbox" ${on?'checked':''} onchange="toggleCheck('${it.id}',this.checked)">
-        <span class="lt">${esc(it.txt)}</span>${it.no?'<span class="lhint">✓ mitgebracht</span>':''}
-      </div>`;}).join('')}</div>`).join('');
+        <input type="checkbox" ${on?'checked':''} onchange="toggleCheck('${id}',this.checked)">
+        <span class="lt">${esc(txt)}</span></div>${hint}`;
+    });
+    /* passende Wünsche in die Sortimentsgruppe einsortieren */
+    wIds.filter(id=>wishGroup(data.wish[id].txt)===g).forEach(id=>{
+      const w=data.wish[id],wid='w-'+id,on=!!data.check[wid];
+      rows.push(`<div class="litem${on?' done':''}">
+        <input type="checkbox" ${on?'checked':''} onchange="toggleCheck('${wid}',this.checked)">
+        <span class="lt">${esc(w.txt)} <span class="lhint">(Wunsch ${w.who} · ${w.cat})</span></span></div>`);
+    });
+    return `<div class="lgrp"><h3>${g}</h3>${rows.join('')}</div>`;
+  }).join('');
+  /* nicht zuordenbare Wünsche */
+  const rest=wIds.filter(id=>!wishGroup(data.wish[id].txt));
+  if(rest.length)html+=`<div class="lgrp"><h3>❓ Wünsche — bitte einsortieren</h3>${
+    rest.map(id=>{const w=data.wish[id],wid='w-'+id,on=!!data.check[wid];
+      return `<div class="litem${on?' done':''}">
+        <input type="checkbox" ${on?'checked':''} onchange="toggleCheck('${wid}',this.checked)">
+        <span class="lt">${esc(w.txt)} <span class="lhint">(Wunsch ${w.who} · ${w.cat})</span></span></div>`;}).join('')}</div>`;
+  /* Mitgebrachtes ohne Listen-Treffer trotzdem ausweisen */
+  if(bIds.length)html+=`<div class="lgrp"><h3>🎁 Wird mitgebracht — nicht kaufen</h3>${
+    bIds.map(id=>{const e=data.bring[id];
+      return `<div class="litem done"><span style="width:20px">✓</span>
+        <span class="lt">${esc(e.txt)} <span class="lhint">(bringt ${e.who})</span></span></div>`;}).join('')}</div>`;
+  html+=`<div class="lhint" style="margin-top:12px">Nachkauf-Plan: Supermärkte in Colònia de
+    Sant Jordi, Portocolom und Porto Cristo — spätestens Mi (Cala Figuera) Vorrat für Do
+    (Cabrera) + Fr auffüllen.</div>`;
+  $('shop').innerHTML=html;
 }
 load();
 if(live){setInterval(load,20000);
