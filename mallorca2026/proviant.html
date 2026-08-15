@@ -35,6 +35,16 @@ h2{font-size:16.5px;margin:0 0 8px}
 .cat{border:1.5px solid var(--line);background:#f6f8fa;border-radius:99px;padding:7px 13px;
   font-size:13.5px;min-height:40px;cursor:pointer}
 .cat.act{border-color:var(--acc);background:#e9f2fa;font-weight:600}
+.card textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px;
+  font-size:14.5px;background:#fafbfc;min-height:120px;resize:vertical;margin-top:8px;
+  font-family:inherit}
+.cookcard{border:1px solid var(--line);border-left:5px solid #b05dd9;border-radius:12px;
+  padding:11px 13px;margin-top:10px}
+.cookcard b.dish{font-size:15px}
+.cookcard .cm{color:var(--mut);font-size:12.5px;margin:2px 0 4px}
+.cookcard details summary{font-size:13px;color:var(--acc);cursor:pointer;min-height:28px}
+.cookcard pre{white-space:pre-wrap;font-family:inherit;font-size:13.5px;line-height:1.5;
+  margin:6px 0 0;color:#39434e}
 ul.items{list-style:none;margin:10px 0 0;padding:0}
 ul.items li{display:flex;gap:10px;align-items:baseline;padding:7px 0;
   border-top:1px dashed var(--line);font-size:14.5px;line-height:1.45}
@@ -80,11 +90,12 @@ footer{color:var(--mut);font-size:12.5px;line-height:1.6;margin-top:22px;
 </nav>
 <div class="wrap">
   <h1>Einkaufsplanung</h1>
-  <p class="sub">Jeder trägt ein, was er <b>mitbringt</b> (besondere Weine, Spezialitäten …),
-  seinen <b>Getränke-Tagesbedarf</b> und Wünsche für <b>Frühstück / Mittag / Abend</b>.
-  Daraus entsteht unten die abhakbare Einkaufsliste. Der Ersteinkauf am Samstag ist bewusst
-  <b>knapp</b> geplant: Die Route führt über Stadthäfen mit Supermärkten — nachgekauft wird
-  unterwegs (nur Cabrera hat keinen Einkauf). 9 Crew · 7 Tage.</p>
+  <p class="sub">Jeder trägt ein, was er <b>mitbringt</b>, seinen <b>Getränke-Tagesbedarf</b>
+  und Wünsche (Frühstück, Getränke, Sonstiges). <b>Mittag- und Abendessen laufen über
+  „Kochen an Bord“</b>: Wer ein Gericht übernehmen will, kopiert Rezept + Zutaten hinein —
+  die Zutaten wandern automatisch in die Einkaufsliste. Der Ersteinkauf am Samstag ist bewusst
+  <b>knapp</b> geplant: Stadthäfen haben Supermärkte, nachgekauft wird unterwegs
+  (nur Cabrera hat keinen Einkauf). 9 Crew · 7 Tage.</p>
   <div id="banner"></div>
 
   <div class="card">
@@ -98,7 +109,7 @@ footer{color:var(--mut);font-size:12.5px;line-height:1.6;margin-top:22px;
   </div>
 
   <div class="card">
-    <h2>🍽️ Wünsche für die Bordküche</h2>
+    <h2>🍽️ Wünsche (Frühstück, Getränke, Sonstiges)</h2>
     <div class="cats" id="wCats"></div>
     <div class="row">
       <select id="wWho"></select>
@@ -106,6 +117,31 @@ footer{color:var(--mut);font-size:12.5px;line-height:1.6;margin-top:22px;
       <button id="wAdd">＋</button>
     </div>
     <ul class="items" id="wList"></ul>
+  </div>
+
+  <div class="card">
+    <h2>👨‍🍳 Kochen an Bord — Mittag & Abend</h2>
+    <p class="sub" style="margin:0 0 4px">Wer ein Gericht übernehmen will, trägt es hier ein
+    und kopiert <b>Rezept + Zutaten</b> einfach in das Textfeld (eine Zutat pro Zeile mit
+    Menge). Die Zutaten erscheinen automatisch in der Einkaufsliste —
+    <b>Mengen bitte für 9 Personen bemessen</b>, sonst Personenzahl angeben.</p>
+    <div class="row">
+      <select id="cWho"></select>
+      <select id="cMeal" style="flex:0 0 104px"><option>Abend</option><option>Mittag</option></select>
+      <input type="number" id="cServ" style="flex:0 0 74px;border:1px solid var(--line);
+        border-radius:10px;padding:11px;font-size:15px;background:#fafbfc;text-align:center"
+        min="1" max="20" value="9" title="Rezept ausgelegt für … Personen">
+    </div>
+    <div class="row">
+      <input type="text" id="cDish" placeholder="Gericht, z. B. Fideuà oder Tortilla-Abend">
+    </div>
+    <textarea id="cTxt" placeholder="Rezept & Zutaten hier einfügen, z. B.:
+500 g Fideuà-Nudeln
+1 kg Garnelen
+2 Dosen Tomaten
+… Zubereitung: …"></textarea>
+    <div class="row"><button id="cAdd" style="flex:1;font-size:15px">Eintragen</button></div>
+    <div id="cList"></div>
   </div>
 
   <div class="card">
@@ -141,18 +177,19 @@ const DB_URL='https://boattour2026-default-rtdb.europe-west1.firebasedatabase.ap
 const NAMES=['Matthias K.','Klaus G.','Reinhard T.','Alexander S.','Peter D.',
              'Thorsten S.','Roman S.','Günther A.','Clemens K.'];
 const CREW=9, DAYS=7;
-const CATS=['Frühstück','Mittag','Abend','Getränke','Sonstiges'];
+const CATS=['Frühstück','Mittag','Abend','Getränke','Sonstiges']; /* Mittag/Abend nur noch Alt-Einträge */
+const CATS_NEW=['Frühstück','Getränke','Sonstiges'];
 const $=id=>document.getElementById(id);
 const live=!!DB_URL;
-let data={bring:{},wish:{},drinks:{},ersttage:3,check:{}};
-let wCat=CATS[0];
+let data={bring:{},wish:{},cook:{},drinks:{},ersttage:3,check:{}};
+let wCat=CATS_NEW[0];
 const DEF={b:2,w:1.5};
 const san=n=>n.replace(/[.#$/\[\]]/g,'').replace(/\s+/g,'_');
 
 $('banner').className=live?'b-live':'b-demo';
 $('banner').innerHTML=live?'🟢 Live — Einträge und Haken sind für alle sichtbar.':
   '🟡 <b>Demo-Modus:</b> nur auf diesem Gerät gespeichert.';
-[$('bWho'),$('wWho')].forEach(s=>s.innerHTML=NAMES.map(n=>`<option>${n}</option>`).join(''));
+[$('bWho'),$('wWho'),$('cWho')].forEach(s=>s.innerHTML=NAMES.map(n=>`<option>${n}</option>`).join(''));
 
 async function dbPut(p,v){if(!live)return loc();
   try{await fetch(DB_URL+'/prov'+p+'.json',{method:'PUT',body:JSON.stringify(v)});}
@@ -164,11 +201,11 @@ function loc(){localStorage.setItem('prov2026',JSON.stringify(data));}
 async function load(){
   if(live){try{const r=await fetch(DB_URL+'/prov.json');
     if(r.ok){const d=(await r.json())||{};
-      data={bring:d.bring||{},wish:d.wish||{},drinks:d.drinks||{},
+      data={bring:d.bring||{},wish:d.wish||{},cook:d.cook||{},drinks:d.drinks||{},
             ersttage:d.ersttage||3,check:d.check||{}};}}catch(e){}}
   else{try{data=JSON.parse(localStorage.getItem('prov2026')||'{}');
-    data.bring=data.bring||{};data.wish=data.wish||{};data.drinks=data.drinks||{};
-    data.ersttage=data.ersttage||3;data.check=data.check||{};}catch(e){}}
+    data.bring=data.bring||{};data.wish=data.wish||{};data.cook=data.cook||{};
+    data.drinks=data.drinks||{};data.ersttage=data.ersttage||3;data.check=data.check||{};}catch(e){}}
   $('dDays').value=data.ersttage;
   render();
 }
@@ -182,6 +219,21 @@ $('wAdd').onclick=async()=>{const t=$('wTxt').value.trim();if(!t)return;
   await dbPut('/wish/'+id,data.wish[id]);$('wTxt').value='';render();};
 async function delItem(kind,id){delete data[kind][id];
   await dbDel('/'+kind+'/'+id);render();}
+$('cAdd').onclick=async()=>{
+  const dish=$('cDish').value.trim();if(!dish){alert('Bitte Gericht angeben.');return;}
+  const id='c'+Date.now().toString(36);
+  data.cook[id]={who:$('cWho').value,meal:$('cMeal').value,
+    serv:Math.max(1,+$('cServ').value||9),dish,txt:$('cTxt').value.trim()};
+  await dbPut('/cook/'+id,data.cook[id]);
+  $('cDish').value='';$('cTxt').value='';$('cServ').value=9;render();};
+/* Zutatenzeilen aus dem Rezepttext herausfiltern */
+function ingLines(txt){
+  if(!txt)return[];
+  const unit=/\b(g|kg|ml|cl|l|el|tl|stk|stück|bund|dose[n]?|pkg|packung|glas|prise|zehe[n]?|becher|fl|flasche[n]?|scheiben?|würfel)\b/i;
+  return txt.split(/\n/).map(l=>l.replace(/^[-•*]\s*/,'').trim())
+    .filter(l=>l&&l.length<90&&(/^\d/.test(l)||unit.test(l)))
+    .filter(l=>!/zubereitung|schritt|minuten|erhitzen|braten|kochen lassen/i.test(l));
+}
 async function saveDrink(key,field,val){
   const d=data.drinks[key]||{b:DEF.b,w:DEF.w};
   d[field]=Math.max(0,+val||0);data.drinks[key]=d;
@@ -204,8 +256,8 @@ function drinkCalc(){
 function esc(s){return s.replace(/</g,'&lt;');}
 
 function render(){
-  /* Kategorien-Chips */
-  $('wCats').innerHTML=CATS.map(c=>
+  /* Kategorien-Chips (Mittag/Abend laufen über „Kochen an Bord“) */
+  $('wCats').innerHTML=CATS_NEW.map(c=>
     `<button class="cat${c===wCat?' act':''}" data-c="${c}">${c}</button>`).join('');
   document.querySelectorAll('.cat').forEach(b=>b.onclick=()=>{wCat=b.dataset.c;render();});
   /* Mitbringen */
@@ -224,6 +276,17 @@ function render(){
         <span class="who">${e.who}</span><span class="itxt">${esc(e.txt)}</span>
         <button class="del" onclick="delItem('wish','${id}')">✕</button></li>`;}).join('');
   }).join('')||'<li style="color:#5b6773">Noch keine Wünsche.</li>';
+  /* Kochen an Bord */
+  const cIds=Object.keys(data.cook);
+  $('cList').innerHTML=cIds.map(id=>{const c=data.cook[id];
+    const n=ingLines(c.txt).length;
+    return `<div class="cookcard"><b class="dish">${esc(c.dish)}</b>
+      <div class="cm">${c.meal} · kocht ${c.who} · Rezept für ${c.serv} Personen
+      ${c.serv!=9?` <span style="color:#c8352c">→ auf 9 hochrechnen (×${(9/c.serv).toFixed(2).replace('.',',')})</span>`:''}
+      · ${n} Zutaten erkannt</div>
+      ${c.txt?`<details><summary>Rezept ansehen</summary><pre>${esc(c.txt)}</pre></details>`:''}
+      <button class="del" onclick="delItem('cook','${id}')">✕ entfernen</button>
+    </div>`;}).join('')||'<p class="sub" style="margin-top:8px">Noch niemand eingetragen — wer traut sich zuerst an den Herd?</p>';
   /* Getränke pro Person */
   $('dGrid').innerHTML='<span class="dh"></span><span class="dh">🍺 Bier (0,33)/Tag</span><span class="dh">💧 Wasser l/Tag</span>'+
     NAMES.map(n=>{const k=san(n),d=data.drinks[k]||DEF;
@@ -304,6 +367,19 @@ function render(){
     });
     return `<div class="lgrp"><h3>${g}</h3>${rows.join('')}</div>`;
   }).join('');
+  /* Kochabende: Zutaten je Gericht (für 9 Personen) */
+  cIds.forEach(id=>{const c=data.cook[id];
+    const ings=ingLines(c.txt);
+    const scale=c.serv!=9?`<div class="lhint" style="margin:2px 0 4px 30px">Rezept für ${c.serv} Personen — Mengen ×${(9/c.serv).toFixed(2).replace('.',',')} hochrechnen</div>`:'';
+    const rows=(ings.length?ings.map((l,i)=>{const iid='c-'+id+'-'+i,on=!!data.check[iid];
+      return `<div class="litem${on?' done':''}">
+        <input type="checkbox" ${on?'checked':''} onchange="toggleCheck('${iid}',this.checked)">
+        <span class="lt">${esc(l)}</span></div>`;}).join('')
+      :`<div class="litem"><input type="checkbox" ${data.check['c-'+id]?'checked':''}
+         onchange="toggleCheck('c-${id}',this.checked)">
+         <span class="lt">Zutaten laut Rezept (siehe „Kochen an Bord“)</span></div>`);
+    html+=`<div class="lgrp"><h3>👨‍🍳 ${esc(c.dish)} — ${c.meal}, kocht ${c.who}</h3>${scale}${rows}</div>`;
+  });
   /* nicht zuordenbare Wünsche */
   const rest=wIds.filter(id=>!wishGroup(data.wish[id].txt));
   if(rest.length)html+=`<div class="lgrp"><h3>❓ Wünsche — bitte einsortieren</h3>${
