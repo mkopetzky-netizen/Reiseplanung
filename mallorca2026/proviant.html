@@ -234,6 +234,17 @@ function ingLines(txt){
     .filter(l=>l&&l.length<90&&(/^\d/.test(l)||unit.test(l)))
     .filter(l=>!/zubereitung|schritt|minuten|erhitzen|braten|kochen lassen/i.test(l));
 }
+function fmtF(f){return (Math.round(f*100)/100).toLocaleString('de-AT');}
+/* Führende Menge einer Zutatenzeile auf 9 Personen umrechnen */
+function scaleLine(l,f){
+  if(Math.abs(f-1)<0.01)return l;
+  const m=l.match(/^(\d+(?:[.,]\d+)?)(\s*)(.*)$/);
+  if(!m)return l;
+  const v=parseFloat(m[1].replace(',','.'))*f;
+  const vs=Math.abs(v-Math.round(v))<0.051?String(Math.round(v)):
+    (Math.round(v*10)/10).toLocaleString('de-AT');
+  return vs+(m[2]||' ')+m[3]+' (Rezeptangabe: '+m[1]+')';
+}
 async function saveDrink(key,field,val){
   const d=data.drinks[key]||{b:DEF.b,w:DEF.w};
   d[field]=Math.max(0,+val||0);data.drinks[key]=d;
@@ -279,12 +290,14 @@ function render(){
   /* Kochen an Bord */
   const cIds=Object.keys(data.cook);
   $('cList').innerHTML=cIds.map(id=>{const c=data.cook[id];
-    const n=ingLines(c.txt).length;
+    const f=9/(c.serv||9);
+    const ings=ingLines(c.txt).map(l=>scaleLine(l,f));
     return `<div class="cookcard"><b class="dish">${esc(c.dish)}</b>
-      <div class="cm">${c.meal} · kocht ${c.who} · Rezept für ${c.serv} Personen
-      ${c.serv!=9?` <span style="color:#c8352c">→ auf 9 hochrechnen (×${(9/c.serv).toFixed(2).replace('.',',')})</span>`:''}
-      · ${n} Zutaten erkannt</div>
-      ${c.txt?`<details><summary>Rezept ansehen</summary><pre>${esc(c.txt)}</pre></details>`:''}
+      <div class="cm">${c.meal} · kocht ${c.who} · Rezept für ${c.serv} Personen${
+        c.serv!=9?` → <b style="color:#1f2733">auf 9 umgerechnet (×${fmtF(f)})</b>`:''}</div>
+      ${ings.length?`<div class="cm" style="color:#1f2733;line-height:1.6"><b>Zutaten für 9 Personen:</b><br>${
+        ings.map(esc).join('<br>')}</div>`:''}
+      ${c.txt?`<details><summary>Original-Rezept ansehen</summary><pre>${esc(c.txt)}</pre></details>`:''}
       <button class="del" onclick="delItem('cook','${id}')">✕ entfernen</button>
     </div>`;}).join('')||'<p class="sub" style="margin-top:8px">Noch niemand eingetragen — wer traut sich zuerst an den Herd?</p>';
   /* Getränke pro Person */
@@ -305,7 +318,7 @@ function render(){
   const MARKET=[
    ['🥬 Obst & Gemüse',[
     ['obst','Obst: Bananen, Äpfel, Zitrusfrüchte, Melone','obst|banane|apfel|äpfel|orange|melone|trauben'],
-    ['gemuese','Salat & Gemüse: Tomaten, Gurken, Paprika, Salat','gemüse|tomate|gurke|paprika|salat|zucchini'],
+    ['gemuese','Salat & Gemüse: Tomaten, Gurken, Paprika, Salat','gemüse|tomate|gurke|paprika|salat|zucchini|petersilie|kräuter|basilikum|koriander|rosmarin|thymian|lauch|sellerie|karotte|erbsen|bohnen'],
     ['zitknob','Zitronen & Knoblauch & Zwiebeln','zitrone|knoblauch|zwiebel']]],
    ['🥖 Brot & Backwaren',[
     ['brot','Brot/Toast für Frühstück & Badestopps','brot|toast|baguette|semmel|gebäck'],
@@ -317,6 +330,8 @@ function render(){
    ['🥓 Wurst & Aufschnitt',[
     ['sobrassada','Sobrassada (lokale Spezialität, auch für den Cabrera-Abend)','sobrassada'],
     ['schinken','Serrano/Aufschnitt/Salami','schinken|serrano|salami|aufschnitt|speck|wurst']]],
+   ['🐟 Fisch & Fleisch',[
+    ['fisch','Fisch/Fleisch nach Bedarf (Kochabende, Grillen)','fisch|garnele|gambas|lachs|thunfisch|dorade|calamari|tintenfisch|hähnchen|hühner|huhn|pute|fleisch|faschiert|steak|kotelett|lamm|schwein|rind']]],
    ['🥫 Vorräte & Trockenes',[
     ['pasta','Pasta + Sugo (Bordabende: Cabrera + Reserve)','pasta|nudel|sugo|reis|spag|risotto|soße|sauce'],
     ['muesli','Müsli, Marmelade, Honig','müsli|muesli|marmelade|honig'],
@@ -347,6 +362,17 @@ function render(){
       if(it[2]&&new RegExp('('+it[2]+')','i').test(txt))return g;
     return null;
   }
+  /* Rezept-Zutaten (auf 9 umgerechnet) für die Sortimentsgruppen aufbereiten */
+  const cookItems=[];
+  cIds.forEach(id=>{const c=data.cook[id];const f=9/(c.serv||9);
+    const ings=ingLines(c.txt);
+    ings.forEach((l,i)=>{const t=scaleLine(l,f);
+      cookItems.push({id:'c-'+id+'-'+i,txt:t,grp:wishGroup(t),
+        hint:'Rezept „'+c.dish+'“ · '+c.who});});
+    if(!ings.length&&c.txt)cookItems.push({id:'c-'+id,
+      txt:'Zutaten für „'+c.dish+'“ laut Rezept (keine Mengenzeilen erkannt)',
+      grp:null,hint:'Rezept „'+c.dish+'“ · '+c.who});
+  });
   const usedBring=new Set();
   let html=MARKET.map(([g,items])=>{
     const rows=items.map(it=>{
@@ -365,28 +391,27 @@ function render(){
         <input type="checkbox" ${on?'checked':''} onchange="toggleCheck('${wid}',this.checked)">
         <span class="lt">${esc(w.txt)} <span class="lhint">(Wunsch ${w.who} · ${w.cat})</span></span></div>`);
     });
+    /* Rezept-Zutaten in die Sortimentsgruppe einsortieren */
+    cookItems.filter(ci=>ci.grp===g).forEach(ci=>{
+      const on=!!data.check[ci.id];
+      rows.push(`<div class="litem${on?' done':''}">
+        <input type="checkbox" ${on?'checked':''} onchange="toggleCheck('${ci.id}',this.checked)">
+        <span class="lt">${esc(ci.txt)} <span class="lhint">(👨‍🍳 ${esc(ci.hint)})</span></span></div>`);
+    });
     return `<div class="lgrp"><h3>${g}</h3>${rows.join('')}</div>`;
   }).join('');
-  /* Kochabende: Zutaten je Gericht (für 9 Personen) */
-  cIds.forEach(id=>{const c=data.cook[id];
-    const ings=ingLines(c.txt);
-    const scale=c.serv!=9?`<div class="lhint" style="margin:2px 0 4px 30px">Rezept für ${c.serv} Personen — Mengen ×${(9/c.serv).toFixed(2).replace('.',',')} hochrechnen</div>`:'';
-    const rows=(ings.length?ings.map((l,i)=>{const iid='c-'+id+'-'+i,on=!!data.check[iid];
-      return `<div class="litem${on?' done':''}">
-        <input type="checkbox" ${on?'checked':''} onchange="toggleCheck('${iid}',this.checked)">
-        <span class="lt">${esc(l)}</span></div>`;}).join('')
-      :`<div class="litem"><input type="checkbox" ${data.check['c-'+id]?'checked':''}
-         onchange="toggleCheck('c-${id}',this.checked)">
-         <span class="lt">Zutaten laut Rezept (siehe „Kochen an Bord“)</span></div>`);
-    html+=`<div class="lgrp"><h3>👨‍🍳 ${esc(c.dish)} — ${c.meal}, kocht ${c.who}</h3>${scale}${rows}</div>`;
-  });
-  /* nicht zuordenbare Wünsche */
+  /* nicht zuordenbare Wünsche und Rezept-Zutaten */
   const rest=wIds.filter(id=>!wishGroup(data.wish[id].txt));
-  if(rest.length)html+=`<div class="lgrp"><h3>❓ Wünsche — bitte einsortieren</h3>${
+  const restCook=cookItems.filter(ci=>!ci.grp);
+  if(rest.length||restCook.length)html+=`<div class="lgrp"><h3>❓ Bitte einsortieren</h3>${
     rest.map(id=>{const w=data.wish[id],wid='w-'+id,on=!!data.check[wid];
       return `<div class="litem${on?' done':''}">
         <input type="checkbox" ${on?'checked':''} onchange="toggleCheck('${wid}',this.checked)">
-        <span class="lt">${esc(w.txt)} <span class="lhint">(Wunsch ${w.who} · ${w.cat})</span></span></div>`;}).join('')}</div>`;
+        <span class="lt">${esc(w.txt)} <span class="lhint">(Wunsch ${w.who} · ${w.cat})</span></span></div>`;}).join('')+
+    restCook.map(ci=>{const on=!!data.check[ci.id];
+      return `<div class="litem${on?' done':''}">
+        <input type="checkbox" ${on?'checked':''} onchange="toggleCheck('${ci.id}',this.checked)">
+        <span class="lt">${esc(ci.txt)} <span class="lhint">(👨‍🍳 ${esc(ci.hint)})</span></span></div>`;}).join('')}</div>`;
   /* Mitgebrachtes ohne Listen-Treffer trotzdem ausweisen */
   if(bIds.length)html+=`<div class="lgrp"><h3>🎁 Wird mitgebracht — nicht kaufen</h3>${
     bIds.map(id=>{const e=data.bring[id];
