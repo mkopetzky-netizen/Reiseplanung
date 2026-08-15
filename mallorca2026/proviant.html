@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mallorca-Törn 2026 · Einkaufsplanung</title>
+<style>
+:root{--ink:#1f2733;--mut:#5b6773;--bg:#f4f6f8;--card:#fff;--line:#e3e8ee;--rose:#e0356e;
+  --acc:#0b6aa8;--ok:#1e8a4c;--beer:#c88a00}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif}
+.nav{display:flex;gap:4px;align-items:center;background:#12202e;padding:8px 10px;
+  position:sticky;top:0;z-index:100;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.nav a{white-space:nowrap;text-decoration:none;color:#c8d4e0;font-size:14px;
+  padding:9px 13px;border-radius:9px;min-height:44px;display:flex;align-items:center}
+.nav a.act{background:var(--rose);color:#fff;font-weight:600}
+.wrap{max-width:720px;margin:0 auto;padding:14px 12px 70px}
+h1{font-size:21px;margin:4px 2px}
+h2{font-size:16.5px;margin:0 0 8px}
+.sub{color:var(--mut);font-size:13.5px;line-height:1.5;margin:0 2px 12px}
+#banner{border-radius:12px;padding:10px 14px;font-size:13.5px;margin-bottom:12px}
+.b-demo{background:#fff7d6;border:1px solid #e7d391}
+.b-live{background:#e2f4e8;border:1px solid #b3dfc2}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:14px;margin:12px 0}
+.row{display:flex;gap:8px;margin-top:8px}
+.row select,.row input[type=text]{border:1px solid var(--line);border-radius:10px;
+  padding:11px;font-size:15px;background:#fafbfc}
+.row select{flex:0 0 132px}
+.row input[type=text]{flex:1;min-width:0}
+.row button{flex:0 0 auto;border:0;background:var(--ok);color:#fff;border-radius:10px;
+  padding:0 16px;font-size:18px;min-height:46px;cursor:pointer}
+.cats{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.cat{border:1.5px solid var(--line);background:#f6f8fa;border-radius:99px;padding:7px 13px;
+  font-size:13.5px;min-height:40px;cursor:pointer}
+.cat.act{border-color:var(--acc);background:#e9f2fa;font-weight:600}
+ul.items{list-style:none;margin:10px 0 0;padding:0}
+ul.items li{display:flex;gap:10px;align-items:baseline;padding:7px 0;
+  border-top:1px dashed var(--line);font-size:14.5px;line-height:1.45}
+ul.items li:first-child{border-top:0}
+.who{flex:0 0 auto;font-size:12.5px;color:#fff;background:var(--acc);border-radius:99px;
+  padding:2px 9px;white-space:nowrap}
+.who.bring{background:#7c3aed}
+.itxt{flex:1}
+.del{border:0;background:none;color:#c8352c;font-size:15px;cursor:pointer;padding:2px 8px}
+.beer{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+.beer label{font-size:13px;color:var(--mut);display:block}
+.beer input{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px;
+  font-size:16px;background:#fafbfc}
+.beerres{margin-top:10px;background:#fff7e8;border:1px solid #ecd9ae;border-radius:12px;
+  padding:12px 14px;font-size:14.5px;line-height:1.6}
+.beerres b{color:var(--beer)}
+.lgrp{margin-top:14px}
+.lgrp h3{font-size:14px;margin:0 0 4px;color:var(--mut);text-transform:uppercase;
+  letter-spacing:.4px}
+.litem{display:flex;gap:10px;align-items:center;padding:8px 0;border-top:1px dashed var(--line);
+  font-size:14.5px}
+.litem input{width:20px;height:20px;accent-color:var(--ok);flex:0 0 auto}
+.litem.done .lt{text-decoration:line-through;color:var(--mut)}
+.lt{flex:1;line-height:1.4}
+.lhint{font-size:12.5px;color:var(--mut)}
+footer{color:var(--mut);font-size:12.5px;line-height:1.6;margin-top:22px;
+  border-top:1px solid var(--line);padding-top:10px}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html">🗺️ Routen</a>
+  <a href="vote.html">🗳️ Abstimmung</a>
+  <a href="guide.html">🎧 Audio-Guide</a>
+  <a href="tours.html">🚵 Ausflüge</a>
+  <a href="food.html">🍽️ Essen</a>
+  <a href="proviant.html" class="act">🛒 Einkauf</a>
+</nav>
+<div class="wrap">
+  <h1>Einkaufsplanung</h1>
+  <p class="sub">Jeder trägt ein, was er <b>mitbringt</b> (besondere Weine, Spezialitäten …)
+  und was er sich für <b>Frühstück / Mittag / Abend</b> wünscht. Daraus entsteht unten die
+  gemeinsame, abhakbare Einkaufsliste für den Großeinkauf am Samstag. 9 Crew · 7 Tage.</p>
+  <div id="banner"></div>
+
+  <div class="card">
+    <h2>🎁 Ich bringe mit</h2>
+    <div class="row">
+      <select id="bWho"></select>
+      <input type="text" id="bTxt" placeholder="z. B. 6 Fl. Grüner Veltliner">
+      <button id="bAdd">＋</button>
+    </div>
+    <ul class="items" id="bList"></ul>
+  </div>
+
+  <div class="card">
+    <h2>🍽️ Wünsche für die Bordküche</h2>
+    <div class="cats" id="wCats"></div>
+    <div class="row">
+      <select id="wWho"></select>
+      <input type="text" id="wTxt" placeholder="z. B. Manchego & Serrano fürs Frühstück">
+      <button id="wAdd">＋</button>
+    </div>
+    <ul class="items" id="wList"></ul>
+  </div>
+
+  <div class="card">
+    <h2>🍺 Bier-Kalkulator</h2>
+    <div class="beer">
+      <div><label>Biertrinker an Bord</label><input type="number" id="beerN" min="0" max="9" value="8"></div>
+      <div><label>Dosen/Flaschen (0,33 l) pro Person &amp; Tag</label><input type="number" id="beerP" min="0" max="8" step="0.5" value="2"></div>
+    </div>
+    <div class="beerres" id="beerRes"></div>
+  </div>
+
+  <div class="card">
+    <h2>🛒 Einkaufsliste (generiert)</h2>
+    <p class="sub" style="margin:0 0 4px">Basis-Richtwerte + Bier-Kalkulator + alle Wünsche.
+    Beim Einkauf abhaken — Haken sind für alle sichtbar. Was jemand mitbringt, steht unten
+    als „nicht kaufen“.</p>
+    <div id="shop"></div>
+  </div>
+
+  <footer>Mengen sind Richtwerte für 9 Personen / 7 Tage — an Bord anpassen. Vertrauensbasis,
+  kein Login; Einträge löschen nur die eigenen. (MUSTER-Seite: voll funktionsfähig.)</footer>
+</div>
+<script>
+'use strict';
+const DB_URL='https://boattour2026-default-rtdb.europe-west1.firebasedatabase.app/mallorca2026';
+const NAMES=['Matthias K.','Klaus G.','Reinhard T.','Alexander S.','Peter D.',
+             'Thorsten S.','Roman S.','Günther A.','Clemens K.'];
+const CREW=9, DAYS=7;
+const CATS=['Frühstück','Mittag','Abend','Getränke','Sonstiges'];
+const $=id=>document.getElementById(id);
+const live=!!DB_URL;
+let data={bring:{},wish:{},beer:null,check:{}};
+let wCat=CATS[0];
+
+$('banner').className=live?'b-live':'b-demo';
+$('banner').innerHTML=live?'🟢 Live — Einträge und Haken sind für alle sichtbar.':
+  '🟡 <b>Demo-Modus:</b> nur auf diesem Gerät gespeichert.';
+[$('bWho'),$('wWho')].forEach(s=>s.innerHTML=NAMES.map(n=>`<option>${n}</option>`).join(''));
+
+async function dbPut(p,v){if(!live)return loc();
+  try{await fetch(DB_URL+'/prov'+p+'.json',{method:'PUT',body:JSON.stringify(v)});}
+  catch(e){console.log('offline',e);}}
+async function dbDel(p){if(!live)return loc();
+  try{await fetch(DB_URL+'/prov'+p+'.json',{method:'DELETE'});}catch(e){console.log('offline',e);}}
+function loc(){localStorage.setItem('prov2026',JSON.stringify(data));}
+
+async function load(){
+  if(live){try{const r=await fetch(DB_URL+'/prov.json');
+    if(r.ok){const d=(await r.json())||{};
+      data={bring:d.bring||{},wish:d.wish||{},beer:d.beer||null,check:d.check||{}};}}catch(e){}}
+  else{try{data=JSON.parse(localStorage.getItem('prov2026')||'{}');
+    data.bring=data.bring||{};data.wish=data.wish||{};data.check=data.check||{};}catch(e){}}
+  if(data.beer){$('beerN').value=data.beer.n;$('beerP').value=data.beer.p;}
+  render();
+}
+$('bAdd').onclick=async()=>{const t=$('bTxt').value.trim();if(!t)return;
+  const id='b'+Date.now().toString(36);
+  data.bring[id]={who:$('bWho').value,txt:t};
+  await dbPut('/bring/'+id,data.bring[id]);$('bTxt').value='';render();};
+$('wAdd').onclick=async()=>{const t=$('wTxt').value.trim();if(!t)return;
+  const id='w'+Date.now().toString(36);
+  data.wish[id]={who:$('wWho').value,cat:wCat,txt:t};
+  await dbPut('/wish/'+id,data.wish[id]);$('wTxt').value='';render();};
+async function delItem(kind,id){delete data[kind][id];
+  await dbDel('/'+kind+'/'+id);render();}
+async function saveBeer(){const n=+$('beerN').value||0,p=+$('beerP').value||0;
+  data.beer={n,p};await dbPut('/beer',data.beer);render();}
+$('beerN').onchange=saveBeer;$('beerP').onchange=saveBeer;
+async function toggleCheck(id,on){
+  if(on){data.check[id]=true;await dbPut('/check/'+id,true);}
+  else{delete data.check[id];await dbDel('/check/'+id);}
+  render();}
+
+function beerCalc(){const n=+$('beerN').value||0,p=+$('beerP').value||0;
+  const tot=Math.ceil(n*p*DAYS), res=Math.ceil(tot*1.1), trays=Math.ceil(res/24);
+  return {tot,res,trays};}
+function esc(s){return s.replace(/</g,'&lt;');}
+
+function render(){
+  /* Kategorien-Chips */
+  $('wCats').innerHTML=CATS.map(c=>
+    `<button class="cat${c===wCat?' act':''}" data-c="${c}">${c}</button>`).join('');
+  document.querySelectorAll('.cat').forEach(b=>b.onclick=()=>{wCat=b.dataset.c;render();});
+  /* Mitbringen */
+  const bIds=Object.keys(data.bring);
+  $('bList').innerHTML=bIds.map(id=>{const e=data.bring[id];
+    return `<li><span class="who bring">${e.who}</span><span class="itxt">${esc(e.txt)}</span>
+      <button class="del" onclick="delItem('bring','${id}')">✕</button></li>`;}).join('')||
+    '<li style="color:#5b6773">Noch nichts eingetragen.</li>';
+  /* Wünsche */
+  const wIds=Object.keys(data.wish);
+  $('wList').innerHTML=CATS.map(c=>{
+    const es=wIds.filter(id=>data.wish[id].cat===c);
+    if(!es.length)return'';
+    return es.map((id,i)=>{const e=data.wish[id];
+      return `<li>${i===0?`<b style="flex:0 0 88px;font-size:13px">${c}</b>`:'<span style="flex:0 0 88px"></span>'}
+        <span class="who">${e.who}</span><span class="itxt">${esc(e.txt)}</span>
+        <button class="del" onclick="delItem('wish','${id}')">✕</button></li>`;}).join('');
+  }).join('')||'<li style="color:#5b6773">Noch keine Wünsche.</li>';
+  /* Bier */
+  const b=beerCalc();
+  $('beerRes').innerHTML=`Für ${$('beerN').value} Trinker × ${$('beerP').value} pro Tag × ${DAYS} Tage:
+    <b>${b.tot} Dosen</b> — mit 10 % Reserve <b>${b.res}</b>
+    ≈ <b>${b.trays} Trays</b> (24er). Dazu unten Wasser &amp; Alkoholfreies nicht vergessen.`;
+  /* Einkaufsliste */
+  const wl=Math.ceil(CREW*DAYS*1.5);
+  const base=[
+    ['wasser',`Wasser still/prickelnd — ca. ${wl} l (1,5 l p. P./Tag) ≈ ${Math.ceil(wl/9)} Sixpacks 1,5 l`],
+    ['bier',`Bier — ${b.res} × 0,33 l ≈ ${b.trays} Trays (aus Kalkulator)`],
+    ['softd','Softdrinks/Säfte, Tonic — nach Geschmack'],
+    ['kaffee','Kaffee (Bord-Maschine prüfen!), Tee, Milch (H-Milch)'],
+    ['fruehst','Frühstücks-Basis: Brot/Toast, Butter, Marmelade, Eier, Müsli, Joghurt, Obst'],
+    ['snack','Badestopp-Snacks: Ensaimada, Kekse, Nüsse, Chips'],
+    ['grill','2× Abend an Bord (Cabrera + Reserve): Grillgut/Pasta, Sobrassada, Käse, Salat'],
+    ['gewuerz','Basics: Öl, Salz, Pfeffer, Zitronen, Knoblauch, Zucker'],
+    ['sonst','Müllsäcke, Küchenrolle, Spülmittel, Sonnencreme-Reserve'],
+    ['hierbas','Hierbas (Sundowner-Empfehlung aus dem Audio-Guide) + Wein nach Mitbring-Lage']
+  ];
+  const groups=[['Basis (Richtwerte)',base.map(x=>({id:'base-'+x[0],txt:x[1]}))]];
+  CATS.forEach(c=>{
+    const es=wIds.filter(id=>data.wish[id].cat===c)
+      .map(id=>({id:'w-'+id,txt:data.wish[id].txt+' ('+data.wish[id].who+')'}));
+    if(es.length)groups.push(['Wünsche · '+c,es]);
+  });
+  if(bIds.length)groups.push(['Wird mitgebracht — nicht kaufen',
+    bIds.map(id=>({id:'nb-'+id,txt:data.bring[id].txt+' (bringt '+data.bring[id].who+')',no:true}))]);
+  $('shop').innerHTML=groups.map(([t,items])=>`<div class="lgrp"><h3>${t}</h3>${
+    items.map(it=>{const on=!!data.check[it.id];
+      return `<div class="litem${on?' done':''}">
+        <input type="checkbox" ${on?'checked':''} onchange="toggleCheck('${it.id}',this.checked)">
+        <span class="lt">${esc(it.txt)}</span>${it.no?'<span class="lhint">✓ mitgebracht</span>':''}
+      </div>`;}).join('')}</div>`).join('');
+}
+load();
+if(live){setInterval(load,20000);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)load();});}
+</script>
+</body>
+</html>
