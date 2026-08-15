@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mallorca-Törn 2026 · Ausflüge</title>
+<style>
+:root{--ink:#1f2733;--mut:#5b6773;--bg:#f4f6f8;--card:#fff;--line:#e3e8ee;--rose:#e0356e;--acc:#0b6aa8;--ok:#1e8a4c}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif}
+.nav{display:flex;gap:4px;align-items:center;background:#12202e;padding:8px 10px;
+  position:sticky;top:0;z-index:100;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.nav a{white-space:nowrap;text-decoration:none;color:#c8d4e0;font-size:14px;
+  padding:9px 13px;border-radius:9px;min-height:44px;display:flex;align-items:center}
+.nav a.act{background:var(--rose);color:#fff;font-weight:600}
+.wrap{max-width:720px;margin:0 auto;padding:14px 12px 70px}
+h1{font-size:21px;margin:4px 2px}
+.sub{color:var(--mut);font-size:13.5px;line-height:1.5;margin:0 2px 12px}
+#banner{border-radius:12px;padding:10px 14px;font-size:13.5px;margin-bottom:12px}
+.b-demo{background:#fff7d6;border:1px solid #e7d391}
+.b-live{background:#e2f4e8;border:1px solid #b3dfc2}
+.newbtn{width:100%;background:var(--acc);color:#fff;border:0;border-radius:14px;
+  padding:14px;font-size:16px;min-height:50px;cursor:pointer;margin-bottom:12px}
+#form{display:none;background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:14px;margin-bottom:14px}
+#form.open{display:block}
+#form label{display:block;font-size:13px;color:var(--mut);margin:10px 0 4px}
+#form input,#form select,#form textarea{width:100%;border:1px solid var(--line);
+  border-radius:10px;padding:11px;font-size:15px;background:#fafbfc}
+#form textarea{min-height:60px;resize:vertical}
+.linkhint{font-size:12.5px;margin-top:4px;min-height:16px}
+.lk-komoot{color:#5aa100}.lk-maps{color:#1a73e8}.lk-other{color:var(--mut)}
+.fbtns{display:flex;gap:10px;margin-top:14px}
+.fbtns button{flex:1;border:0;border-radius:12px;padding:12px;font-size:15px;min-height:48px;cursor:pointer}
+#fSave{background:var(--ok);color:#fff}#fCancel{background:#e8ecf0}
+.tour{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--acc);
+  border-radius:14px;padding:14px;margin:12px 0}
+.tour h2{margin:0 0 2px;font-size:16.5px}
+.tour .when{font-size:14.5px;font-weight:600;color:var(--acc);margin:2px 0}
+.tour .meta{color:var(--mut);font-size:13px;margin-bottom:8px;line-height:1.5}
+.tour a.golink{display:inline-block;background:#eef3f8;border:1px solid var(--line);
+  border-radius:10px;padding:9px 14px;font-size:14px;text-decoration:none;color:var(--acc);
+  margin:4px 0 8px;min-height:40px}
+.count{display:flex;align-items:center;gap:10px;margin:6px 0 4px}
+.cbar{flex:1;height:10px;background:#edf1f5;border-radius:99px;overflow:hidden}
+.cbar>div{height:100%;background:var(--ok);border-radius:99px;transition:width .4s}
+.cnum{font-size:13px;color:var(--mut);white-space:nowrap}
+.names{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;margin-top:8px}
+.names label{display:flex;align-items:center;gap:8px;background:#f6f8fa;border:1px solid var(--line);
+  border-radius:10px;padding:9px 10px;font-size:14px;min-height:44px;cursor:pointer}
+.names label.on{background:#e9f7ee;border-color:var(--ok)}
+.names input{width:19px;height:19px;accent-color:var(--ok)}
+.extra{display:flex;gap:8px;margin-top:10px}
+.extra input{flex:1;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:14px}
+.extra button{border:0;background:#eef3f8;border:1px solid var(--line);border-radius:10px;
+  padding:0 14px;font-size:14px;cursor:pointer;min-height:44px}
+.admin{display:flex;gap:14px;margin-top:12px;padding-top:10px;border-top:1px dashed var(--line)}
+.admin button{border:0;background:none;color:var(--mut);font-size:13px;cursor:pointer;
+  min-height:40px;padding:0}
+.admin .del.arm{color:#c8352c;font-weight:600}
+footer{color:var(--mut);font-size:12.5px;line-height:1.6;margin-top:22px;
+  border-top:1px solid var(--line);padding-top:10px}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html">🗺️ Routen</a>
+  <a href="vote.html">🗳️ Abstimmung</a>
+  <a href="guide.html">🎧 Audio-Guide</a>
+  <a href="tours.html" class="act">🚵 Ausflüge</a>
+  <a href="food.html">🍽️ Essen</a>
+</nav>
+<div class="wrap">
+  <h1>Ausflüge & Unternehmungen</h1>
+  <p class="sub">Wer etwas vorhat — Wanderung, Radrunde, Höhlenbesuch, Marktgang — legt es hier
+  an; die anderen haken sich dazu. Vertrauensbasis, kein Login. (MUSTER-Seite: voll
+  funktionsfähig, Beispiel-Tour ist markiert.)</p>
+  <div id="banner"></div>
+  <button class="newbtn" id="btnNew">➕ Neue Tour anlegen</button>
+  <div id="form">
+    <label>Titel</label>
+    <input id="fTitle" placeholder="z. B. Kastell-Wanderung Cabrera">
+    <label>Link (Komoot, Google Maps, Website — optional)</label>
+    <input id="fLink" placeholder="https://…" inputmode="url">
+    <div class="linkhint" id="linkHint"></div>
+    <label>Start</label>
+    <input id="fStart" type="datetime-local">
+    <label>Wer bietet’s an?</label>
+    <select id="fHost"></select>
+    <label>Notiz (optional)</label>
+    <textarea id="fNote" placeholder="Treffpunkt, Ausrüstung, Dauer …"></textarea>
+    <div class="fbtns"><button id="fSave">Anlegen</button><button id="fCancel">Abbrechen</button></div>
+  </div>
+  <div id="tours"></div>
+  <footer>Anmeldung per Häkchen beim eigenen Namen; Gäste/Zusatzpersonen über das Freitextfeld.
+  „Tour entfernen“ braucht zwei Tipps (Sicherung). Zeiten Ortszeit Mallorca.</footer>
+</div>
+<script>
+'use strict';
+const DB_URL='https://boattour2026-default-rtdb.europe-west1.firebasedatabase.app/mallorca2026';
+const NAMES=['Matthias K.','Klaus G.','Reinhard T.','Alexander S.','Peter D.',
+             'Thorsten S.','Roman S.','Günther A.','Clemens K.'];
+const san=n=>n.replace(/[.#$/\[\]]/g,'').replace(/\s+/g,'_');
+const $=id=>document.getElementById(id);
+const live=!!DB_URL;
+let tours={};
+
+$('banner').className=live?'b-live':'b-demo';
+$('banner').innerHTML=live?'🟢 Live — Anmeldungen sind für alle sichtbar.':
+  '🟡 <b>Demo-Modus:</b> nur auf diesem Gerät gespeichert.';
+$('fHost').innerHTML=NAMES.map(n=>`<option>${n}</option>`).join('');
+
+function linkKind(u){if(/komoot\./i.test(u))return['lk-komoot','🥾 Komoot-Tour erkannt'];
+  if(/google\.[a-z.]+\/maps|maps\.app\.goo/i.test(u))return['lk-maps','📍 Google-Maps-Link erkannt'];
+  if(/^https?:\/\//i.test(u))return['lk-other','🔗 Link erkannt'];return['lk-other',''];}
+$('fLink').oninput=e=>{const[k,t]=linkKind(e.target.value.trim());
+  $('linkHint').className='linkhint '+k;$('linkHint').textContent=t;};
+
+$('btnNew').onclick=()=>$('form').classList.toggle('open');
+$('fCancel').onclick=()=>$('form').classList.remove('open');
+
+async function dbPut(path,val){if(!live)return persistLocal();
+  try{const r=await fetch(DB_URL+path+'.json',{method:'PUT',body:JSON.stringify(val)});
+    if(!r.ok)console.log('PUT fail',r.status);}
+  catch(e){console.log('PUT offline',e);alert('Keine Verbindung — Änderung wird beim nächsten Neuladen ggf. verworfen.');}}
+async function dbDel(path){if(!live)return persistLocal();
+  try{const r=await fetch(DB_URL+path+'.json',{method:'DELETE'});
+    if(!r.ok)console.log('DEL fail',r.status);}
+  catch(e){console.log('DEL offline',e);}}
+function persistLocal(){localStorage.setItem('tours2026',JSON.stringify(tours));}
+
+async function load(){
+  if(live){try{const r=await fetch(DB_URL+'/tours.json');
+    if(r.ok)tours=(await r.json())||{};}catch(e){}}
+  else{try{tours=JSON.parse(localStorage.getItem('tours2026')||'{}');}catch(e){tours={};}}
+  render();
+}
+$('fSave').onclick=async()=>{
+  const title=$('fTitle').value.trim();if(!title){alert('Bitte Titel angeben.');return;}
+  const id='t'+Date.now().toString(36);
+  const t={title,link:$('fLink').value.trim(),start:$('fStart').value,
+    host:$('fHost').value,note:$('fNote').value.trim(),signups:{},extra:''};
+  tours[id]=t;await dbPut('/tours/'+id,t);
+  $('form').classList.remove('open');
+  $('fTitle').value='';$('fLink').value='';$('fNote').value='';
+  render();
+};
+async function toggle(id,name,on){
+  const k=san(name);tours[id].signups=tours[id].signups||{};
+  if(on){tours[id].signups[k]=name;await dbPut('/tours/'+id+'/signups/'+k,name);}
+  else{delete tours[id].signups[k];await dbDel('/tours/'+id+'/signups/'+k);}
+  render();
+}
+async function addExtra(id){
+  const inp=document.getElementById('ex-'+id);const v=inp.value.trim();if(!v)return;
+  const cur=(tours[id].extra||'');const nv=cur?cur+', '+v:v;
+  tours[id].extra=nv;await dbPut('/tours/'+id+'/extra',nv);inp.value='';render();
+}
+let armed={};
+async function delTour(id){
+  if(!armed[id]){armed[id]=true;render();setTimeout(()=>{armed[id]=false;render();},3500);return;}
+  delete tours[id];await dbDel('/tours/'+id);armed[id]=false;render();
+}
+async function changeStart(id){
+  const cur=tours[id].start||'';
+  const nv=prompt('Neue Startzeit (JJJJ-MM-TTTHH:MM):',cur);
+  if(nv===null)return;tours[id].start=nv;await dbPut('/tours/'+id+'/start',nv);render();
+}
+function fmtStart(s){if(!s)return'Zeit noch offen';
+  try{const d=new Date(s);
+    return d.toLocaleDateString('de-AT',{weekday:'short',day:'numeric',month:'numeric'})+
+      ' · '+d.toLocaleTimeString('de-AT',{hour:'2-digit',minute:'2-digit'})+' Uhr';}
+  catch(e){return s;}}
+function render(){
+  const ids=Object.keys(tours).sort((a,b)=>(tours[a].start||'').localeCompare(tours[b].start||''));
+  $('tours').innerHTML=ids.length?ids.map(id=>{
+    const t=tours[id],su=t.signups||{},n=Object.keys(su).length;
+    const extras=(t.extra||'').split(',').map(s=>s.trim()).filter(Boolean);
+    const tot=n+extras.length;
+    return `<div class="tour">
+      <h2>${t.title}</h2>
+      <div class="when">🕐 ${fmtStart(t.start)}</div>
+      <div class="meta">Angeboten von ${t.host||'?'}${t.note?' · '+t.note:''}</div>
+      ${t.link?`<a class="golink" href="${t.link}" target="_blank" rel="noopener">${
+        /komoot/i.test(t.link)?'🥾 Komoot öffnen':/maps/i.test(t.link)?'📍 Karte öffnen':'🔗 Link öffnen'}</a>`:''}
+      <div class="count"><div class="cbar"><div style="width:${Math.min(100,tot/NAMES.length*100)}%"></div></div>
+        <span class="cnum">${tot} dabei</span></div>
+      <div class="names">${NAMES.map(nm=>{
+        const on=su[san(nm)];
+        return `<label class="${on?'on':''}"><input type="checkbox" ${on?'checked':''}
+          onchange="toggle('${id}','${nm.replace(/'/g,"\\'")}',this.checked)">${nm}</label>`;}).join('')}
+      </div>
+      ${extras.length?`<div class="meta" style="margin-top:6px">Zusätzlich: ${extras.join(', ')}</div>`:''}
+      <div class="extra"><input id="ex-${id}" placeholder="Gast/Nachmeldung eintragen …">
+        <button onclick="addExtra('${id}')">＋</button></div>
+      <div class="admin">
+        <button onclick="changeStart('${id}')">🕐 Startzeit ändern</button>
+        <button class="del ${armed[id]?'arm':''}" onclick="delTour('${id}')">
+          ${armed[id]?'Wirklich entfernen? Nochmal tippen':'🗑 Tour entfernen'}</button>
+      </div>
+    </div>`;}).join(''):
+    '<p class="sub">Noch keine Touren — die erste legt an, wer etwas vorhat.</p>';
+}
+load();
+if(live){setInterval(load,20000);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)load();});}
+</script>
+</body>
+</html>

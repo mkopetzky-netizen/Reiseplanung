@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mallorca-Törn 2026 · Routenvarianten</title>
+<title>Mallorca-Törn 2026 · Audio-Guide</title>
 <style>
 /* required styles */
 
@@ -667,131 +667,90 @@ svg.leaflet-image-layer.leaflet-interactive path {
 		}
 	}
 
-:root{
-  --ink:#1f2733; --mut:#5b6773; --bg:#f4f6f8; --card:#ffffff; --line:#e3e8ee;
-  --acc:#0b6aa8; --rose:#e0356e;
-  --ok:#1e8a4c; --warn:#d97b00; --bad:#c8352c; --grey:#7a8694;
-}
+:root{--ink:#1f2733;--mut:#5b6773;--bg:#f4f6f8;--card:#fff;--line:#e3e8ee;--acc:#0b6aa8;--rose:#e0356e}
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;}
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif}
 .nav{display:flex;gap:4px;align-items:center;background:#12202e;padding:8px 10px;
   position:sticky;top:0;z-index:1200;overflow-x:auto;-webkit-overflow-scrolling:touch}
-.nav a,.nav span{white-space:nowrap;text-decoration:none;color:#c8d4e0;font-size:14px;
+.nav a{white-space:nowrap;text-decoration:none;color:#c8d4e0;font-size:14px;
   padding:9px 13px;border-radius:9px;min-height:44px;display:flex;align-items:center}
 .nav a.act{background:var(--rose);color:#fff;font-weight:600}
-.nav span.soon{opacity:.45}
 header{padding:14px 14px 6px}
 header h1{margin:0;font-size:21px}
-header .sub{color:var(--mut);font-size:13.5px;margin-top:4px;line-height:1.45}
-.tabs{display:flex;gap:8px;overflow-x:auto;padding:10px 14px;position:sticky;top:52px;
+header .sub{color:var(--mut);font-size:13.5px;margin-top:4px;line-height:1.5}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:10px 14px;position:sticky;top:52px;
   background:var(--bg);z-index:1100;-webkit-overflow-scrolling:touch}
-.tab{flex:0 0 auto;border:1.5px solid var(--line);background:var(--card);border-radius:12px;
-  padding:9px 13px;font-size:14px;min-height:44px;cursor:pointer;text-align:left}
-.tab b{display:block;font-size:14px}
-.tab small{color:var(--mut)}
-.tab.act{border-color:var(--tabc,#0b6aa8);box-shadow:0 0 0 2px var(--tabc,#0b6aa8) inset}
-#map{height:52vh;min-height:330px;margin:0 10px;border-radius:14px;z-index:1}
-.mrow{display:flex;gap:10px;align-items:center;padding:8px 16px;font-size:13.5px;color:var(--mut);flex-wrap:wrap}
-.mrow label{display:flex;gap:6px;align-items:center;min-height:34px}
+.chip{flex:0 0 auto;border:1.5px solid var(--line);background:var(--card);border-radius:12px;
+  padding:8px 13px;font-size:13.5px;min-height:44px;cursor:pointer;text-align:left}
+.chip b{display:block;font-size:12px;color:var(--mut)}
+.chip.act{border-color:var(--acc);box-shadow:0 0 0 2px var(--acc) inset}
+.chip.off{opacity:.45}
 .wrap{padding:0 12px 40px;max-width:760px;margin:0 auto}
-.claim{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--tabc,#0b6aa8);
-  border-radius:12px;padding:12px 14px;margin:12px 0;font-size:14.5px;line-height:1.5}
-.claim .pc{margin-top:8px;font-size:13.5px;color:var(--mut)}
-.claim .pc b{color:var(--ink)}
-.bud{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:12px 0}
-.bud h3{margin:0 0 8px;font-size:14.5px}
-.bud .tot{font-size:13.5px;color:var(--mut);margin-bottom:10px}
-.bars{display:flex;gap:6px;align-items:flex-end;height:86px;position:relative;padding-top:6px}
-.bars .lim{position:absolute;left:0;right:0;border-top:2px dashed #b04;opacity:.55;
-  font-size:10.5px;color:#b04;text-align:right}
-.bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px}
-.bar .col{width:100%;max-width:46px;border-radius:6px 6px 0 0;min-height:4px}
-.bar .v{font-size:11px;color:var(--mut)}
-.bar .d{font-size:11px;color:var(--mut)}
-.day{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}
-.day .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
-.day .rt{font-weight:600;font-size:15px}
-.day .dd{color:var(--mut);font-size:13px;white-space:nowrap}
-.day .note{font-size:13.8px;line-height:1.5;margin-top:6px}
-.day .prax{font-size:13.2px;line-height:1.5;margin-top:6px;color:var(--mut)}
-.bdg{display:inline-block;font-size:12px;padding:3px 9px;border-radius:99px;color:#fff;margin:2px 4px 0 0;vertical-align:middle}
-.b-ok{background:var(--ok)} .b-warn{background:var(--warn)} .b-bad{background:var(--bad)} .b-grey{background:var(--grey)}
-.legend{font-size:13px;color:var(--mut);line-height:1.6;margin:14px 0}
-.notebox{background:#fff7e8;border:1px solid #ecd9ae;border-radius:12px;padding:12px 14px;
-  margin:12px 0;font-size:13.5px;line-height:1.55}
-.notebox.blue{background:#e9f2fa;border-color:#bcd6ea}
-footer{color:var(--mut);font-size:12.5px;line-height:1.6;padding:10px 2px 30px;border-top:1px solid var(--line);margin-top:18px}
-footer a{color:var(--acc)}
-.etq{background:var(--etc,#0b6aa8);color:#fff;border-radius:8px;padding:2px 7px;font-size:11.5px;
-  font-weight:600;white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.75)}
-.leaflet-popup-content{font-size:13.5px;line-height:1.45;margin:10px 12px}
-.leaflet-popup-content b.t{font-size:14.5px}
-.pop-prax{color:#5b6773;margin-top:5px}
-@media(min-width:820px){ #map{height:58vh} }
+.ctl{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:10px 0}
+.big{background:var(--acc);color:#fff;border:0;border-radius:12px;padding:12px 18px;
+  font-size:16px;min-height:48px;cursor:pointer}
+.tg{display:flex;gap:6px;align-items:center;font-size:13.5px;color:var(--mut);min-height:44px}
+.status{font-size:13.5px;color:var(--mut);margin:4px 0 10px;min-height:20px}
+.askbox{display:flex;gap:10px;align-items:center;background:#e9f2fa;border:1px solid #bcd6ea;
+  border-radius:12px;padding:10px 14px;margin:8px 0;font-size:15px}
+.askbox button{border:0;border-radius:10px;padding:10px 16px;font-size:15px;min-height:44px;cursor:pointer}
+#btnYes{background:#1e8a4c;color:#fff}#btnNo{background:#c8352c;color:#fff}
+.gmap{height:34vh;min-height:240px;border-radius:14px;margin:8px 0 14px;z-index:1}
+.stnum{background:#0b6aa8;color:#fff;border-radius:50%;width:20px;height:20px;display:flex;
+  align-items:center;justify-content:center;font-size:11.5px;font-weight:700;
+  transform:translate(-10px,-26px);border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.stcard{background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:13px 15px;margin:10px 0}
+.stcard.heard{border-left:5px solid #1e8a4c}
+.sttop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.sttop b{font-size:15px;line-height:1.35}
+.mini{flex:0 0 auto;background:#eef3f8;border:1px solid var(--line);border-radius:10px;
+  padding:8px 12px;font-size:13px;min-height:40px;cursor:pointer}
+.stkurz{font-size:14px;line-height:1.55;margin:8px 0}
+details summary{font-size:13.5px;color:var(--acc);cursor:pointer;min-height:30px}
+.sttief{font-size:13.8px;line-height:1.6;margin:8px 0;color:#39434e}
+.stlinks{display:flex;gap:14px;align-items:center;margin-top:8px;font-size:13.5px;flex-wrap:wrap}
+.stlinks a{color:var(--acc);text-decoration:none;min-height:34px;display:flex;align-items:center}
+.coord{color:var(--mut);font-size:12px}
+footer{color:var(--mut);font-size:12.5px;line-height:1.6;padding:14px 2px 30px;
+  border-top:1px solid var(--line);margin-top:18px}
 
 </style>
 </head>
 <body>
 <nav class="nav">
-  <a href="index.html" class="act">🗺️ Routen</a>
+  <a href="index.html">🗺️ Routen</a>
   <a href="vote.html">🗳️ Abstimmung</a>
-  <a href="guide.html">🎧 Audio-Guide</a>
+  <a href="guide.html" class="act">🎧 Audio-Guide</a>
   <a href="tours.html">🚵 Ausflüge</a>
   <a href="food.html">🍽️ Essen</a>
 </nav>
 <header>
-  <h1>Mallorca-Törn 2026 · Routenvarianten</h1>
-  <div class="sub">Sa 12.9. (Übernahme nachmittags, Palma) – Fr 18.9.2026 (Rückgabe nachmittags) ·
-  Katamaran 42 ft, überwiegend Motor (~7,5 kn) · 9 Crew · Tageslimit 25 sm ·
-  <b>Stadthäfen absolut bevorzugt — keine Marinas</b> · max. 1 Buchtnacht · kein Hafen doppelt</div>
+  <h1>Audio-Guide · Mallorca-Törn 2026</h1>
+  <div class="sub">MUSTER für Variante B — zwei Kapitel sind fertig vertont (Cabrera, Portocolom),
+  die übrigen folgen nach der Abstimmung für die Siegerroute. Kopfhörer oder Bordlautsprecher,
+  ▶ startet die Wiedergabe (am iPhone ist der erste Tipp nötig).</div>
 </header>
-<div class="tabs" id="tabs"></div>
-<div id="map"></div>
-<div class="mrow">
-  <label><input type="checkbox" id="cbLabels" checked> Etappen-Labels</label>
-  <span id="mapStatus"></span>
-</div>
+<div class="chips" id="chips"></div>
 <div class="wrap">
-  <div class="claim" id="claim"></div>
-  <div class="bud">
-    <h3>Etappen vs. 25-sm-Limit</h3>
-    <div class="tot" id="budTot"></div>
-    <div class="bars" id="bars"></div>
+  <div class="ctl">
+    <button id="btnPlay" class="big">▶ Kapitel abspielen</button>
+    <label class="tg"><input type="checkbox" id="cbVerbose"> Ausführlich (ohne Nachfragen)</label>
+    <label class="tg"><input type="checkbox" id="cbGps"> GPS-Autostart (&lt; 80 m)</label>
   </div>
-  <div id="days"></div>
-  <div class="notebox" id="katNote">
-    <b>Katamaran-Liegeplätze — bitte vorab klären:</b> Mallorca ist kein Stadtkai-Revier wie
-    Kroatien. Für 7,3 m Breite ist an keinem der Stopps ein Kaiplatz garantiert — Ports-IB-Häfen
-    und Bojen sind seit 2024 online reservierbar (reservas.portsib.es, Bojen bis 25 m Länge),
-    Club-Nàutic-Häfen telefonisch. Empfehlung: Klärungsliste der Wunschstopps an die Charterbasis
-    schicken; orange markierte Stopps zuerst.
+  <div id="status" class="status">Bereit.</div>
+  <div id="askbox" class="askbox" style="display:none">
+    <span>Mehr dazu hören?</span>
+    <button id="btnYes">✔ Ja</button><button id="btnNo">✖ Weiter</button>
   </div>
-  <div class="notebox blue" id="cabreraNote">
-    <b>Cabrera-Nationalpark:</b> Ankern verboten, nur reservierte Bojen (gelbe Kategorie 12–15 m,
-    ca. 68 €/Nacht Mai–Sep). Buchung frühestens <b>20 Tage im Voraus</b> auf caib.es
-    („Reserva Cabrera“) — für die Do-Nacht 17.9. (Variante B) also ab <b>28.8.2026</b>.
-    Ohne Reservierung wird man auch bei freien Bojen weggeschickt.
-  </div>
-  <div class="legend">
-    <b>Badges:</b>
-    <span class="bdg b-ok">grün</span> belegt geeignet / regelkonform ·
-    <span class="bdg b-warn">orange</span> mit Basis/Hafen klären bzw. grenzwertig ·
-    <span class="bdg b-bad">rot</span> über dem Tageslimit ·
-    <span class="bdg b-grey">grau</span> abgeleitet/unbestätigt.
-    Distanzen: Haversine über realistische Wegpunkte (Kap-Rundungen), ohne Badeschleifen;
-    Praxisreserve +5–10 % einplanen. Fahrzeit bei ~7,5 kn Motorfahrt.
-  </div>
-  <footer id="foot">
-    <b>Recherche-Stand 15.8.2026.</b> Grundlagen u. a.:
-    <a href="https://www.blauwasser.de/reviere/segeln-rund-mallorca-toernplan">Blauwasser-Törnplan rund Mallorca</a> (~170 sm, im Uhrzeigersinn),
-    <a href="https://www.blauwasser.de/reviere/mallorca-cabrera-genehmigung-bojenreservierung">Cabrera-Genehmigung</a>,
-    <a href="https://www.yacht.de/en/travel-and-charter/spain/balearic-islands-new-booking-system-for-buoy-moorings-more-controls-when-anchoring/">Ports-IB-Bojenbuchung/Posidonia-Kontrollen (YACHT)</a>,
-    <a href="https://www.velamayorca.com/de/segelroute-mallorca-7-tage/">Standardroute Vela Mayorca ab Palma</a> (Sa Cabrera → So Cala d’Or → Mo Cala Ratjada …, gegen den Uhrzeigersinn),
-    ADAC-Skipper-Hafendaten (Andratx, Pollença, Cala Ratjada). Wochentakte der Flotten sind aus
-    Veranstalter-Reiseverläufen <i>abgeleitet und unbestätigt</i>. Posidonia-Schutz: beim Ankern
-    Sandflecken nutzen, ca. 20 Patrouillenboote kontrollieren. Hafen-/Bojenangaben vor Ort bzw.
-    mit der Basis verifizieren.
+  <div id="map" class="gmap"></div>
+  <div id="stations"></div>
+  <footer>
+    Koordinaten gerundet (±100 m). Sprachausgabe: Systemstimme Deutsch; Spracherkennung („ja“/
+    „nein“ nach der Frage) braucht Mikrofon-Freigabe und Internet — Buttons gehen immer.
+    Bildschirm bleibt per Wake Lock an, solange der Guide läuft. Inhalte: Belegtes ist als
+    solches formuliert, Überliefertes als „der Überlieferung nach“. Stand 15.8.2026.
   </footer>
 </div>
 
@@ -805,216 +764,210 @@ footer a{color:var(--acc)}
 </script>
 <script>
 'use strict';
-/* ===== Wegpunkte (Kap-Rundungen etc.; Koordinaten gerundet, ±100 m) ===== */
-const WP = {
-  PALMA:[39.5665,2.6300], CCF:[39.4590,2.5260], MALGRATS:[39.4980,2.4520],
-  ANDRATX:[39.5450,2.3850], DRAGONERA:[39.5830,2.3480], SANTELM:[39.5780,2.3520],
-  PTALMONJA:[39.6350,2.3900], BANYALBUFAR:[39.6900,2.4900], FORADADA:[39.7580,2.6120],
-  SOLLER:[39.7970,2.6900], SACALOBRA:[39.8520,2.7970], CALASTVIC:[39.9080,2.9200],
-  FORMENTOR:[39.9660,3.2130], POLLENCA:[39.9090,3.0810], CAPPINAR:[39.8720,3.1900],
-  FARRUTX:[39.7470,3.3620], CRATJADA:[39.7120,3.4640], CAPDEPERA:[39.7190,3.4880],
-  PCRISTO:[39.5400,3.3420], PCOLOM:[39.4160,3.2660], PPETRO:[39.3590,3.2130],
-  CFIGS:[39.3300,3.1700], SALINES:[39.2560,3.0560], CSJORDI:[39.3140,2.9950],
-  CABRERA:[39.1480,2.9330], ESTRENC:[39.3390,2.9680], CALAPI:[39.3620,2.8380],
-  CAPBLANC:[39.3580,2.7900], ARENAL:[39.5010,2.7480]
-};
-/* ===== Übernachtungs-/Basis-Stopps (Marina-frei: nur Stadthäfen, Vereinshafen, Bojen) ===== */
-const STOPS = {
-  PALMA:{n:'Palma (Charterbasis)',type:'Basis',badge:'ok',
-    ch:'Kathedrale La Seu, Altstadt, Paseo Marítimo — Start und Ziel.',
-    px:'Basis: Übernahme Sa nachmittags (bunkern, einweisen, Großeinkauf) · Rückgabe Fr nachmittags nach dem Tanken.'},
-  ANDRATX:{n:'Port d’Andratx',type:'Stadthafen (Ports IB)',badge:'warn',
-    ch:'Tief eingeschnittener Naturhafen im Südwesten, Fischerort mit Abendpromenade und Restaurantzeile.',
-    px:'Ports-IB-Kai: östlicher Schwimmsteg lt. ADAC nur bis 12 m — Kat-Breite (7,3 m) vorab klären (reservas.portsib.es).'},
-  SOLLER:{n:'Port de Sóller',type:'Stadthafen / Ports-IB-Boje',badge:'warn',
-    ch:'Einzige geschützte Bucht der Tramuntana; historische Straßenbahn ins Orangental nach Sóller.',
-    px:'Ports-IB-Bojenfeld (seit 2024 auch Katamarane bis 25 m; reservas.portsib.es) — Boje statt Kai einplanen, Dinghi an Land.'},
-  POLLENCA:{n:'Port de Pollença',type:'Stadthafen (Ports IB)',badge:'warn',
-    ch:'Weite Bucht mit Promenade („Pine Walk“), ruhiger Badeort unter dem Formentor-Grat.',
-    px:'Ports IB nominell bis 15 m, Kat-Breite klären; Zufahrt kann versanden (Basis fragen).'},
-  CRATJADA:{n:'Cala Ratjada',type:'Stadthafen (Ports IB, klein)',badge:'warn',
-    ch:'Fischer- und Ferienort an der Ostspitze, Leuchtturm, Castell de Capdepera in Gehweite.',
-    px:'Nur ~22 Plätze, max. 16 m, keine Reservierung (ADAC) — für Kat eng: früh ankommen, vorab telefonisch klären.'},
-  PCRISTO:{n:'Porto Cristo',type:'Stadthafen (Ports IB / Club)',badge:'grey',
-    ch:'Naturhafen an der Flussmündung; die Coves del Drach mit unterirdischem See direkt am Ort.',
-    px:'Kat-Plätze unbestätigt — vorab anfragen; Drach-Tickets im Voraus buchen.'},
-  PCOLOM:{n:'Portocolom',type:'Stadthafen (Ports IB, Kai + Bojen)',badge:'warn',
-    ch:'Größter Naturhafen der Ostküste, bunte Bootshäuser, Leuchtturm auf der Landzunge.',
-    px:'Ports-IB-Bojenfeld im Hafen (online buchbar) + begrenzte Kaiplätze; für Kat Boje wahrscheinlicher als Kai.'},
-  CFIGS:{n:'Cala Figuera (Santanyí)',type:'Stadthafen (Ports IB, sehr klein)',badge:'warn',
-    ch:'Der malerischste Fischerhafen der Insel: schmaler Doppelfjord, Bootshäuser direkt am Wasser, kaum verbaut.',
-    px:'Winziger Hafen — für 7,3 m Kat-Breite zwingend vorab mit Ports IB/Basis klären; Ausweich: Ports-IB-Bojenfeld Porto Petro (3 sm).'},
-  CSJORDI:{n:'Colònia de Sant Jordi',type:'Stadthafen (flach!)',badge:'warn',
-    ch:'Salinenort vor dem Naturstrand Es Trenc; Ausgangspunkt der Cabrera-Ausflugsboote.',
-    px:'Zufahrt und Hafen flach — Tiefgang/Kat-Platz zwingend mit Basis/Hafen klären.'},
-  ARENAL:{n:'s’Arenal',type:'Vereinshafen (Club Nàutic)',badge:'warn',
-    ch:'Ostende der Playa de Palma; kurzer Auftaktschlag mit Blick auf die Kathedrale.',
-    px:'Kein Stadtkai, aber auch keine Resort-Marina: traditioneller Vereinshafen — die einzige Hafenoption der Bucht Richtung Süden. Transit anmelden (Kat-Breite).'},
-  CABRERA:{n:'Cabrera (Nationalpark)',type:'Bojenfeld',badge:'ok',
-    ch:'Autofreier Inselnationalpark: Kastell über der Bucht, Museum, Blaue Grotte, glasklares Wasser.',
-    px:'Nur reservierte Boje (gelb, 12–15 m, ca. 68 €/Nacht); Buchung ab 20 Tage vorher auf caib.es. Ankern im ganzen Park verboten. Dies ist die eine „Buchtnacht“.'},
-  SANTELM:{n:'Sant Elm (Ankerbucht)',type:'Ankerbucht',badge:'warn',
-    ch:'Dorf gegenüber der unbewohnten Felseninsel Sa Dragonera; Sonnenuntergang hinter der Insel.',
-    px:'Ankernacht (die eine Buchtnacht): nur bei ruhiger Lage, Sandflecken nutzen — Posidonia ist geschützt und wird kontrolliert.'}
-};
-/* ===== Varianten (Marina-frei) ===== */
-const VARIANTS = [
- {id:'runde', name:'A · Die große Inselrunde', color:'#7c3aed',
-  claim:'Einmal ganz herum, im Uhrzeigersinn: Tramuntana-Steilküste, Cap Formentor, Ostküsten-Calas und der Süden — durchgehend Stadthäfen und die Sóller-Boje, keine einzige Marina. Nur machbar, wenn das 25-sm-Limit an einem Tag bewusst ausgesetzt wird (Mo ~33 sm — dazwischen liegt kein Nachthafen).',
-  pro:'Alles gesehen, keine Küste doppelt, jeden Abend neuer Ort — und komplett marina-frei.',
-  con:'Montag 33 sm (Limitverstoß, ~4,5 h Motor), Freitag 26 sm; Nordwestküste braucht stabiles Wetter; entspricht dem verbreiteten Törnführer-Rhythmus.',
-  days:[
-   {d:'Sa 12.9.', route:['PALMA','CCF','MALGRATS','ANDRATX'],
-    note:'Kurzer Auftakt nach der Übernahme, um die Malgrats-Inseln in den Naturhafen.',
-    k:{lv:'grey',t:'Törnführer-Standard: Sa in Andratx (abgeleitet)'}},
-   {d:'So 13.9.', route:['ANDRATX','DRAGONERA','PTALMONJA','BANYALBUFAR','FORADADA','SOLLER'],
-    note:'Durch den Dragonera-Kanal, dann die ganze Steilküste; Mittagsstopp unter Sa Foradada, abends Boje in Sóller.'},
-   {d:'Mo 14.9.', route:['SOLLER','SACALOBRA','CALASTVIC','FORMENTOR','POLLENCA'],
-    note:'Königsetappe: Badestopp Sa Calobra/Torrent de Pareis, Rundung Cap Formentor. Kein Nachthafen dazwischen — bewusster Ausnahmetag.'},
-   {d:'Di 15.9.', route:['POLLENCA','CAPPINAR','FARRUTX','CRATJADA'],
-    note:'Um Cap des Pinar und Cap Farrutx an die Ostspitze; Badestopp Cala Agulla möglich.'},
-   {d:'Mi 16.9.', route:['CRATJADA','CAPDEPERA','PCRISTO','PCOLOM'],
-    note:'Die Calas-Küste hinunter; Stopp Porto Cristo (Drach-Höhlen) oder Cala Varques.'},
-   {d:'Do 17.9.', route:['PCOLOM','PPETRO','CFIGS','SALINES','CSJORDI'],
-    note:'Um Cap de ses Salines (Fotostopp Cala Màrmols); optionaler Cabrera-Schlenker +14 sm → dann klarer roter Tag.'},
-   {d:'Fr 18.9.', route:['CSJORDI','ESTRENC','CALAPI','CAPBLANC','PALMA'],
-    note:'Früh los: an Es Trenc und Cap Blanc vorbei zurück zur Basis.',
-    prax:'Rückgabetag: vor der Basis tanken, Boot klarieren — Rückgabe/Check-out am Nachmittag.'}
-  ]},
- {id:'sued', name:'B · Süden & Osten — Stadthäfen & Cabrera', color:'#0b8a4c',
-  claim:'Die Stadthafen-Route: Colònia de Sant Jordi, Portocolom, Porto Cristo (Drach-Höhlen) und Cala Figuera — vier echte Stadthäfen, dazu der Vereinshafen s’Arenal am Anreiseabend und zum Finale die reservierte Bojennacht im Nationalpark Cabrera. Keine einzige Marina. Preis dafür: der Freitag ist ein langer Transfertag (29 sm). <a href="muster-b.html">→ Musterablauf Tag für Tag</a>',
-  pro:'Maximale Stadthafen-Quote; Cabrera als Höhepunkt zum Schluss; Drach-Höhlen inklusive; So–Do alle Etappen unter 25 sm.',
-  con:'Freitag 29 sm (~4 h, über dem Limit — reiner Transfer ab 8 Uhr); Cala Figuera für Kat-Breite sehr eng (Ausweich Bojenfeld Porto Petro); Tramuntana fehlt.',
-  days:[
-   {d:'Sa 12.9.', route:['PALMA','ARENAL'],
-    note:'Nur über die Bucht — entspannter Auftakt nach Übernahme und Einkauf.',
-    k:{lv:'ok',t:'abseits der Charter-Standardrouten'}},
-   {d:'So 13.9.', route:['ARENAL','CAPBLANC','CALAPI','ESTRENC','CSJORDI'],
-    note:'Um Cap Blanc, Badestopp Cala Pi, dann an den 6 km Naturstrand von Es Trenc entlang zum Salinenort.'},
-   {d:'Mo 14.9.', route:['CSJORDI','SALINES','CFIGS','PPETRO','PCOLOM'],
-    note:'Rundung Cap de ses Salines, Fotostopps Cala Màrmols und vor Cala Figuera, abends größter Naturhafen der Ostküste.'},
-   {d:'Di 15.9.', route:['PCOLOM','PCRISTO'],
-    note:'Kurztag mit Badeschleife Cala Varques; nachmittags Coves del Drach (Tickets vorab!) oder morgen früh.'},
-   {d:'Mi 16.9.', route:['PCRISTO','PCOLOM','PPETRO','CFIGS'],
-    note:'Zurück nach Süden mit Badestopps (Cala Sa Nau, Cala Mitjana), abends der Postkarten-Fischerhafen.'},
-   {d:'Do 17.9.', route:['CFIGS','SALINES','CABRERA'],
-    note:'Um ses Salines in den Nationalpark: Kastell, Museum, Blaue Grotte — Bojennacht (reserviert, Buchung ab 28.8.!).',
-    k:{lv:'ok',t:'Cabrera Do — Flottenrhythmus ist Sa (abgeleitet)'}},
-   {d:'Fr 18.9.', route:['CABRERA','CAPBLANC','PALMA'],
-    note:'Bewusster Transfertag: 8 Uhr ablegen, ~4 h Motor um Cap Blanc zurück zur Basis.',
-    prax:'Rückgabetag: vor der Basis tanken, Boot klarieren — Rückgabe/Check-out am Nachmittag.'}
-  ]},
- {id:'west', name:'C · Tramuntana & Westen', color:'#c2452e',
-  claim:'Steilküste und Sóller ohne Inselrunde: Stadthäfen Andratx und Colònia de Sant Jordi, Sóller-Boje, eine Ankernacht vor Sant Elm — und ein fester Hafentag am Es Trenc mit optionalem Cabrera-Tagesausflug. Keine Marina.',
-  pro:'Tramuntana-Kulisse inklusive; entspanntester Rhythmus (Hafentag); alle Nächte Stadthafen/Verein/Boje/Anker.',
-  con:'Samstag 16 sm nach später Übernahme (Ankunft zur Dämmerung); keine Ostküsten-Calas; Ankernacht wetterabhängig; Freitag 26 sm.',
-  days:[
-   {d:'Sa 12.9.', route:['PALMA','CCF','MALGRATS','ANDRATX'],
-    note:'Sportlicher Auftakt: ~2¼ h Fahrt, Ankunft gegen Sonnenuntergang (~19:50) — früh startklar machen.'},
-   {d:'So 13.9.', route:['ANDRATX','DRAGONERA','PTALMONJA','BANYALBUFAR','FORADADA','SOLLER'],
-    note:'Dragonera-Kanal und die ganze Steilküste, Mittagsstopp Sa Foradada, Boje in Sóller; abends Tram nach Sóller.'},
-   {d:'Mo 14.9.', route:['SOLLER','FORADADA','BANYALBUFAR','PTALMONJA','SANTELM'],
-    note:'Zurück unter den Klippen (Badestopp Cala Deià), Ankernacht vor Sant Elm mit Dragonera-Sonnenuntergang.'},
-   {d:'Di 15.9.', route:['SANTELM','MALGRATS','CCF','ARENAL'],
-    note:'Durch den Malgrats-Kanal und quer über die Bucht; Badestopps Portals Vells/Illetes unterwegs.'},
-   {d:'Mi 16.9.', route:['ARENAL','CAPBLANC','CALAPI','ESTRENC','CSJORDI'],
-    note:'Um Cap Blanc mit Badestopp Cala Pi, an Es Trenc entlang zum Salinenort.'},
-   {d:'Do 17.9.', route:['CSJORDI'],
-    note:'Hafentag: Salinen, Es-Trenc-Strand, Markt — optional Cabrera-Tagesausflug (Ausflugsboot ab dem Hafen oder eigener Kiel mit Tagesgenehmigung).',
-    prax:'Liegeplatz bleibt — zweite Nacht im selben Hafen ist mit dem Hafenamt anzumelden.'},
-   {d:'Fr 18.9.', route:['CSJORDI','ESTRENC','CALAPI','CAPBLANC','PALMA'],
-    note:'Früh los (~25 sm, ~3,5 h) zurück zur Basis.',
-    prax:'Rückgabetag: vor der Basis tanken, Boot klarieren — Rückgabe/Check-out am Nachmittag.'}
-  ]}
+/* ============ Kapitel & Stationen (MUSTER: Cabrera + Portocolom fertig) ============ */
+const CHAPTERS = [
+ {id:'arenal', day:'Tag 1 · Sa', ort:'s’Arenal', ready:false},
+ {id:'csjordi', day:'Tag 2 · So', ort:'Colònia de Sant Jordi', ready:false},
+ {id:'pcolom', day:'Tag 3 · Mo', ort:'Portocolom', ready:true, stations:[
+  {t:'Zum Einstieg: Portocolom — Geschichte & Küche', c:[39.4160,3.2660],
+   kurz:'Willkommen im größten Naturhafen der Ostküste — eine fast geschlossene Bucht, in der schon Römer und Araber Schutz suchten. Portocolom hat sich seinen Fischerdorf-Charakter bewahrt wie kaum ein zweiter Ort der Insel: bunte Bootshäuser, eine Handvoll Gassen, ein Leuchtturm. Der Name? Der Überlieferung nach soll hier Christoph Kolumbus geboren sein — die Mallorquiner glauben es gern, bewiesen hat es nie jemand.',
+   tief:'Dass dieser stille Hafen einst ein Welthafen im Kleinformat war, sieht man ihm kaum an: In der zweiten Hälfte des neunzehnten Jahrhunderts vernichtete die Reblaus die Weinberge Frankreichs — und das Hinterland von Felanitx wurde zum Weinlieferanten Europas. Von genau diesem Kai liefen Schoner voller Weinfässer Richtung Sète aus, in guten Jahren Zehntausende Hektoliter. Um achtzehnhunderteinundneunzig kam die Reblaus dann auf die Insel, der Boom brach zusammen, und viele Familien wanderten aus — eine Geschichte, die sich fast zeitgleich in österreichischen Weinregionen abspielte, als Reblaus und Zollstreit die Existenzen bedrohten. Kulinarische Merkliste für heute Abend: Portocolom ist Fischerhafen geblieben — fragt nach dem Fang des Tages. Ab September beginnt die Saison der Llampuga, der Goldmakrele, oft mit gebratenen Paprika serviert; dazu ein trockener Weißwein aus dem wiederauferstandenen Weinbaugebiet um Felanitx.'},
+  {t:'Es Riuetó & die Bootshäuser (ca. 10 min)', c:[39.4185,3.2635],
+   kurz:'Der Spaziergang am Wasser entlang führt in den ältesten Winkel des Orts: Es Riuetó, eine flache Seitenbucht, gesäumt von Bootshäusern mit türkis, grün und blau gestrichenen Toren. Hier ziehen Fischer seit Generationen ihre Llauts, die traditionellen Holzboote, direkt aus dem Wasser in die Garage. Das meistfotografierte Motiv der Ostküste — am schönsten im tiefen Abendlicht.',
+   tief:'Die Bootshäuser, mallorquinisch Escars, erzählen von einer Zeit, in der jede Familie vom Meer lebte und das Boot wertvoller war als das Wohnhaus. Gebaut wurde direkt an der Wasserlinie, mit Rampe statt Steg — ein Bautyp, den es so nur noch an wenigen Orten der Insel gibt und der heute streng geschützt ist. Viele der Llauts drinnen sind über hundert Jahre alt und werden noch immer für den Fang von Tintenfisch und Llampuga genutzt. Wer genau schaut, erkennt an den Toren kleine geschnitzte oder gemalte Schutzsymbole — der Überlieferung nach sollten sie Boot und Besatzung vor Unwetter bewahren. Dass Portocolom nie zur Hotelmeile wurde, verdankt es übrigens einer Mischung aus Sturheit und Glück: Der große Tourismus zog in den sechziger Jahren an die Sandbuchten weiter südlich — hier blieb das Wasser den Fischern.'},
+  {t:'Església del Carme (ca. 15 min)', c:[39.4205,3.2600],
+   kurz:'Über den Dächern des alten Viertels steht die Kirche der Mare de Déu del Carme — der Schutzpatronin der Fischer und Seeleute geweiht. Ein schlichter Sandsteinbau mit hellem, fast mediterran-nüchternem Inneren. Jeden Juli tragen die Fischer die Madonna in einer Bootsprozession durch den Hafen; die Fotos davon hängen in halb Portocolom.',
+   tief:'Die Carmen-Verehrung verbindet alle spanischen Küstenorte: Die Jungfrau vom Berge Karmel ist seit dem achtzehnten Jahrhundert offizielle Patronin der spanischen Marine und aller, die vom Meer leben. In Portocolom fällt ihr Fest mit dem Höhepunkt des Sommers zusammen — dann wird die Madonnenfigur auf einen geschmückten Llaut gehoben und von einem Korso aus Fischerbooten durch die Bucht begleitet, mit Sirenen, Blumen und abends Feuerwerk. Die Kirche selbst ist jung, gebaut für ein wachsendes Hafenviertel, als der Weinboom Ende des neunzehnten Jahrhunderts Arbeiter und Küfer in den Ort spülte. Ihre schlichte Form hat einen praktischen Grund: Gebaut wurde mit dem Marès-Sandstein der Umgebung, schnell und ohne Zierrat — das Geld steckte man lieber in Schiffe. Ein ehrliches Gotteshaus für einen ehrlichen Ort.'},
+  {t:'Hafenpromenade & die Wein-Ära (ca. 10 min)', c:[39.4165,3.2630],
+   kurz:'Zurück am großen Kai: Wo heute Ausflugsboote und Yachten liegen, stapelten sich vor hundertdreißig Jahren Weinfässer bis auf die Straße. Die stattlichen Bürgerhäuser an der Promenade — mit Balkonen und Jugendstil-Anklängen — sind die steinernen Zeugen dieser kurzen, goldenen Ära. Ein guter Ort für ein Eis mit Blick auf euer eigenes Boot.',
+   tief:'Der Rhythmus der Promenade erzählt Wirtschaftsgeschichte: unten Lagerhaus, oben Wohnung, davor der Kai — kürzer kann ein Handelsweg nicht sein. Als Frankreichs Weinberge nach der Reblaus-Katastrophe brachlagen, verdiente Felanitx an jedem Fass; die Duana, das alte Zollhaus, fertigte in Spitzenjahren Schiff um Schiff ab. Mit dem Zusammenbruch um achtzehnhunderteinundneunzig begann die große Auswanderung — viele Familien der Gegend gingen nach Südamerika, und noch heute tragen Cafés in Buenos Aires Namen aus dem Osten Mallorcas. Erst der Tourismus und zuletzt die Rückkehr des Weinbaus um Felanitx haben den Kreis geschlossen: Auf denselben Böden, die einst Frankreich versorgten, wachsen heute wieder preisgekrönte Weine. Morgen geht es übrigens nur eine Bucht weiter nach Norden — nach Porto Cristo, zu den berühmten Drach-Höhlen mit ihrem unterirdischen See.'},
+  {t:'Leuchtturm Punta de ses Crestes (optional, +35 min)', c:[39.4128,3.2723],
+   kurz:'Wer noch Beine hat: Der Weg auf die Ostseite der Hafeneinfahrt führt zum weiß-gestreiften Leuchtturm auf der Punta de ses Crestes. Von der Felskante der Blick über die offene See, aus der ihr heute gekommen seid — und über die ganze Bucht, in der euer Katamaran wie ein Spielzeug liegt. Der klassische Sonnenuntergangs-Spaziergang von Portocolom.',
+   tief:'Der Leuchtturm stammt aus der Blütezeit des Weinhafens — als nachts schwer beladene Schoner die schmale Einfahrt finden mussten, wurde aus der Feuerstelle am Felsen ein richtiger Turm mit Linsenapparat. Seine Kennung, Blitze im Viererrhythmus, ist bis weit hinaus zu sehen; ihr habt sie vielleicht schon gestern Abend am Horizont bemerkt. Rund um den Turm liegt eine karstige Heidelandschaft mit wilden Olivenbäumen, in der es nach Rosmarin und Salz riecht — typische Ostküsten-Garriga, wie sie Erzherzog Ludwig Salvator in seinen Balearen-Bänden liebevoll kartierte. Der Habsburger ließ auf Mallorca Aussichtspunkte und Wege anlegen, die bis heute begangen werden; dieser Spaziergang hätte ihm gefallen. Lasst den Tag oben am Geländer ausklingen — morgen wartet Porto Cristo mit den Drach-Höhlen.'}
+ ]},
+ {id:'pcristo', day:'Tag 4 · Di', ort:'Porto Cristo', ready:false},
+ {id:'cfigs', day:'Tag 5 · Mi', ort:'Cala Figuera', ready:false},
+ {id:'cabrera', day:'Tag 6 · Do', ort:'Cabrera', ready:true, stations:[
+  {t:'Zum Einstieg: Cabrera — Geschichte & Küche', c:[39.1480,2.9330],
+   kurz:'Willkommen im Nationalpark Cabrera — ihr liegt an einer von rund fünfzig Bojen im besterhaltenen Naturhafen der Balearen. Kein Hotel, keine Straße: Auf der Insel leben heute nur Parkpersonal und ein paar Militärhistoriker-Träume. Über euch wacht das Kastell, um euch das klarste Wasser der Reise. Seit neunzehnhunderteinundneunzig ist das Archipel Spaniens erster kombinierter Land- und Meeres-Nationalpark.',
+   tief:'Cabrera war nie richtig bewohnt und doch immer begehrt: Piratenversteck, Quarantänestation, Militärstützpunkt — und über Jahrhunderte Weidegrund für Ziegen, denen die Insel wohl ihren Namen verdankt, Cabrera heißt Ziegeninsel. Für österreichische Ohren interessant: Erzherzog Ludwig Salvator von Habsburg, der große Balearen-Chronist, beschrieb das Archipel in seinem monumentalen Werk „Die Balearen in Wort und Bild“ — neun Bände, geschrieben zwischen achtzehnhundertneunundsechzig und achtzehnhunderteinundneunzig. Der Habsburger verliebte sich so sehr in diese Inselwelt, dass er an der Westküste Mallorcas ganze Landstriche kaufte, um sie vor Verbauung zu schützen — Naturschutz, Jahrzehnte bevor es das Wort gab. Kulinarische Merkliste für heute: An Land gibt es nur eine kleine Cantina — heute kocht die Bordküche. Dazu passt, was die Insel-Fischer früher schätzten: einfacher gegrillter Fisch, Sobrassada aufs Brot und als Sundowner ein Hierbas, der mallorquinische Kräuterlikör.'},
+  {t:'Museum Es Celler (ca. 10 min zu Fuß)', c:[39.1520,2.9370],
+   kurz:'Der Weg vom Steg führt zu einem alten Gewölbebau — Es Celler, einst Weinkeller des Inselguts, heute das kleine Museum des Nationalparks. Drinnen: Amphoren aus römischen Wracks, Werkzeuge der Salz- und Fischerzeit und die Geschichte der Gefangenen, von der gleich noch die Rede ist. Ein Rundgang dauert kaum zwanzig Minuten und ordnet alles, was ihr draußen seht.',
+   tief:'Dass ein Weinkeller das Inselmuseum beherbergt, ist kein Zufall: Ende des neunzehnten Jahrhunderts versuchte eine Betreiberfamilie, Cabrera in ein Weingut zu verwandeln — hunderttausende Rebstöcke wurden gepflanzt, mitten im Boom, als die Reblaus Frankreichs Weinberge vernichtete und die Balearen glänzende Exportjahre erlebten. Der Traum hielt nur wenige Jahre: Um achtzehnhunderteinundneunzig erreichte die Reblaus auch die Inseln, und mit ihr endete das Experiment. Die Amphoren im Museum erzählen eine noch ältere Geschichte: Vor Cabrera liegen Wracks aus römischer Zeit — die Insel war Zwischenstopp auf der Getreide- und Weinroute nach Rom. Wer genau hinsieht, findet im Museum auch die Balearen-Eidechse als heimliche Hauptdarstellerin: Auf Cabrera leben zehntausende dieser endemischen, erstaunlich zutraulichen Tiere — sie werden euch beim Picknick Gesellschaft leisten.'},
+  {t:'Denkmal der französischen Gefangenen (ca. 15 min)', c:[39.1500,2.9350],
+   kurz:'Ein schlichter Obelisk zwischen Wacholder und Rosmarin erinnert an das dunkelste Kapitel der Insel: Ab achtzehnhundertneun wurden tausende französische Kriegsgefangene der Napoleonischen Kriege auf Cabrera ausgesetzt — ohne Lager, ohne ausreichende Versorgung. Fünf Jahre lang war die Insel ein Gefängnis ohne Mauern. Ein stiller Ort mit weitem Blick — nehmt euch zwei Minuten.',
+   tief:'Nach der Schlacht von Bailén, der ersten großen Niederlage Napoleons in Spanien, wusste man nicht wohin mit den Gefangenen. Die Lösung war so einfach wie grausam: Man brachte tausende Soldaten auf die wasserarme Insel und überließ sie sich selbst — Schiffe brachten unregelmäßig Nachschub, oft tagelang gar nichts. Die Überlieferung berichtet von Hunger, Krankheit und verzweifeltem Tauschhandel; nur etwa die Hälfte der Männer erlebte achtzehnhundertvierzehn die Heimkehr. Frankreich und Spanien haben hier gemeinsam ein Denkmal gesetzt — eines der frühesten Mahnmale für Kriegsgefangene überhaupt. Wer heute im türkisblauen Wasser badet, badet in einer Kulisse, die für tausende Männer das Ende der Welt bedeutete. Genau diese Doppelbödigkeit — Paradies und Verbannungsort — macht Cabrera so eindrücklich.'},
+  {t:'Castell de Cabrera (optional, +25 min Aufstieg)', c:[39.1462,2.9260],
+   kurz:'Der Zickzackweg hinauf zum Kastell lohnt jede Schweißperle: Der Wehrturm aus dem späten vierzehnten Jahrhundert bewachte die Hafeneinfahrt gegen Piraten — heute bewacht er euer Panorama. Von oben liegt euch der ganze Naturhafen zu Füßen, bei klarer Sicht reicht der Blick bis zur Silhouette Mallorcas. Abends färbt die tiefstehende Sonne die Bucht kupferrot.',
+   tief:'Das Kastell wurde immer wieder erobert, geplündert und aufgebaut — Barbarossa-Korsaren, algerische Freibeuter, sogar englische Landungstrupps: Wer die Bucht kontrollierte, kontrollierte den sichersten Ankerplatz zwischen Mallorca und der afrikanischen Route. Die Mauern, auf denen ihr steht, haben also mehr Belagerungen gesehen als mancher Burgberg am Festland. Der Turm diente zuletzt als Aussichtsposten des Militärs, das Cabrera im zwanzigsten Jahrhundert als Übungsgelände nutzte — paradoxerweise ein Glücksfall: Weil niemand bauen durfte, blieb die Insel unberührt, und aus dem Sperrgebiet wurde neunzehnhunderteinundneunzig der Nationalpark. Ein Muster, das ihr von zu Hause kennt: Auch an der österreichischen Grenze wurden aus Sperrzonen des Kalten Kriegs später Naturjuwele.'},
+  {t:'Sa Cova Blava — die Blaue Grotte (optional, per Dinghi)', c:[39.1560,2.9430],
+   kurz:'Zum Abschluss ein Naturwunder, das man nicht zu Fuß erreicht: Sa Cova Blava, die Blaue Grotte, an der Nordostecke der Insel. Am späten Nachmittag fällt das Licht so in die Höhle, dass das Wasser von innen elektrisch blau leuchtet. Wenn die Parkverwaltung die Zufahrt freigibt, ist das der Badestopp eures Lebens — fragt beim Personal am Steg nach.',
+   tief:'Die Höhle ist gut hundertsechzig Meter tief in den Fels gewaschen, ihr Gewölbe hoch genug für Ausflugsboote. Das Leuchten entsteht wie beim berühmten Vorbild auf Capri: Sonnenlicht fällt durch den Unterwasser-Eingang, das Wasser filtert alle warmen Farbtöne heraus, übrig bleibt reines Blau, das von unten heraufstrahlt. Erzherzog Ludwig Salvator, der Habsburger Balearen-Chronist, hat übrigens beide Grotten gekannt und beschrieben — die Capri-Grotte machte er mit seinem Buch „Die Grotte von Capri“ europaweit berühmt. Dass sein geliebtes Balearen-Archipel ein eigenes blaues Wunder besitzt, hätte ihn gefreut. Und damit: Morgen heißt es früh ablegen — der lange Überstellungsschlag zurück nach Palma, Rückgabe am Nachmittag. Genießt vorher einen der dunkelsten Sternenhimmel des Mittelmeers.'}
+ ]},
+ {id:'palma', day:'Tag 7 · Fr', ort:'Palma', ready:false}
 ];
-/* ===== Haversine ===== */
-function hav(a,b){const R=3440.065,r=Math.PI/180;
+/* ============ Player-Engine ============ */
+const $=id=>document.getElementById(id);
+let actChap = CHAPTERS.findIndex(c=>c.ready);
+let speaking=false, stopFlag=false, wakeLock=null, watchId=null, userMark=null;
+const heard = new Set();
+
+function voices(){return speechSynthesis.getVoices();}
+function pickVoice(){
+  const vs=voices();
+  return vs.find(v=>v.lang==='de-AT')||vs.find(v=>/^de/.test(v.lang))||null;
+}
+function speak(text){return new Promise(res=>{
+  const u=new SpeechSynthesisUtterance(text);
+  const v=pickVoice(); if(v)u.voice=v;
+  u.lang='de-AT'; u.rate=0.97;
+  u.onend=()=>res(); u.onerror=()=>res();
+  speechSynthesis.speak(u);
+});}
+function stopSpeak(){stopFlag=true;speechSynthesis.cancel();hideAsk();setStatus('Gestoppt.');
+  $('btnPlay').textContent='▶ Kapitel abspielen';speaking=false;releaseWake();}
+function setStatus(t){$('status').textContent=t;}
+
+/* Ja/Nein: Buttons + Spracherkennung */
+let askResolve=null,recog=null;
+function hideAsk(){$('askbox').style.display='none';if(recog){try{recog.stop()}catch(e){}recog=null;}}
+function ask(){return new Promise(res=>{
+  askResolve=res;$('askbox').style.display='flex';
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(SR){try{
+    recog=new SR();recog.lang='de-DE';recog.interimResults=false;
+    recog.onresult=e=>{const s=(e.results[0][0].transcript||'').toLowerCase();
+      if(/ja|mehr|gern|bitte|yes/.test(s))done(true);
+      else if(/nein|weiter|nö|nicht|skip/.test(s))done(false);};
+    recog.onerror=()=>{};recog.start();
+    setTimeout(()=>{if(askResolve)done(false);},9000);
+  }catch(e){setTimeout(()=>{if(askResolve)done(false);},9000);}}
+  else setTimeout(()=>{if(askResolve)done(false);},9000);
+});}
+function done(yes){if(!askResolve)return;const r=askResolve;askResolve=null;hideAsk();r(yes);}
+$('btnYes').onclick=()=>done(true);
+$('btnNo').onclick=()=>done(false);
+
+async function playStation(ci,si){
+  const st=CHAPTERS[ci].stations[si];
+  heard.add(ci+'-'+si);markCards();
+  setStatus('Station '+(si+1)+': '+st.t);
+  await speak(st.t+'. '+st.kurz);
+  if(stopFlag)return;
+  if($('cbVerbose').checked){await speak(st.tief);return;}
+  await speak('Möchtest du mehr dazu hören? Sag Ja oder Nein — oder tippe.');
+  if(stopFlag)return;
+  const yes=await ask();
+  if(stopFlag)return;
+  if(yes)await speak(st.tief);
+}
+async function playChapter(from=0){
+  const ch=CHAPTERS[actChap];if(!ch.ready)return;
+  if(speaking){stopSpeak();return;}
+  speaking=true;stopFlag=false;$('btnPlay').textContent='⏹ Stopp';
+  await getWake();
+  for(let i=from;i<ch.stations.length;i++){
+    if(stopFlag)break;
+    await playStation(actChap,i);
+  }
+  if(!stopFlag)setStatus('Kapitel beendet.');
+  $('btnPlay').textContent='▶ Kapitel abspielen';speaking=false;releaseWake();
+}
+$('btnPlay').onclick=()=>playChapter(0);
+
+/* Wake Lock */
+async function getWake(){try{wakeLock=await navigator.wakeLock.request('screen');}catch(e){
+  setStatus('Hinweis: Bildschirm-Timeout ggf. manuell verlängern.');}}
+function releaseWake(){try{wakeLock&&wakeLock.release();}catch(e){}wakeLock=null;}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&speaking)getWake();});
+
+/* GPS */
+function dist(a,b){const R=6371000,r=Math.PI/180;
   const s=Math.sin((b[0]-a[0])*r/2)**2+Math.cos(a[0]*r)*Math.cos(b[0]*r)*Math.sin((b[1]-a[1])*r/2)**2;
   return 2*R*Math.asin(Math.sqrt(s));}
-function dayDist(day){let d=0;for(let i=0;i<day.route.length-1;i++)d+=hav(WP[day.route[i]],WP[day.route[i+1]]);return d;}
-function fmt(x){return (Math.round(x*10)/10).toLocaleString('de-AT',{minimumFractionDigits:1,maximumFractionDigits:1});}
-function lvOf(d){return d<=25?'ok':(d<=28?'warn':'bad');}
-const LV={ok:'b-ok',warn:'b-warn',bad:'b-bad',grey:'b-grey'};
-const LIMIT=25;
+const DIRS=['Norden','Nordosten','Osten','Südosten','Süden','Südwesten','Westen','Nordwesten'];
+function dirTo(a,b){const y=Math.sin((b[1]-a[1])*Math.PI/180)*Math.cos(b[0]*Math.PI/180);
+  const x=Math.cos(a[0]*Math.PI/180)*Math.sin(b[0]*Math.PI/180)-
+    Math.sin(a[0]*Math.PI/180)*Math.cos(b[0]*Math.PI/180)*Math.cos((b[1]-a[1])*Math.PI/180);
+  const brg=(Math.atan2(y,x)*180/Math.PI+360)%360;
+  return DIRS[Math.round(brg/45)%8];}
+$('cbGps').onchange=e=>{
+  if(e.target.checked){
+    if(!navigator.geolocation){setStatus('Kein GPS verfügbar.');e.target.checked=false;return;}
+    watchId=navigator.geolocation.watchPosition(onPos,
+      ()=>setStatus('GPS-Freigabe fehlt.'),{enableHighAccuracy:true});
+  }else{if(watchId!=null)navigator.geolocation.clearWatch(watchId);watchId=null;
+    if(userMark){map.removeLayer(userMark);userMark=null;}}
+};
+function onPos(p){
+  const me=[p.coords.latitude,p.coords.longitude];
+  if(!userMark)userMark=L.circleMarker(me,{radius:7,color:'#fff',weight:2,
+    fillColor:'#e0356e',fillOpacity:1}).addTo(map);
+  else userMark.setLatLng(me);
+  const ch=CHAPTERS[actChap];if(!ch.ready)return;
+  let best=-1,bd=1e12;
+  ch.stations.forEach((s,i)=>{if(heard.has(actChap+'-'+i))return;
+    const d=dist(me,s.c);if(d<bd){bd=d;best=i;}});
+  if(best<0){setStatus('Alle Stationen gehört.');return;}
+  const s=ch.stations[best];
+  setStatus('Nächste Station: '+s.t+' — '+Math.round(bd)+' m Richtung '+dirTo(me,s.c));
+  if(bd<80&&!speaking){playFrom(best);}
+}
+async function playFrom(i){speaking=true;stopFlag=false;$('btnPlay').textContent='⏹ Stopp';
+  await getWake();await playStation(actChap,i);
+  $('btnPlay').textContent='▶ Kapitel abspielen';speaking=false;releaseWake();}
 
-/* ===== Karte ===== */
+/* ============ Karte ============ */
 const map=L.map('map',{zoomSnap:0.25});
-let tileErrors=0,esriOn=false;
+let terr=0,esri=false;
 const carto=L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',
   {subdomains:'abcd',maxZoom:18,attribution:'© OpenStreetMap © CARTO'});
-carto.on('tileerror',()=>{if(++tileErrors>5&&!esriOn){esriOn=true;map.removeLayer(carto);
+carto.on('tileerror',()=>{if(++terr>5&&!esri){esri=true;map.removeLayer(carto);
   L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
-    {maxZoom:18,attribution:'© Esri'}).addTo(map);
-  document.getElementById('mapStatus').textContent='Karten-Fallback (Esri) aktiv';}});
+    {maxZoom:18,attribution:'© Esri'}).addTo(map);}});
 carto.addTo(map);
-let layer=L.layerGroup().addTo(map), labelLayer=L.layerGroup().addTo(map);
+let stLayer=L.layerGroup().addTo(map);
 
-function popupHtml(key){const s=STOPS[key];if(!s)return null;
-  return `<b class="t">${s.n}</b><br><span class="bdg ${LV[s.badge]}">${s.type}</span>`+
-    `<div>${s.ch}</div><div class="pop-prax"><b>Praxis:</b> ${s.px}</div>`;}
-
-function render(vi){
-  const v=VARIANTS[vi];
-  document.documentElement.style.setProperty('--tabc',v.color);
-  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('act',i===vi));
-  layer.clearLayers();labelLayer.clearLayers();
-  const all=[];
-  v.days.forEach((day,di)=>{
-    const pts=day.route.map(k=>WP[k]);all.push(...pts);
-    if(pts.length>1){
-      L.polyline(pts,{color:v.color,weight:4,opacity:0.85}).addTo(layer);
-      const mid=pts[Math.floor((pts.length-1)/2)];const nxt=pts[Math.min(Math.floor((pts.length-1)/2)+1,pts.length-1)];
-      const mp=[(mid[0]+nxt[0])/2,(mid[1]+nxt[1])/2];
-      L.marker(mp,{icon:L.divIcon({className:'',html:
-        `<span class="etq" style="--etc:${v.color}">Tag ${di+1} · ${fmt(dayDist(day))} sm</span>`,
-        iconSize:null}),interactive:false}).addTo(labelLayer);
-    }
-  });
-  const seen=new Set();
-  v.days.forEach(day=>{day.route.forEach(k=>{
-    if(!STOPS[k]||seen.has(k))return;seen.add(k);
-    const isBase=k==='PALMA';
-    L.circleMarker(WP[k],{radius:isBase?9:7,color:'#fff',weight:2,
-      fillColor:isBase?'#e0356e':v.color,fillOpacity:1})
-      .bindPopup(popupHtml(k)).addTo(layer);
-  });});
-  map.fitBounds(L.latLngBounds(all).pad(0.12));
-  labelLayer[document.getElementById('cbLabels').checked?'addTo':'remove'](map);
-  document.getElementById('claim').innerHTML=
-    `<b>${v.name}</b> — ${v.claim}<div class="pc"><b>Dafür:</b> ${v.pro}<br><b>Dagegen:</b> ${v.con}</div>`;
-  const dists=v.days.map(dayDist),tot=dists.reduce((a,b)=>a+b,0),mx=Math.max(30,...dists);
-  document.getElementById('budTot').textContent=
-    `Gesamt ${fmt(tot)} sm · größte Etappe ${fmt(Math.max(...dists))} sm · `+
-    `~${fmt(tot/7.5)} h Motorfahrt gesamt (7 Tage)`;
-  const bars=document.getElementById('bars');
-  bars.innerHTML=`<div class="lim" style="bottom:${LIMIT/mx*80}px">25 sm</div>`+
-    v.days.map((day,i)=>{const d=dists[i],lv=lvOf(d);
-      const col=lv==='ok'?'#1e8a4c':lv==='warn'?'#d97b00':'#c8352c';
-      return `<div class="bar"><span class="v">${fmt(d)}</span>`+
-        `<div class="col" style="height:${Math.max(4,d/mx*80)}px;background:${col}"></div>`+
-        `<span class="d">${day.d.split(' ')[0]}</span></div>`;}).join('');
-  document.getElementById('days').innerHTML=v.days.map((day,i)=>{
-    const d=dists[i],lv=lvOf(d);
-    const from=STOPS[day.route[0]],to=STOPS[day.route[day.route.length-1]];
-    const stay=to?`<span class="bdg ${LV[to.badge]}">${to.type}</span>`:'';
-    const kb=day.k?`<span class="bdg ${LV[day.k.lv]}">${day.k.t}</span>`:'';
-    const hafentag=day.route.length===1;
-    return `<div class="day"><div class="top">`+
-      `<span class="rt">Tag ${i+1} · ${day.d} — ${hafentag?(to?to.n.replace(/ \(.*\)/,''):'')+' (Hafentag)':
-        (from?from.n.replace(/ \(.*\)/,''):'')+' → '+(to?to.n.replace(/ \(.*\)/,''):'')}</span>`+
-      `<span class="dd">${hafentag?'<span class="bdg b-ok">0 sm</span>':
-        `<span class="bdg ${LV[lv]}">${fmt(d)} sm</span> ~${fmt(d/7.5)} h`}</span></div>`+
-      `<div class="note">${day.note}</div>`+
-      `<div class="prax">${day.prax||(to?to.px:'')}</div><div>${stay}${kb}</div></div>`;
-  }).join('');
+/* ============ Rendering ============ */
+function renderChips(){
+  $('chips').innerHTML=CHAPTERS.map((c,i)=>
+    `<button class="chip${i===actChap?' act':''}${c.ready?'':' off'}" data-i="${i}" ${c.ready?'':'disabled'}>
+     <b>${c.day}</b> ${c.ort}${c.ready?'':' · folgt'}</button>`).join('');
+  document.querySelectorAll('.chip[data-i]').forEach(b=>b.onclick=()=>{
+    if(speaking)stopSpeak();actChap=+b.dataset.i;renderChips();renderStations();});
 }
-const tabs=document.getElementById('tabs');
-VARIANTS.forEach((v,i)=>{const d=v.days.map(dayDist).reduce((a,b)=>a+b,0);
-  const b=document.createElement('button');b.className='tab';b.style.setProperty('--tabc',v.color);
-  b.innerHTML=`<b>${v.name}</b><small>${fmt(d)} sm gesamt</small>`;
-  b.onclick=()=>render(i);tabs.appendChild(b);});
-document.getElementById('cbLabels').onchange=e=>labelLayer[e.target.checked?'addTo':'remove'](map);
-render(1); /* Start: Variante B (Stadthafen-Route) */
+function markCards(){
+  document.querySelectorAll('.stcard').forEach(el=>{
+    el.classList.toggle('heard',heard.has(actChap+'-'+el.dataset.si));});
+}
+function renderStations(){
+  const ch=CHAPTERS[actChap];
+  stLayer.clearLayers();
+  if(!ch.ready){$('stations').innerHTML='';return;}
+  const pts=ch.stations.map(s=>s.c);
+  ch.stations.forEach((s,i)=>{
+    L.circleMarker(s.c,{radius:8,color:'#fff',weight:2,fillColor:'#0b6aa8',fillOpacity:1})
+      .bindPopup('<b>'+(i+1)+' · '+s.t+'</b>').addTo(stLayer);
+    L.marker(s.c,{icon:L.divIcon({className:'',html:
+      '<span class="stnum">'+(i+1)+'</span>',iconSize:null}),interactive:false}).addTo(stLayer);
+  });
+  map.fitBounds(L.latLngBounds(pts).pad(0.25));
+  $('stations').innerHTML=ch.stations.map((s,i)=>`
+   <div class="stcard" data-si="${i}">
+     <div class="sttop"><b>${i+1} · ${s.t}</b>
+       <button class="mini" onclick="playFrom(${i})">▶ ab hier</button></div>
+     <div class="stkurz">${s.kurz}</div>
+     <details><summary>Vertiefung lesen</summary><div class="sttief">${s.tief}</div></details>
+     <div class="stlinks">
+       <a href="https://www.google.com/maps/dir/?api=1&destination=${s.c[0]},${s.c[1]}&travelmode=walking">🚶 Route (Google Maps)</a>
+       <a href="geo:${s.c[0]},${s.c[1]}">📍 geo:</a>
+       <span class="coord">± 100 m</span>
+     </div>
+   </div>`).join('');
+  markCards();
+}
+renderChips();renderStations();
+if(speechSynthesis.onvoiceschanged!==undefined)speechSynthesis.onvoiceschanged=()=>{};
 
 </script>
 </body>

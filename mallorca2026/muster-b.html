@@ -11,10 +11,9 @@ html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
   font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif}
 .nav{display:flex;gap:4px;align-items:center;background:#12202e;padding:8px 10px;
   position:sticky;top:0;z-index:100;overflow-x:auto;-webkit-overflow-scrolling:touch}
-.nav a,.nav span{white-space:nowrap;text-decoration:none;color:#c8d4e0;font-size:14px;
+.nav a{white-space:nowrap;text-decoration:none;color:#c8d4e0;font-size:14px;
   padding:9px 13px;border-radius:9px;min-height:44px;display:flex;align-items:center}
 .nav a.act{background:var(--rose);color:#fff;font-weight:600}
-.nav span.soon{opacity:.45}
 .wrap{max-width:720px;margin:0 auto;padding:16px 12px 60px}
 h1{font-size:21px;margin:6px 2px 4px}
 .sub{color:var(--mut);font-size:13.5px;line-height:1.5;margin:0 2px 14px}
@@ -45,121 +44,120 @@ a{color:#0b6aa8}
 <nav class="nav">
   <a href="index.html">🗺️ Routen</a>
   <a href="vote.html">🗳️ Abstimmung</a>
-  <span class="soon">🎧 Audio-Guide</span>
-  <span class="soon">🚵 Ausflüge</span>
-  <span class="soon">🍽️ Essen</span>
+  <a href="guide.html">🎧 Audio-Guide</a>
+  <a href="tours.html">🚵 Ausflüge</a>
+  <a href="food.html">🍽️ Essen</a>
 </nav>
 <div class="wrap">
   <h1>So könnte Variante B aussehen — Tag für Tag</h1>
-  <p class="sub">Musterablauf für <b>B · Süden &amp; Cabrera</b> (103 sm gesamt). Uhrzeiten sind
-  Richtwerte bei ~7,5 kn Motorfahrt und ruhigem Wetter; Sonnenuntergang Mitte September ~19:50,
-  Sonnenaufgang ~7:30.</p>
+  <p class="sub">Musterablauf für <b>B · Süden &amp; Osten — Stadthäfen &amp; Cabrera</b>
+  (112 sm gesamt, keine Marina). Uhrzeiten sind Richtwerte bei ~7,5 kn Motorfahrt und ruhigem
+  Wetter; Sonnenuntergang Mitte September ~19:50, Sonnenaufgang ~7:30.</p>
 
   <div class="zeit">
     <b>Ehrliches Zeitbudget der Woche:</b> Es sind keine 7 vollen Tage — kalkuliert ist:
     <table>
       <tr><td>Sa 12.9.</td><td>nur ~1–1,5 h Fahrtfenster nach Übernahme, Einweisung und Einkauf (deshalb Mini-Etappe 6,7 sm)</td></tr>
-      <tr><td>So–Do</td><td>5 volle Törntage, jeweils unter 25 sm — Fahrzeit 1,5–3 h plus Badestopps</td></tr>
-      <tr><td>Fr 18.9.</td><td>reiner Transfer-Vormittag (22 sm, ~3 h) + Tanken + Rückgabe am Nachmittag</td></tr>
+      <tr><td>So–Do</td><td>5 volle Törntage, jeweils unter 25 sm — Fahrzeit 1–3 h plus Badestopps</td></tr>
+      <tr><td>Fr 18.9.</td><td>reiner Transfer-Vormittag ab Cabrera (29 sm, ~4 h ab 8 Uhr) + Tanken + Rückgabe am Nachmittag</td></tr>
     </table>
   </div>
 
   <div class="day">
     <h2>Tag 1 · Sa 12.9. — Palma → s’Arenal</h2>
-    <div class="meta">6,7 sm · ~1 h Fahrt · Club Nàutic s’Arenal</div>
+    <div class="meta">6,7 sm · ~1 h Fahrt · Club Nàutic s’Arenal (Vereinshafen — die einzige Hafenoption der Bucht, keine Resort-Marina)</div>
     <ul class="tl">
       <li><span class="t">15:00</span><span>Übernahme und Einweisung an der Basis; parallel erledigen 2–3 Leute den Großeinkauf</span></li>
       <li><span class="t">17:30</span><span>Ablegen — einmal quer über die Bucht von Palma, Blick zurück auf die Kathedrale</span></li>
       <li><span class="t">18:45</span><span>Fest in s’Arenal, lange vor Dunkelheit</span></li>
     </ul>
-    <div class="abend"><b>Abend:</b> kurze Wege, Promenade der Playa de Palma, entspanntes erstes
-    Crew-Dinner. Bewusst ohne Programm — Anreisetag.</div>
+    <div class="abend"><b>Abend:</b> kurze Wege, Promenade, entspanntes erstes Crew-Dinner.
+    Bewusst ohne Programm — Anreisetag.</div>
   </div>
 
   <div class="day">
     <h2>Tag 2 · So 13.9. — s’Arenal → Colònia de Sant Jordi</h2>
-    <div class="meta">19,8 sm · ~2¾ h Fahrt + Badestopps · Hafen (flache Zufahrt — vorab geklärt)</div>
+    <div class="meta">~20 sm · ~2¾ h Fahrt + Badestopps · Stadthafen (flache Zufahrt — vorab geklärt)</div>
     <ul class="tl">
       <li><span class="t">09:00</span><span>Ablegen, unter den Steilufern nach Süden, Rundung Cap Blanc</span></li>
       <li><span class="t">10:45</span><span>Badestopp in der fjordartigen Cala Pi (Anker auf Sand, ~1,5 h)</span></li>
-      <li><span class="t">13:30</span><span>Weiter an Sa Ràpita und dem Naturstrand Es Trenc entlang — 6 km Karibik-Optik</span></li>
+      <li><span class="t">13:30</span><span>Weiter am Naturstrand Es Trenc entlang — 6 km Karibik-Optik</span></li>
       <li><span class="t">15:30</span><span>Fest in Colònia de Sant Jordi</span></li>
     </ul>
     <div class="abend"><b>Abend:</b> Salinenort mit Hafenpromenade; Sonnenuntergang über den
-    Salzfeldern, Cabrera liegt schon in Sichtweite.</div>
+    Salzfeldern — Restaurant-Tipps auf der Seite <a href="food.html">🍽️ Essen</a>.</div>
   </div>
 
   <div class="day">
-    <h2>Tag 3 · Mo 14.9. — Colònia de Sant Jordi → Cabrera</h2>
-    <div class="meta">10,4 sm · ~1½ h Fahrt · reservierte Nationalpark-Boje (die eine „Buchtnacht“)</div>
+    <h2>Tag 3 · Mo 14.9. — Colònia de Sant Jordi → Portocolom</h2>
+    <div class="meta">~18 sm · ~2½ h Fahrt + Stopps · Stadthafen (Ports-IB-Kai/Boje)</div>
     <ul class="tl">
-      <li><span class="t">09:30</span><span>Ablegen Richtung Archipel — unterwegs oft Delfin-Chancen</span></li>
-      <li><span class="t">11:00</span><span>Boje im Naturhafen von Cabrera aufnehmen</span></li>
-      <li><span class="t">14:00</span><span>Landgang: Aufstieg zum Kastell (14. Jh., ~20 min), kleines Museum, Wanderwege des Parks</span></li>
-      <li><span class="t">18:00</span><span>Mit dem Dinghi zur Blauen Grotte (Sa Cova Blava), sofern die Parkverwaltung es freigibt — Abendlicht ist die beste Zeit</span></li>
-    </ul>
-    <div class="abend"><b>Abend:</b> Bordküche statt Restaurant (nur eine kleine Cantina an Land);
-    dafür einer der dunkelsten Sternenhimmel der Balearen. <span class="hinweis">Boje vorab
-    buchen — Fenster öffnet 20 Tage vorher (25.8.), gelbe Kategorie 12–15 m, ca. 68 €/Nacht.
-    Ankern ist im ganzen Park untersagt.</span></div>
-  </div>
-
-  <div class="day">
-    <h2>Tag 4 · Di 15.9. — Cabrera → Cala d’Or</h2>
-    <div class="meta">19,4 sm · ~2¾ h Fahrt + Stopps · Marina de Cala d’Or</div>
-    <ul class="tl">
-      <li><span class="t">09:00</span><span>Ablegen, zurück zur Insel und Rundung Cap de ses Salines (Leuchtturm-Foto)</span></li>
+      <li><span class="t">09:00</span><span>Ablegen und Rundung Cap de ses Salines (Leuchtturm-Foto)</span></li>
       <li><span class="t">11:00</span><span>Badestopp Cala Màrmols — nur per Boot oder langem Fußmarsch erreichbar (bei ruhiger See)</span></li>
-      <li><span class="t">13:30</span><span>Langsame Vorbeifahrt am Fischerhafen Cala Figuera, der Postkartenkulisse der Südostküste</span></li>
-      <li><span class="t">15:30</span><span>Fest in der Marina im fjordartigen Hafenarm von Cala d’Or</span></li>
-    </ul>
-    <div class="abend"><b>Abend:</b> Buchten-Spaziergang (Cala Gran, Caló de ses Dones),
-    lebhafte Restaurant- und Barszene rund um die Marina.</div>
-  </div>
-
-  <div class="day">
-    <h2>Tag 5 · Mi 16.9. — Cala d’Or → Portocolom (mit Badeschleife)</h2>
-    <div class="meta">3,2 sm direkt, mit Schleife Cala Varques ~11 sm · Naturhafen Portocolom</div>
-    <ul class="tl">
-      <li><span class="t">10:00</span><span>Gemütlicher Start; Schleife nach Norden zu den unverbauten Buchten</span></li>
-      <li><span class="t">11:00</span><span>Langer Badestopp Cala Varques oder Cala Sa Nau — Schnorcheln, SUP, Mittagessen vor Anker</span></li>
+      <li><span class="t">13:30</span><span>Langsame Vorbeifahrt am Fischerhafen Cala Figuera — dort liegt ihr am Mittwoch</span></li>
       <li><span class="t">15:30</span><span>Einlaufen in den größten Naturhafen der Ostküste</span></li>
     </ul>
-    <div class="abend"><b>Abend:</b> Runde durch das alte Fischerviertel mit den bunten
-    Bootshäusern, Spaziergang zum Leuchtturm Punta de ses Crestes; ruhigster Abendort der Woche.</div>
+    <div class="abend"><b>Abend:</b> Bootshäuser von Es Riuetó, Leuchtturm-Spaziergang — und das
+    erste fertige Kapitel des <a href="guide.html">🎧 Audio-Guides</a> läuft ab hier.</div>
   </div>
 
   <div class="day">
-    <h2>Tag 6 · Do 17.9. — Portocolom → Sa Ràpita</h2>
-    <div class="meta">21,7 sm · ~3 h Fahrt + Stopp · Club Nàutic sa Ràpita</div>
+    <h2>Tag 4 · Di 15.9. — Portocolom → Porto Cristo</h2>
+    <div class="meta">8,2 sm direkt · Kurztag mit Badeschleife · Stadthafen (Kat-Platz angefragt)</div>
     <ul class="tl">
-      <li><span class="t">09:00</span><span>Ablegen, noch einmal um Cap de ses Salines — zweite Chance für verpasste Stopps</span></li>
-      <li><span class="t">12:00</span><span>Badestopp vor Es Trenc: ankern auf Sand vor dem Naturstrand, Mittag an Bord</span></li>
-      <li><span class="t">15:30</span><span>Fest im Club Nàutic sa Ràpita, tanken schon möglich</span></li>
+      <li><span class="t">10:00</span><span>Gemütlicher Start, Badeschleife über die unverbauten Buchten (Cala Varques)</span></li>
+      <li><span class="t">12:30</span><span>Langer Anker-Mittag: Schnorcheln, SUP</span></li>
+      <li><span class="t">15:00</span><span>Einlaufen Porto Cristo</span></li>
+      <li><span class="t">16:30</span><span>Coves del Drach: unterirdischer See mit Konzert (Tickets vorab!) — alternativ morgen früh</span></li>
     </ul>
-    <div class="abend"><b>Abend:</b> Sundowner an der Hafenmole, Abschlussdinner der
-    „richtigen“ Törntage.</div>
+    <div class="abend"><b>Abend:</b> Hafenpromenade an der Flussmündung, Altstadtgassen.</div>
   </div>
 
   <div class="day">
-    <h2>Tag 7 · Fr 18.9. — Sa Ràpita → Palma (Transfer)</h2>
-    <div class="meta">22,1 sm · ~3 h reine Fahrt · Rückgabe an der Basis</div>
+    <h2>Tag 5 · Mi 16.9. — Porto Cristo → Cala Figuera</h2>
+    <div class="meta">~15 sm · ~2 h Fahrt + Stopps · kleinster Stadthafen der Route (Kat-Breite vorab klären; Ausweich: Bojenfeld Porto Petro)</div>
     <ul class="tl">
-      <li><span class="t">08:00</span><span>Früh ablegen — reiner Überstellungsschlag um Cap Blanc</span></li>
-      <li><span class="t">11:00</span><span>Ankunft Palma, tanken, Boot klarieren</span></li>
-      <li><span class="t">14:00</span><span>Rückgabe/Check-out an der Basis — Nachmittag frei für Palma (Kathedrale, Altstadt)</span></li>
+      <li><span class="t">09:30</span><span>Ablegen nach Süden, Badestopp Cala Sa Nau oder Cala Mitjana</span></li>
+      <li><span class="t">15:00</span><span>Einlaufen in den schmalen Doppelfjord — der Postkarten-Fischerhafen der Insel</span></li>
     </ul>
-    <div class="abend"><b>Hinweis:</b> Dieser Tag ist bewusst ohne Stopps geplant — Puffer für
-    Wetter und Rückgabezeit.</div>
+    <div class="abend"><b>Abend:</b> Bootshäuser am Wasser, Klippenweg zum Leuchtturm;
+    der ruhigste und fotogenste Abendort der Woche.</div>
+  </div>
+
+  <div class="day">
+    <h2>Tag 6 · Do 17.9. — Cala Figuera → Cabrera</h2>
+    <div class="meta">~16 sm · ~2 h Fahrt · reservierte Nationalpark-Boje (die eine „Buchtnacht“)</div>
+    <ul class="tl">
+      <li><span class="t">09:30</span><span>Ablegen, noch einmal um ses Salines — dann Kurs auf den Archipel (Delfin-Chancen)</span></li>
+      <li><span class="t">12:00</span><span>Boje im Naturhafen von Cabrera aufnehmen</span></li>
+      <li><span class="t">14:30</span><span>Landgang: Aufstieg zum Kastell (~20 min), Museum, Wanderwege des Parks</span></li>
+      <li><span class="t">18:00</span><span>Mit dem Dinghi zur Blauen Grotte (Sa Cova Blava), sofern die Parkverwaltung es freigibt — Abendlicht ist die beste Zeit</span></li>
+    </ul>
+    <div class="abend"><b>Abend:</b> Bordküche statt Restaurant (an Land nur eine kleine
+    Cantina); dafür einer der dunkelsten Sternenhimmel der Balearen als Abschluss-Höhepunkt.
+    <span class="hinweis">Boje vorab buchen — Fenster öffnet 20 Tage vorher (<b>28.8.</b>),
+    gelbe Kategorie 12–15 m, ca. 68 €/Nacht. Ankern ist im ganzen Park untersagt.</span></div>
+  </div>
+
+  <div class="day">
+    <h2>Tag 7 · Fr 18.9. — Cabrera → Palma (Transfer)</h2>
+    <div class="meta">~29 sm · ~4 h reine Fahrt (einzige Etappe über dem Limit — bewusst als reiner Transfertag) · Rückgabe an der Basis</div>
+    <ul class="tl">
+      <li><span class="t">08:00</span><span>Früh ablegen — Überstellungsschlag um Cap Blanc, Frühstück unterwegs</span></li>
+      <li><span class="t">12:00</span><span>Ankunft Palma, tanken, Boot klarieren</span></li>
+      <li><span class="t">14:30</span><span>Rückgabe/Check-out — Nachmittag frei für Palma (Kathedrale, Altstadt)</span></li>
+    </ul>
+    <div class="abend"><b>Hinweis:</b> Wer den langen Freitag vermeiden will: Alternativ Do-Nacht
+    in Colònia de Sant Jordi (26 sm am Fr) — dann entfällt aber die Cabrera-Nacht; abstimmbar an Bord.</div>
   </div>
 
   <div class="notebox">
-    <b>Was dieser Ablauf zeigt:</b> Variante B verteilt die nutzbare Zeit so, dass die fünf
-    vollen Tage (So–Do) je 1,5–3 h Fahrt und viel Land- und Badezeit haben, während An- und
-    Abreisetag nur Mini- bzw. Transferetappen tragen. Bei den Varianten A und C müssten
-    dieselben Randtage 16–26 sm leisten. Tauschlogik unterwegs: Tage 4–6 lassen sich bei
-    Starkwind untereinander tauschen, ohne die Cabrera-Boje (fixe Reservierung Tag 3) zu
-    gefährden.
+    <b>Was dieser Ablauf zeigt:</b> Alle sechs Nächte liegen an Stadthäfen, im Vereinshafen
+    oder an der Nationalpark-Boje — keine einzige Marina. Die fünf vollen Tage (So–Do) haben je
+    1–3 h Fahrt und viel Land- und Badezeit; An- und Abreisetag tragen nur Mini- bzw.
+    Transferetappen. Tauschlogik unterwegs: Die Tage 3–5 (Portocolom, Porto Cristo,
+    Cala Figuera) lassen sich bei Starkwind untereinander tauschen, ohne die fix reservierte
+    Cabrera-Boje (Do) zu gefährden.
   </div>
 
   <footer>Musterablauf, kein Fahrplan — Wetter geht immer vor. Uhrzeiten gerundet, Basis der

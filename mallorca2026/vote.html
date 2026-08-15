@@ -49,9 +49,9 @@ a{color:#0b6aa8}
 <nav class="nav">
   <a href="index.html">🗺️ Routen</a>
   <a href="vote.html" class="act">🗳️ Abstimmung</a>
-  <span class="soon">🎧 Audio-Guide</span>
-  <span class="soon">🚵 Ausflüge</span>
-  <span class="soon">🍽️ Essen</span>
+  <a href="guide.html">🎧 Audio-Guide</a>
+  <a href="tours.html">🚵 Ausflüge</a>
+  <a href="food.html">🍽️ Essen</a>
 </nav>
 <div class="wrap">
   <h1>Welche Route soll es werden?</h1>
@@ -73,26 +73,21 @@ const DB_URL = 'https://boattour2026-default-rtdb.europe-west1.firebasedatabase.
 const NAMES = ['Matthias K.','Klaus G.','Reinhard T.','Alexander S.','Peter D.',
                'Thorsten S.','Roman S.','Günther A.','Clemens K.'];
 const VARIANTS = [
- {id:'runde', name:'A · Die große Inselrunde', color:'#7c3aed', dist:'161 sm',
-  stops:'Palma → Port d’Andratx → Sóller (Boje) → Port de Pollença → Cala Ratjada → Portocolom → Colònia de Sant Jordi → Palma',
+ {id:'runde', name:'A · Die große Inselrunde', color:'#7c3aed', dist:'160 sm',
+  stops:'Palma → Port d’Andratx → Sóller (Boje) → Port de Pollença → Cala Ratjada → Portocolom → Colònia de Sant Jordi → Palma — durchgehend Stadthäfen, keine Marina',
   claim:'Einmal ganz um die Insel: Tramuntana, Cap Formentor, Ostküste, Süden.',
-  pro:'Alles gesehen, jeden Abend ein neuer Ort.',
+  pro:'Alles gesehen, jeden Abend ein neuer Ort; marina-frei.',
   con:'Montag 33 sm (über dem Limit, ~4,5 h Motor); wetterabhängig an der Nordküste.'},
- {id:'sued', name:'B · Süden & Cabrera (regelkonform)', color:'#0b8a4c', dist:'103 sm',
-  stops:'Palma → s’Arenal → Colònia de Sant Jordi → Cabrera (Boje) → Cala d’Or → Portocolom → Sa Ràpita → Palma — <a href="muster-b.html">Musterablauf Tag für Tag ansehen</a>',
-  claim:'Alle Etappen unter 25 sm, Nationalpark Cabrera als Höhepunkt, Es Trenc und die Calas.',
-  pro:'Hält alle Vorgaben ein; wenigste Motorstunden pro Ziel; viel Badezeit.',
-  con:'Tramuntana/Formentor fehlen; Rückweg an bekannter Küste.'},
- {id:'ost', name:'C · Ostküste maximal', color:'#0b6aa8', dist:'118 sm',
-  stops:'Palma → Sa Ràpita → Cabrera (Boje) → Porto Petro → Porto Cristo (Drach-Höhlen) → Portocolom → Colònia de Sant Jordi → Palma',
-  claim:'Cabrera früh, dann die ganze Calas-Küste inkl. Drach-Höhlen.',
-  pro:'Höhlen + Nationalpark in einer Woche; sechs verschiedene Häfen.',
-  con:'Langer erster Abend (22 sm nach Übernahme); Freitag 26 sm.'},
- {id:'west', name:'D · Tramuntana & Südwesten (kurz)', color:'#c2452e', dist:'92 sm',
-  stops:'Palma → Puerto Portals → Port d’Andratx → Sóller (Boje) → Sant Elm (Ankernacht) → Santa Ponça → s’Arenal → Palma',
-  claim:'Kürzeste Wege: Steilküste + Sóller, Dragonera, Buchten der Palma-Bucht.',
-  pro:'Wenigste Motorstunden, größte Wetterflexibilität.',
-  con:'Kein Cabrera, keine Ostküste; belebtestes Charterrevier.'}
+ {id:'sued', name:'B · Süden & Osten — Stadthäfen & Cabrera', color:'#0b8a4c', dist:'112 sm',
+  stops:'Palma → s’Arenal (Verein) → Colònia de Sant Jordi → Portocolom → Porto Cristo (Drach-Höhlen) → Cala Figuera → Cabrera (Boje) → Palma — <a href="muster-b.html">Musterablauf Tag für Tag ansehen</a>',
+  claim:'Vier echte Stadthäfen, Drach-Höhlen und die Cabrera-Bojennacht zum Finale — keine einzige Marina.',
+  pro:'Maximale Stadthafen-Quote; So–Do alle Etappen unter 25 sm; Höhepunkt am Schluss.',
+  con:'Freitag 29 sm reiner Transfer (~4 h ab 8 Uhr); Cala Figuera für Kat-Breite sehr eng (Ausweich Bojen Porto Petro); Tramuntana fehlt.'},
+ {id:'west', name:'C · Tramuntana & Westen', color:'#c2452e', dist:'126 sm',
+  stops:'Palma → Port d’Andratx → Sóller (Boje) → Sant Elm (Ankernacht) → s’Arenal (Verein) → Colònia de Sant Jordi (+ Hafentag, opt. Cabrera-Tagesausflug) → Palma — keine Marina',
+  claim:'Steilküste und Sóller ohne Inselrunde, dazu ein fester Hafentag am Es Trenc.',
+  pro:'Tramuntana-Kulisse; entspanntester Rhythmus (Hafentag).',
+  con:'Samstag 16 sm mit Ankunft zur Dämmerung; keine Ostküsten-Calas; Ankernacht wetterabhängig; Freitag 26 sm.'}
 ];
 const san = n => n.replace(/[.#$/\[\]]/g,'').replace(/\s+/g,'_');
 let state = {}; /* variantId -> {sanKey: name} */
@@ -122,13 +117,13 @@ async function setVote(name, variantId, checked){
     const want = checked && v.id === variantId;
     if(want && !has){
       state[v.id] = state[v.id] || {}; state[v.id][key] = name;
-      if(live){ const r = await fetch(`${DB_URL}/vote/${v.id}/${key}.json`,
+      if(live){ try{ const r = await fetch(`${DB_URL}/vote/${v.id}/${key}.json`,
         {method:'PUT', body: JSON.stringify(name)});
-        if(!r.ok) console.log('PUT fehlgeschlagen', r.status); }
+        if(!r.ok) console.log('PUT fehlgeschlagen', r.status);}catch(e){console.log('offline',e);} }
     }else if(!want && has){
       delete state[v.id][key];
-      if(live){ const r = await fetch(`${DB_URL}/vote/${v.id}/${key}.json`,{method:'DELETE'});
-        if(!r.ok) console.log('DELETE fehlgeschlagen', r.status); }
+      if(live){ try{ const r = await fetch(`${DB_URL}/vote/${v.id}/${key}.json`,{method:'DELETE'});
+        if(!r.ok) console.log('DELETE fehlgeschlagen', r.status);}catch(e){console.log('offline',e);} }
     }
   }
   if(!live) localStorage.setItem('vote2026', JSON.stringify(state));
