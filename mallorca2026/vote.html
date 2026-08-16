@@ -93,7 +93,12 @@ const VARIANTS = [
   stops:'Palma → s’Arenal (Verein) → Portocolom → Cala Ratjada → Ciutadella/Menorca → Porto Cristo → Colònia de Sant Jordi → Palma — nur Stadthäfen, keine Marina',
   claim:'Zwei Inseln in einer Woche: 22 sm über den Menorca-Kanal, Abend und Vormittag in der Altstadt von Ciutadella.',
   pro:'Ciutadella als Höhepunkt; beide Querungen kurz und bei Tageslicht.',
-  con:'Sportlichste Variante: ~23 h Motor, So und Mi je ~36 sm, Do ~27 sm; nur bei stabiler Wetterlage (Umkehrplan = Variante B); kein Cabrera.'}
+  con:'Sportlichste Variante: ~23 h Motor, So und Mi je ~36 sm, Do ~27 sm; nur bei stabiler Wetterlage (Umkehrplan = Variante B); kein Cabrera.'},
+ {id:'menorcawest', name:'E · Menorca über den Westen (Maximalroute)', color:'#0d8a8a', dist:'196 sm',
+  stops:'Palma → Port d’Andratx → Sóller (Boje) → Port de Pollença → Ciutadella/Menorca → Porto Cristo → Colònia de Sant Jordi → Palma — Stadthäfen/Boje, keine Marina',
+  claim:'Tramuntana, Formentor UND Menorca — faktisch Inselrunde plus Ciutadella.',
+  pro:'Alles in einer Woche, keine Küste doppelt.',
+  con:'Extremste Variante: ~26 h Motor, Mo–Mi drei Tage à 33–36 sm, doppelt wetterkritisch (Tramuntana und Kanal), kein Puffertag, kein Cabrera, wenig Badezeit.'}
 ];
 const san = n => n.replace(/[.#$/\[\]]/g,'').replace(/\s+/g,'_');
 let state = {}; /* variantId -> {sanKey: name} */
