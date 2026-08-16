@@ -88,7 +88,12 @@ const VARIANTS = [
   stops:'Palma → Port d’Andratx → Sóller (Boje) → Sant Elm (Ankernacht) → s’Arenal (Verein) → Colònia de Sant Jordi (+ Hafentag, opt. Cabrera-Tagesausflug) → Palma — keine Marina',
   claim:'Steilküste und Sóller ohne Inselrunde, dazu ein fester Hafentag am Es Trenc.',
   pro:'Tramuntana-Kulisse; entspanntester Rhythmus (Hafentag).',
-  con:'Samstag 16 sm mit Ankunft zur Dämmerung; keine Ostküsten-Calas; Ankernacht wetterabhängig; Freitag 26 sm.'}
+  con:'Samstag 16 sm mit Ankunft zur Dämmerung; keine Ostküsten-Calas; Ankernacht wetterabhängig; Freitag 26 sm.'},
+ {id:'menorca', name:'D · Menorca-Abstecher (sportlich)', color:'#0b6aa8', dist:'176 sm',
+  stops:'Palma → s’Arenal (Verein) → Portocolom → Cala Ratjada → Ciutadella/Menorca → Porto Cristo → Colònia de Sant Jordi → Palma — nur Stadthäfen, keine Marina',
+  claim:'Zwei Inseln in einer Woche: 22 sm über den Menorca-Kanal, Abend und Vormittag in der Altstadt von Ciutadella.',
+  pro:'Ciutadella als Höhepunkt; beide Querungen kurz und bei Tageslicht.',
+  con:'Sportlichste Variante: ~23 h Motor, So und Mi je ~36 sm, Do ~27 sm; nur bei stabiler Wetterlage (Umkehrplan = Variante B); kein Cabrera.'}
 ];
 const san = n => n.replace(/[.#$/\[\]]/g,'').replace(/\s+/g,'_');
 let state = {}; /* variantId -> {sanKey: name} */

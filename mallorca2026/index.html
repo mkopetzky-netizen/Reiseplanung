@@ -817,7 +817,8 @@ const WP = {
   PCRISTO:[39.5400,3.3420], PCOLOM:[39.4160,3.2660], PPETRO:[39.3590,3.2130],
   CFIGS:[39.3300,3.1700], SALINES:[39.2560,3.0560], CSJORDI:[39.3140,2.9950],
   CABRERA:[39.1480,2.9330], ESTRENC:[39.3390,2.9680], CALAPI:[39.3620,2.8380],
-  CAPBLANC:[39.3580,2.7900], ARENAL:[39.5010,2.7480]
+  CAPBLANC:[39.3580,2.7900], ARENAL:[39.5010,2.7480],
+  CIUTADELLA:[40.0005,3.8290], OFFCAPD:[39.7000,3.5200]
 };
 /* ===== Übernachtungs-/Basis-Stopps (Marina-frei: nur Stadthäfen, Vereinshafen, Bojen) ===== */
 const STOPS = {
@@ -854,6 +855,9 @@ const STOPS = {
   CABRERA:{n:'Cabrera (Nationalpark)',type:'Bojenfeld',badge:'ok',
     ch:'Autofreier Inselnationalpark: Kastell über der Bucht, Museum, Blaue Grotte, glasklares Wasser.',
     px:'Nur reservierte Boje (gelb, 12–15 m, ca. 68 €/Nacht); Buchung ab 20 Tage vorher auf caib.es. Ankern im ganzen Park verboten. Dies ist die eine „Buchtnacht“.'},
+  CIUTADELLA:{n:'Ciutadella (Menorca)',type:'Stadthafen (Ports IB)',badge:'warn',
+    ch:'Der alte Bischofssitz Menorcas: fjordartiger Naturhafen mitten in der honigfarbenen Altstadt — einer der schönsten Stadthäfen der Balearen.',
+    px:'Ports-IB-Liegeplätze im engen Hafenkanal — Kat-Breite (7,3 m) zwingend vorab klären; Ausweich Bojen/äußere Anlage. Achtung Rissaga: Bei Warnung vor dem lokalen Schwallphänomen den Hafen meiden (Basis/Hafenamt fragen).'},
   SANTELM:{n:'Sant Elm (Ankerbucht)',type:'Ankerbucht',badge:'warn',
     ch:'Dorf gegenüber der unbewohnten Felseninsel Sa Dragonera; Sonnenuntergang hinter der Insel.',
     px:'Ankernacht (die eine Buchtnacht): nur bei ruhiger Lage, Sandflecken nutzen — Posidonia ist geschützt und wird kontrolliert.'}
@@ -923,6 +927,29 @@ const VARIANTS = [
    {d:'Do 17.9.', route:['CSJORDI'],
     note:'Hafentag: Salinen, Es-Trenc-Strand, Markt — optional Cabrera-Tagesausflug (Ausflugsboot ab dem Hafen oder eigener Kiel mit Tagesgenehmigung).',
     prax:'Liegeplatz bleibt — zweite Nacht im selben Hafen ist mit dem Hafenamt anzumelden.'},
+   {d:'Fr 18.9.', route:['CSJORDI','ESTRENC','CALAPI','CAPBLANC','PALMA'],
+    note:'Früh los (~25 sm, ~3,5 h) zurück zur Basis.',
+    prax:'Rückgabetag: vor der Basis tanken, Boot klarieren — Rückgabe/Check-out am Nachmittag.'}
+  ]},
+ {id:'menorca', name:'D · Menorca-Abstecher (sportlich)', color:'#0b6aa8',
+  claim:'Über die Ostküste nach Cala Ratjada, 22 sm über den Menorca-Kanal nach Ciutadella — Abend und Vormittag in einer der schönsten Altstädte der Balearen — und über Porto Cristo zurück. Nur Stadthäfen und der Vereinshafen s’Arenal, aber klar gesagt: Das 25-sm-Limit wird an drei Tagen überschritten (So und Mi je ~36 sm, Do ~27 sm), gesamt ~176 sm.',
+  pro:'Zwei Inseln in einer Woche; Ciutadella als Höhepunkt; beide Kanalquerungen kurz (je 22 sm) und bei Tageslicht.',
+  con:'~23 h Motorfahrt gesamt; So und Mi je ~36 sm (5 h); Kanal nur bei stabiler Wetterlage (bei N-Wind ruppig — Umkehrplan: Variante B ab Portocolom); kein Cabrera; Ciutadella-Hafen für Kat-Breite eng (klären, Rissaga-Phänomen beachten).',
+  days:[
+   {d:'Sa 12.9.', route:['PALMA','ARENAL'],
+    note:'Kurzer Auftakt über die Bucht — Kräfte sparen für den langen Sonntag.'},
+   {d:'So 13.9.', route:['ARENAL','CAPBLANC','CALAPI','ESTRENC','CSJORDI','SALINES','CFIGS','PPETRO','PCOLOM'],
+    note:'Langer Schlag um den ganzen Süden (8 Uhr ablegen, ~5 h): Cap Blanc, ses Salines, kurzer Badestopp Cala Màrmols — Abend im Naturhafen.'},
+   {d:'Mo 14.9.', route:['PCOLOM','PCRISTO','CRATJADA'],
+    note:'Die Calas-Küste hinauf (Badestopp Cala Varques), abends Ostspitze — früh schlafen, morgen Kanal.'},
+   {d:'Di 15.9.', route:['CRATJADA','CAPDEPERA','CIUTADELLA'],
+    note:'Bei Tagesanbruch über den Menorca-Kanal (22 sm, ~3 h) — Nachmittag und Abend in der Altstadt von Ciutadella.',
+    k:{lv:'warn',t:'Kanalquerung — nur bei stabilem Wetter'}},
+   {d:'Mi 16.9.', route:['CIUTADELLA','OFFCAPD','PCRISTO'],
+    note:'Vormittag Markt und Kathedrale, mittags zurück über den Kanal und die Küste hinunter (~36 sm, ~5 h) nach Porto Cristo.',
+    k:{lv:'warn',t:'zweiter langer Tag — Reserve einplanen'}},
+   {d:'Do 17.9.', route:['PCRISTO','PCOLOM','PPETRO','CFIGS','SALINES','CSJORDI'],
+    note:'Um ses Salines zurück in den Süden; Badestopp nach Wahl, Abend beim Salinenort.'},
    {d:'Fr 18.9.', route:['CSJORDI','ESTRENC','CALAPI','CAPBLANC','PALMA'],
     note:'Früh los (~25 sm, ~3,5 h) zurück zur Basis.',
     prax:'Rückgabetag: vor der Basis tanken, Boot klarieren — Rückgabe/Check-out am Nachmittag.'}
