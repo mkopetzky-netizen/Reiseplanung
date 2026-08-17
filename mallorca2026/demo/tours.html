@@ -100,8 +100,7 @@ footer{color:var(--mut);font-size:12.5px;line-height:1.6;margin-top:22px;
 <script>
 'use strict';
 const DB_URL=''; /* DEMO-Kopie: keine gemeinsame Datenbank */
-const NAMES=['Matthias K.','Klaus G.','Reinhard T.','Alexander S.','Peter D.',
-             'Thorsten S.','Roman S.','Günther A.','Clemens K.'];
+const NAMES=['MK','KG','RT','AS','PD','TS','RS','GA','CK']; /* DEMO: Kürzel statt Namen */
 const san=n=>n.replace(/[.#$/\[\]]/g,'').replace(/\s+/g,'_');
 const $=id=>document.getElementById(id);
 const live=!!DB_URL;
@@ -134,7 +133,13 @@ function persistLocal(){localStorage.setItem('tours2026',JSON.stringify(tours));
 async function load(){
   if(live){try{const r=await fetch(DB_URL+'/tours.json');
     if(r.ok)tours=(await r.json())||{};}catch(e){}}
-  else{try{tours=JSON.parse(localStorage.getItem('tours2026')||'{}');}catch(e){tours={};}}
+  else{try{tours=JSON.parse(localStorage.getItem('tours2026')||'{}');}catch(e){tours={};}
+    if(Object.keys(tours).length===0){ /* DEMO: Beispiel-Ausflug */
+      tours={demo1:{title:'Kastell-Wanderung Cabrera (Beispiel)',
+        link:'https://www.google.com/maps/search/?api=1&query=Castell+de+Cabrera',
+        start:'2026-09-17T14:30',host:'MK',
+        note:'Demo-Eintrag: Aufstieg ~20 min, festes Schuhwerk, Wasser mitnehmen — danach Sa Cova Blava per Dinghi.',
+        signups:{MK:'MK',KG:'KG',RS:'RS'},extra:''}};}}
   render();
 }
 $('fSave').onclick=async()=>{
