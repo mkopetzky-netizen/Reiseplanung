@@ -744,7 +744,7 @@ footer a{color:var(--acc)}
 <header>
   <h1>Mallorca-Törn 2026 · Routenvarianten</h1>
   <div class="sub">Sa 12.9. (Übernahme nachmittags, Palma) – Fr 18.9.2026 (Rückgabe nachmittags) ·
-  Katamaran 42 ft, überwiegend Motor (~7,5 kn) · 9 Crew · Tageslimit 25 sm ·
+  Lagoon 450 (13,96 m · Breite 7,87 m · Tiefgang 1,30 m), überwiegend Motor (~7,5 kn) · 9 Crew · Tageslimit 25 sm ·
   <b>Stadthäfen absolut bevorzugt — keine Marinas</b> · max. 1 Buchtnacht · kein Hafen doppelt</div>
 </header>
 <div class="tabs" id="tabs"></div>
@@ -763,7 +763,7 @@ footer a{color:var(--acc)}
   <div id="days"></div>
   <div class="notebox" id="katNote">
     <b>Katamaran-Liegeplätze — bitte vorab klären:</b> Mallorca ist kein Stadtkai-Revier wie
-    Kroatien. Für 7,3 m Breite ist an keinem der Stopps ein Kaiplatz garantiert — Ports-IB-Häfen
+    Kroatien. Für die 7,87 m Breite der Lagoon 450 ist an keinem der Stopps ein Kaiplatz garantiert — Ports-IB-Häfen
     und Bojen sind seit 2024 online reservierbar (reservas.portsib.es, Bojen bis 25 m Länge),
     Club-Nàutic-Häfen telefonisch. Empfehlung: Klärungsliste der Wunschstopps an die Charterbasis
     schicken; orange markierte Stopps zuerst.
@@ -827,7 +827,7 @@ const STOPS = {
     px:'Basis: Übernahme Sa nachmittags (bunkern, einweisen, Großeinkauf) · Rückgabe Fr nachmittags nach dem Tanken.'},
   ANDRATX:{n:'Port d’Andratx',type:'Stadthafen (Ports IB)',badge:'warn',
     ch:'Tief eingeschnittener Naturhafen im Südwesten, Fischerort mit Abendpromenade und Restaurantzeile.',
-    px:'Ports-IB-Kai: östlicher Schwimmsteg lt. ADAC nur bis 12 m — Kat-Breite (7,3 m) vorab klären (reservas.portsib.es).'},
+    px:'Ports-IB-Kai: östlicher Schwimmsteg lt. ADAC nur bis 12 m — Kat-Breite (7,87 m) vorab klären (reservas.portsib.es).'},
   SOLLER:{n:'Port de Sóller',type:'Stadthafen / Ports-IB-Boje',badge:'warn',
     ch:'Einzige geschützte Bucht der Tramuntana; historische Straßenbahn ins Orangental nach Sóller.',
     px:'Ports-IB-Bojenfeld (seit 2024 auch Katamarane bis 25 m; reservas.portsib.es) — Boje statt Kai einplanen, Dinghi an Land.'},
@@ -845,10 +845,10 @@ const STOPS = {
     px:'Ports-IB-Bojenfeld im Hafen (online buchbar) + begrenzte Kaiplätze; für Kat Boje wahrscheinlicher als Kai.'},
   CFIGS:{n:'Cala Figuera (Santanyí)',type:'Stadthafen (Ports IB, sehr klein)',badge:'warn',
     ch:'Der malerischste Fischerhafen der Insel: schmaler Doppelfjord, Bootshäuser direkt am Wasser, kaum verbaut.',
-    px:'Winziger Hafen — für 7,3 m Kat-Breite zwingend vorab mit Ports IB/Basis klären; Ausweich: Ports-IB-Bojenfeld Porto Petro (3 sm).'},
+    px:'Winziger Hafen — für 7,87 m Kat-Breite zwingend vorab mit Ports IB/Basis klären; Ausweich: Ports-IB-Bojenfeld Porto Petro (3 sm).'},
   CSJORDI:{n:'Colònia de Sant Jordi',type:'Stadthafen (flach!)',badge:'warn',
     ch:'Salinenort vor dem Naturstrand Es Trenc; Ausgangspunkt der Cabrera-Ausflugsboote.',
-    px:'Zufahrt und Hafen flach — Tiefgang/Kat-Platz zwingend mit Basis/Hafen klären.'},
+    px:'Zufahrt und Hafen flach — mit 1,30 m Tiefgang der Lagoon 450 grundsätzlich machbar, Platz und Wassertiefe dennoch mit Hafen/Basis klären.'},
   ARENAL:{n:'s’Arenal',type:'Vereinshafen (Club Nàutic)',badge:'warn',
     ch:'Ostende der Playa de Palma; kurzer Auftaktschlag mit Blick auf die Kathedrale.',
     px:'Kein Stadtkai, aber auch keine Resort-Marina: traditioneller Vereinshafen — die einzige Hafenoption der Bucht Richtung Süden. Transit anmelden (Kat-Breite).'},
@@ -857,7 +857,7 @@ const STOPS = {
     px:'Nur reservierte Boje (gelb, 12–15 m, ca. 68 €/Nacht); Buchung ab 20 Tage vorher auf caib.es. Ankern im ganzen Park verboten. Dies ist die eine „Buchtnacht“.'},
   CIUTADELLA:{n:'Ciutadella (Menorca)',type:'Stadthafen (Ports IB)',badge:'warn',
     ch:'Der alte Bischofssitz Menorcas: fjordartiger Naturhafen mitten in der honigfarbenen Altstadt — einer der schönsten Stadthäfen der Balearen.',
-    px:'Ports-IB-Liegeplätze im engen Hafenkanal — Kat-Breite (7,3 m) zwingend vorab klären; Ausweich Bojen/äußere Anlage. Achtung Rissaga: Bei Warnung vor dem lokalen Schwallphänomen den Hafen meiden (Basis/Hafenamt fragen).'},
+    px:'Ports-IB-Liegeplätze im engen Hafenkanal — Kat-Breite (7,87 m) zwingend vorab klären; Ausweich Bojen/äußere Anlage. Achtung Rissaga: Bei Warnung vor dem lokalen Schwallphänomen den Hafen meiden (Basis/Hafenamt fragen).'},
   SANTELM:{n:'Sant Elm (Ankerbucht)',type:'Ankerbucht',badge:'warn',
     ch:'Dorf gegenüber der unbewohnten Felseninsel Sa Dragonera; Sonnenuntergang hinter der Insel.',
     px:'Ankernacht (die eine Buchtnacht): nur bei ruhiger Lage, Sandflecken nutzen — Posidonia ist geschützt und wird kontrolliert.'}
