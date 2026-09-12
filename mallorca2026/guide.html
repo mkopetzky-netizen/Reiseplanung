@@ -920,11 +920,11 @@ async function playFrom(i){speaking=true;stopFlag=false;$('btnPlay').textContent
 /* ============ Karte ============ */
 const map=L.map('map',{zoomSnap:0.25});
 let terr=0,esri=false;
-const carto=L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',
-  {subdomains:'abcd',maxZoom:18,attribution:'© OpenStreetMap © CARTO'});
+const carto=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
+  {maxZoom:18,attribution:'© Esri, © OpenStreetMap-Mitwirkende'});
 carto.on('tileerror',()=>{if(++terr>5&&!esri){esri=true;map.removeLayer(carto);
-  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
-    {maxZoom:18,attribution:'© Esri'}).addTo(map);}});
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {maxZoom:18,attribution:'© OpenStreetMap-Mitwirkende'}).addTo(map);}});
 carto.addTo(map);
 let stLayer=L.layerGroup().addTo(map);
 

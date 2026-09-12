@@ -881,13 +881,13 @@ const COL='#0b6aa8';
 
 /* ===== Karte ===== */
 const map=L.map('map',{zoomSnap:0.25});
-let tileErrors=0,esriOn=false;
-const carto=L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',
-  {subdomains:'abcd',maxZoom:18,attribution:'© OpenStreetMap © CARTO'});
-carto.on('tileerror',()=>{if(++tileErrors>5&&!esriOn){esriOn=true;map.removeLayer(carto);
-  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
-    {maxZoom:18,attribution:'© Esri'}).addTo(map);
-  document.getElementById('mapStatus').textContent='Karten-Fallback (Esri) aktiv';}});
+let tileErrors=0,fbOn=false;
+const carto=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
+  {maxZoom:18,attribution:'© Esri, © OpenStreetMap-Mitwirkende'});
+carto.on('tileerror',()=>{if(++tileErrors>5&&!fbOn){fbOn=true;map.removeLayer(carto);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {maxZoom:18,attribution:'© OpenStreetMap-Mitwirkende'}).addTo(map);
+  document.getElementById('mapStatus').textContent='Karten-Fallback (OSM) aktiv';}});
 carto.addTo(map);
 const layer=L.layerGroup().addTo(map), labelLayer=L.layerGroup().addTo(map);
 
