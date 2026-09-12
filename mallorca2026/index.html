@@ -713,7 +713,10 @@ header .sub{color:var(--mut);font-size:13.5px;margin-top:4px;line-height:1.45}
 .day .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
 .day .rt{font-weight:600;font-size:15px}
 .day .dd{color:var(--mut);font-size:13px;white-space:nowrap}
+.day .zeile{font-size:14px;margin-top:6px;color:var(--acc)}
+.day .zeile b{color:var(--acc)}
 .day .note{font-size:13.8px;line-height:1.5;margin-top:6px}
+.day .note.stop{color:var(--mut)}
 .day .prax{font-size:13.2px;line-height:1.5;margin-top:6px;color:var(--mut)}
 .bdg{display:inline-block;font-size:12px;padding:3px 9px;border-radius:99px;color:#fff;margin:2px 4px 0 0;vertical-align:middle}
 .b-ok{background:var(--ok)} .b-warn{background:var(--warn)} .b-bad{background:var(--bad)} .b-grey{background:var(--grey)}
@@ -734,20 +737,19 @@ footer a{color:var(--acc)}
 </head>
 <body>
 <nav class="nav">
-  <a href="index.html" class="act">🗺️ Routen</a>
-  <a href="vote.html">🗳️ Abstimmung</a>
+  <a href="index.html" class="act">🗺️ Route</a>
+  <a href="plan.html">📋 Tagesplan</a>
   <a href="guide.html">🎧 Audio-Guide</a>
   <a href="tours.html">🚵 Ausflüge</a>
   <a href="food.html">🍽️ Essen</a>
   <a href="proviant.html">🛒 Einkauf</a>
 </nav>
 <header>
-  <h1>Mallorca-Törn 2026 · Routenvarianten</h1>
-  <div class="sub">Sa 12.9. (Übernahme nachmittags, Palma) – Fr 18.9.2026 (Rückgabe nachmittags) ·
-  Lagoon 450 (13,96 m · Breite 7,87 m · Tiefgang 1,30 m), überwiegend Motor (~7,5 kn) · 9 Crew · Tageslimit 25 sm ·
-  <b>Stadthäfen absolut bevorzugt — keine Marinas</b> · max. 1 Buchtnacht · kein Hafen doppelt</div>
+  <h1>Mallorca-Törn 2026 · unsere Route</h1>
+  <div class="sub"><b>So 13.9. 10:00 ab Palma – Fr 18.9. 15:00 zurück in Palma</b> ·
+  Inselrunde im Uhrzeigersinn · Do/Fr-Nacht auf Cabrera ·
+  Lagoon 450 (13,96 m · Breite 7,87 m · Tiefgang 1,30 m), überwiegend Motor (~7,5 kn) · 9 Crew</div>
 </header>
-<div class="tabs" id="tabs"></div>
 <div id="map"></div>
 <div class="mrow">
   <label><input type="checkbox" id="cbLabels" checked> Etappen-Labels</label>
@@ -756,43 +758,47 @@ footer a{color:var(--acc)}
 <div class="wrap">
   <div class="claim" id="claim"></div>
   <div class="bud">
-    <h3>Etappen vs. 25-sm-Limit</h3>
+    <h3>Fahrzeit pro Tag</h3>
     <div class="tot" id="budTot"></div>
     <div class="bars" id="bars"></div>
   </div>
   <div id="days"></div>
-  <div class="notebox" id="katNote">
-    <b>Katamaran-Liegeplätze — bitte vorab klären:</b> Mallorca ist kein Stadtkai-Revier wie
-    Kroatien. Für die 7,87 m Breite der Lagoon 450 ist an keinem der Stopps ein Kaiplatz garantiert — Ports-IB-Häfen
-    und Bojen sind seit 2024 online reservierbar (reservas.portsib.es, Bojen bis 25 m Länge),
-    Club-Nàutic-Häfen telefonisch. Empfehlung: Klärungsliste der Wunschstopps an die Charterbasis
-    schicken; orange markierte Stopps zuerst.
+
+  <div class="notebox" id="cabreraNote">
+    <b>⚠️ Cabrera-Boje — kritischer Punkt:</b> Für die Nacht Do 17. auf Fr 18.9. ist eine
+    <b>reservierte Boje zwingend</b> (Ankern im ganzen Nationalpark verboten, Kontrollen).
+    Buchung auf <b>caib.es</b> („Reserva Cabrera“), gelbe Kategorie 12–15 m, ca. 68 €/Nacht.
+    Das 20-Tage-Fenster ist seit 28.8. offen — <b>sofort prüfen und buchen</b>.
+    Falls ausgebucht: Ausweichnacht Colònia de Sant Jordi (10,4 sm vor Cabrera) und Cabrera
+    als Tagesstopp am Freitagvormittag — dann aber sehr knapp bis 15:00 Palma.
   </div>
-  <div class="notebox blue" id="cabreraNote">
-    <b>Cabrera-Nationalpark:</b> Ankern verboten, nur reservierte Bojen (gelbe Kategorie 12–15 m,
-    ca. 68 €/Nacht Mai–Sep). Buchung frühestens <b>20 Tage im Voraus</b> auf caib.es
-    („Reserva Cabrera“) — für die Do-Nacht 17.9. (Variante B) also ab <b>28.8.2026</b>.
-    Ohne Reservierung wird man auch bei freien Bojen weggeschickt.
+  <div class="notebox" id="katNote">
+    <b>Liegeplätze für 7,87 m Breite — vorab anrufen:</b> Kein Stopp der Route hat einen
+    garantierten Kaiplatz für den Kat. Sóller ist als <b>Boje</b> geplant (Ports IB, online),
+    Pollença und Cala Ratjada sind eng (Cala Ratjada nur ~22 Plätze, keine Reservierung),
+    Portocolom eher Boje als Kai. Empfehlung: heute die Basis bitten, für Mo–Mi vorab
+    anzurufen; Ports-IB-Plätze und Bojen unter reservas.portsib.es.
+  </div>
+  <div class="notebox blue" id="wxNote">
+    <b>Wetter-Vorbehalt Nordwestküste:</b> Die ersten beiden Tage führen an der offenen
+    Tramuntana-Küste entlang — dort gibt es zwischen Andratx und Sóller keinen Schutzhafen.
+    Bei angesagtem Nord-/Nordwestwind besser umdrehen und die Südost-Runde fahren:
+    So Colònia de Sant Jordi · Mo Portocolom · Di Porto Cristo · Mi Cala Figuera ·
+    Do Cabrera · Fr Palma (~112 sm, alle Etappen kurz). Cabrera bleibt dabei unverändert
+    die Donnerstagnacht.
   </div>
   <div class="legend">
-    <b>Badges:</b>
-    <span class="bdg b-ok">grün</span> belegt geeignet / regelkonform ·
-    <span class="bdg b-warn">orange</span> mit Basis/Hafen klären bzw. grenzwertig ·
-    <span class="bdg b-bad">rot</span> über dem Tageslimit ·
-    <span class="bdg b-grey">grau</span> abgeleitet/unbestätigt.
     Distanzen: Haversine über realistische Wegpunkte (Kap-Rundungen), ohne Badeschleifen;
-    Praxisreserve +5–10 % einplanen. Fahrzeit bei ~7,5 kn Motorfahrt.
+    Fahrzeit bei 7,5 kn Motorfahrt. Ankunftszeiten inklusive der genannten Bade-/Fotostopps.
+    Sonnenuntergang Mitte September ca. 19:50, Sonnenaufgang ca. 7:30.
   </div>
   <footer id="foot">
-    <b>Recherche-Stand 15.8.2026.</b> Grundlagen u. a.:
-    <a href="https://www.blauwasser.de/reviere/segeln-rund-mallorca-toernplan">Blauwasser-Törnplan rund Mallorca</a> (~170 sm, im Uhrzeigersinn),
-    <a href="https://www.blauwasser.de/reviere/mallorca-cabrera-genehmigung-bojenreservierung">Cabrera-Genehmigung</a>,
-    <a href="https://www.yacht.de/en/travel-and-charter/spain/balearic-islands-new-booking-system-for-buoy-moorings-more-controls-when-anchoring/">Ports-IB-Bojenbuchung/Posidonia-Kontrollen (YACHT)</a>,
-    <a href="https://www.velamayorca.com/de/segelroute-mallorca-7-tage/">Standardroute Vela Mayorca ab Palma</a> (Sa Cabrera → So Cala d’Or → Mo Cala Ratjada …, gegen den Uhrzeigersinn),
-    ADAC-Skipper-Hafendaten (Andratx, Pollença, Cala Ratjada). Wochentakte der Flotten sind aus
-    Veranstalter-Reiseverläufen <i>abgeleitet und unbestätigt</i>. Posidonia-Schutz: beim Ankern
-    Sandflecken nutzen, ca. 20 Patrouillenboote kontrollieren. Hafen-/Bojenangaben vor Ort bzw.
-    mit der Basis verifizieren.
+    <b>Stand 12.9.2026 — verbindlicher Törnplan.</b> Grundlagen u. a.:
+    <a href="https://www.blauwasser.de/reviere/segeln-rund-mallorca-toernplan">Blauwasser-Törnplan rund Mallorca</a>,
+    <a href="https://www.blauwasser.de/reviere/mallorca-cabrera-genehmigung-bojenreservierung">Cabrera-Genehmigung &amp; Bojenreservierung</a>,
+    <a href="https://www.yacht.de/en/travel-and-charter/spain/balearic-islands-new-booking-system-for-buoy-moorings-more-controls-when-anchoring/">Ports-IB-Bojenbuchung &amp; Posidonia-Kontrollen (YACHT)</a>,
+    ADAC-Skipper-Hafendaten. Posidonia-Schutz: beim Ankern Sandflecken nutzen.
+    Hafen- und Bojenangaben vor Ort bzw. mit der Basis verifizieren.
   </footer>
 </div>
 
@@ -809,185 +815,69 @@ footer a{color:var(--acc)}
 /* ===== Wegpunkte (Kap-Rundungen etc.; Koordinaten gerundet, ±100 m) ===== */
 const WP = {
   PALMA:[39.5665,2.6300], CCF:[39.4590,2.5260], MALGRATS:[39.4980,2.4520],
-  ANDRATX:[39.5450,2.3850], DRAGONERA:[39.5830,2.3480], SANTELM:[39.5780,2.3520],
-  PTALMONJA:[39.6350,2.3900], BANYALBUFAR:[39.6900,2.4900], FORADADA:[39.7580,2.6120],
-  SOLLER:[39.7970,2.6900], SACALOBRA:[39.8520,2.7970], CALASTVIC:[39.9080,2.9200],
-  FORMENTOR:[39.9660,3.2130], POLLENCA:[39.9090,3.0810], CAPPINAR:[39.8720,3.1900],
-  FARRUTX:[39.7470,3.3620], CRATJADA:[39.7120,3.4640], CAPDEPERA:[39.7190,3.4880],
-  PCRISTO:[39.5400,3.3420], PCOLOM:[39.4160,3.2660], PPETRO:[39.3590,3.2130],
-  CFIGS:[39.3300,3.1700], SALINES:[39.2560,3.0560], CSJORDI:[39.3140,2.9950],
-  CABRERA:[39.1480,2.9330], ESTRENC:[39.3390,2.9680], CALAPI:[39.3620,2.8380],
-  CAPBLANC:[39.3580,2.7900], ARENAL:[39.5010,2.7480],
-  CIUTADELLA:[40.0005,3.8290], OFFCAPD:[39.7000,3.5200]
+  ANDRATX:[39.5450,2.3850], DRAGONERA:[39.5830,2.3480], PTALMONJA:[39.6350,2.3900],
+  BANYALBUFAR:[39.6900,2.4900], FORADADA:[39.7580,2.6120], SOLLER:[39.7970,2.6900],
+  SACALOBRA:[39.8520,2.7970], CALASTVIC:[39.9080,2.9200], FORMENTOR:[39.9660,3.2130],
+  POLLENCA:[39.9090,3.0810], CAPPINAR:[39.8720,3.1900], FARRUTX:[39.7470,3.3620],
+  CRATJADA:[39.7120,3.4640], CAPDEPERA:[39.7190,3.4880], PCRISTO:[39.5400,3.3420],
+  PCOLOM:[39.4160,3.2660], PPETRO:[39.3590,3.2130], CFIGS:[39.3300,3.1700],
+  SALINES:[39.2560,3.0560], CABRERA:[39.1480,2.9330], CAPBLANC:[39.3580,2.7900]
 };
-/* ===== Übernachtungs-/Basis-Stopps (Marina-frei: nur Stadthäfen, Vereinshafen, Bojen) ===== */
+/* ===== Übernachtungsstopps ===== */
 const STOPS = {
   PALMA:{n:'Palma (Charterbasis)',type:'Basis',badge:'ok',
     ch:'Kathedrale La Seu, Altstadt, Paseo Marítimo — Start und Ziel.',
-    px:'Basis: Übernahme Sa nachmittags (bunkern, einweisen, Großeinkauf) · Rückgabe Fr nachmittags nach dem Tanken.'},
-  ANDRATX:{n:'Port d’Andratx',type:'Stadthafen (Ports IB)',badge:'warn',
-    ch:'Tief eingeschnittener Naturhafen im Südwesten, Fischerort mit Abendpromenade und Restaurantzeile.',
-    px:'Ports-IB-Kai: östlicher Schwimmsteg lt. ADAC nur bis 12 m — Kat-Breite (7,87 m) vorab klären (reservas.portsib.es).'},
-  SOLLER:{n:'Port de Sóller',type:'Stadthafen / Ports-IB-Boje',badge:'warn',
-    ch:'Einzige geschützte Bucht der Tramuntana; historische Straßenbahn ins Orangental nach Sóller.',
-    px:'Ports-IB-Bojenfeld (seit 2024 auch Katamarane bis 25 m; reservas.portsib.es) — Boje statt Kai einplanen, Dinghi an Land.'},
+    px:'Sa 12.9. Übernahme und Großeinkauf, Nacht an der Basis · Fr 18.9. tanken, klarieren, 15:00 Rückgabe.'},
+  SOLLER:{n:'Port de Sóller',type:'Ports-IB-Boje / Hafen',badge:'warn',
+    ch:'Die einzige geschützte Bucht der Tramuntana; historische Straßenbahn hinauf ins Orangental nach Sóller.',
+    px:'Bojenfeld online buchbar (reservas.portsib.es, seit 2024 auch Katamarane) — Boje einplanen, Dinghi an Land. Marinaplätze sind knapp.'},
   POLLENCA:{n:'Port de Pollença',type:'Stadthafen (Ports IB)',badge:'warn',
     ch:'Weite Bucht mit Promenade („Pine Walk“), ruhiger Badeort unter dem Formentor-Grat.',
-    px:'Ports IB nominell bis 15 m, Kat-Breite klären; Zufahrt kann versanden (Basis fragen).'},
-  CRATJADA:{n:'Cala Ratjada',type:'Stadthafen (Ports IB, klein)',badge:'warn',
-    ch:'Fischer- und Ferienort an der Ostspitze, Leuchtturm, Castell de Capdepera in Gehweite.',
-    px:'Nur ~22 Plätze, max. 16 m, keine Reservierung (ADAC) — für Kat eng: früh ankommen, vorab telefonisch klären.'},
-  PCRISTO:{n:'Porto Cristo',type:'Stadthafen (Ports IB / Club)',badge:'grey',
-    ch:'Naturhafen an der Flussmündung; die Coves del Drach mit unterirdischem See direkt am Ort.',
-    px:'Kat-Plätze unbestätigt — vorab anfragen; Drach-Tickets im Voraus buchen.'},
+    px:'Ports IB nominell bis 15 m — Kat-Breite (7,87 m) vorab telefonisch klären; Zufahrt kann versanden. Alternative: Club Nàutic.'},
+  CRATJADA:{n:'Cala Ratjada',type:'Stadthafen (Ports IB, klein)',badge:'bad',
+    ch:'Fischer- und Ferienort an der Ostspitze; Leuchtturm und Castell de Capdepera in Gehweite.',
+    px:'Engster Hafen der Route: nur ~22 Plätze, max. 16 m, keine Reservierung möglich (ADAC) — früh ankommen und vorab anrufen. Ausweich: Ankerbucht Cala Agulla (nur bei ruhiger Lage) oder weiter nach Porto Cristo (+14 sm).'},
   PCOLOM:{n:'Portocolom',type:'Stadthafen (Ports IB, Kai + Bojen)',badge:'warn',
     ch:'Größter Naturhafen der Ostküste, bunte Bootshäuser, Leuchtturm auf der Landzunge.',
-    px:'Ports-IB-Bojenfeld im Hafen (online buchbar) + begrenzte Kaiplätze; für Kat Boje wahrscheinlicher als Kai.'},
-  CFIGS:{n:'Cala Figuera (Santanyí)',type:'Stadthafen (Ports IB, sehr klein)',badge:'warn',
-    ch:'Der malerischste Fischerhafen der Insel: schmaler Doppelfjord, Bootshäuser direkt am Wasser, kaum verbaut.',
-    px:'Winziger Hafen — für 7,87 m Kat-Breite zwingend vorab mit Ports IB/Basis klären; Ausweich: Ports-IB-Bojenfeld Porto Petro (3 sm).'},
-  CSJORDI:{n:'Colònia de Sant Jordi',type:'Stadthafen (flach!)',badge:'warn',
-    ch:'Salinenort vor dem Naturstrand Es Trenc; Ausgangspunkt der Cabrera-Ausflugsboote.',
-    px:'Zufahrt und Hafen flach — mit 1,30 m Tiefgang der Lagoon 450 grundsätzlich machbar, Platz und Wassertiefe dennoch mit Hafen/Basis klären.'},
-  ARENAL:{n:'s’Arenal',type:'Vereinshafen (Club Nàutic)',badge:'warn',
-    ch:'Ostende der Playa de Palma; kurzer Auftaktschlag mit Blick auf die Kathedrale.',
-    px:'Kein Stadtkai, aber auch keine Resort-Marina: traditioneller Vereinshafen — die einzige Hafenoption der Bucht Richtung Süden. Transit anmelden (Kat-Breite).'},
-  CABRERA:{n:'Cabrera (Nationalpark)',type:'Bojenfeld',badge:'ok',
-    ch:'Autofreier Inselnationalpark: Kastell über der Bucht, Museum, Blaue Grotte, glasklares Wasser.',
-    px:'Nur reservierte Boje (gelb, 12–15 m, ca. 68 €/Nacht); Buchung ab 20 Tage vorher auf caib.es. Ankern im ganzen Park verboten. Dies ist die eine „Buchtnacht“.'},
-  CIUTADELLA:{n:'Ciutadella (Menorca)',type:'Stadthafen (Ports IB)',badge:'warn',
-    ch:'Der alte Bischofssitz Menorcas: fjordartiger Naturhafen mitten in der honigfarbenen Altstadt — einer der schönsten Stadthäfen der Balearen.',
-    px:'Ports-IB-Liegeplätze im engen Hafenkanal — Kat-Breite (7,87 m) zwingend vorab klären; Ausweich Bojen/äußere Anlage. Achtung Rissaga: Bei Warnung vor dem lokalen Schwallphänomen den Hafen meiden (Basis/Hafenamt fragen).'},
-  SANTELM:{n:'Sant Elm (Ankerbucht)',type:'Ankerbucht',badge:'warn',
-    ch:'Dorf gegenüber der unbewohnten Felseninsel Sa Dragonera; Sonnenuntergang hinter der Insel.',
-    px:'Ankernacht (die eine Buchtnacht): nur bei ruhiger Lage, Sandflecken nutzen — Posidonia ist geschützt und wird kontrolliert.'}
+    px:'Ports-IB-Bojenfeld im Hafen (online buchbar) plus wenige Kaiplätze — für den Kat ist die Boje wahrscheinlicher.'},
+  CABRERA:{n:'Cabrera (Nationalpark)',type:'Reservierte Boje',badge:'bad',
+    ch:'Autofreier Inselnationalpark: Kastell über der Bucht, Museum Es Celler, Blaue Grotte, glasklares Wasser.',
+    px:'Nur mit reservierter Boje (gelb 12–15 m, ca. 68 €/Nacht, caib.es) — Ankern im ganzen Park verboten. Buchung sofort erledigen, siehe Hinweis unten.'}
 };
-/* ===== Varianten (Marina-frei) ===== */
-const VARIANTS = [
- {id:'runde', name:'A · Die große Inselrunde', color:'#7c3aed',
-  claim:'Einmal ganz herum, im Uhrzeigersinn: Tramuntana-Steilküste, Cap Formentor, Ostküsten-Calas und der Süden — durchgehend Stadthäfen und die Sóller-Boje, keine einzige Marina. Nur machbar, wenn das 25-sm-Limit an einem Tag bewusst ausgesetzt wird (Mo ~33 sm — dazwischen liegt kein Nachthafen).',
-  pro:'Alles gesehen, keine Küste doppelt, jeden Abend neuer Ort — und komplett marina-frei.',
-  con:'Montag 33 sm (Limitverstoß, ~4,5 h Motor), Freitag 26 sm; Nordwestküste braucht stabiles Wetter; entspricht dem verbreiteten Törnführer-Rhythmus.',
+/* ===== Die fixe Tour ===== */
+const TOUR = {
+  claim:'<b>Die Inselrunde im Uhrzeigersinn mit Cabrera zum Abschluss.</b> Sechs Fahrtage von Sonntag bis Freitag, 168 sm, rund 22½ Stunden Motorfahrt. Der Sonntag ist mit knapp 40 sm der längste Schlag — dafür liegt die komplette Tramuntana-Steilküste an einem Tag hinter uns. Ab Dienstag werden die Etappen kurz und lassen viel Zeit für Badestopps und Landgänge. Port d’Andratx entfällt, weil durch den späteren Start am Sonntag ein Tag fehlt.',
   days:[
-   {d:'Sa 12.9.', route:['PALMA','CCF','MALGRATS','ANDRATX'],
-    note:'Kurzer Auftakt nach der Übernahme, um die Malgrats-Inseln in den Naturhafen.',
-    k:{lv:'grey',t:'Törnführer-Standard: Sa in Andratx (abgeleitet)'}},
-   {d:'So 13.9.', route:['ANDRATX','DRAGONERA','PTALMONJA','BANYALBUFAR','FORADADA','SOLLER'],
-    note:'Durch den Dragonera-Kanal, dann die ganze Steilküste; Mittagsstopp unter Sa Foradada, abends Boje in Sóller.'},
-   {d:'Mo 14.9.', route:['SOLLER','SACALOBRA','CALASTVIC','FORMENTOR','POLLENCA'],
-    note:'Königsetappe: Badestopp Sa Calobra/Torrent de Pareis, Rundung Cap Formentor. Kein Nachthafen dazwischen — bewusster Ausnahmetag.'},
-   {d:'Di 15.9.', route:['POLLENCA','CAPPINAR','FARRUTX','CRATJADA'],
-    note:'Um Cap des Pinar und Cap Farrutx an die Ostspitze; Badestopp Cala Agulla möglich.'},
-   {d:'Mi 16.9.', route:['CRATJADA','CAPDEPERA','PCRISTO','PCOLOM'],
-    note:'Die Calas-Küste hinunter; Stopp Porto Cristo (Drach-Höhlen) oder Cala Varques.'},
-   {d:'Do 17.9.', route:['PCOLOM','PPETRO','CFIGS','SALINES','CSJORDI'],
-    note:'Um Cap de ses Salines (Fotostopp Cala Màrmols); optionaler Cabrera-Schlenker +14 sm → dann klarer roter Tag.'},
-   {d:'Fr 18.9.', route:['CSJORDI','ESTRENC','CALAPI','CAPBLANC','PALMA'],
-    note:'Früh los: an Es Trenc und Cap Blanc vorbei zurück zur Basis.',
-    prax:'Rückgabetag: vor der Basis tanken, Boot klarieren — Rückgabe/Check-out am Nachmittag.'}
-  ]},
- {id:'sued', name:'B · Süden & Osten — Stadthäfen & Cabrera', color:'#0b8a4c',
-  claim:'Die Stadthafen-Route: Colònia de Sant Jordi, Portocolom, Porto Cristo (Drach-Höhlen) und Cala Figuera — vier echte Stadthäfen, dazu der Vereinshafen s’Arenal am Anreiseabend und zum Finale die reservierte Bojennacht im Nationalpark Cabrera. Keine einzige Marina. Preis dafür: der Freitag ist ein langer Transfertag (29 sm). <a href="muster-b.html">→ Musterablauf Tag für Tag</a>',
-  pro:'Maximale Stadthafen-Quote; Cabrera als Höhepunkt zum Schluss; Drach-Höhlen inklusive; So–Do alle Etappen unter 25 sm.',
-  con:'Freitag 29 sm (~4 h, über dem Limit — reiner Transfer ab 8 Uhr); Cala Figuera für Kat-Breite sehr eng (Ausweich Bojenfeld Porto Petro); Tramuntana fehlt.',
-  days:[
-   {d:'Sa 12.9.', route:['PALMA','ARENAL'],
-    note:'Nur über die Bucht — entspannter Auftakt nach Übernahme und Einkauf.',
-    k:{lv:'ok',t:'abseits der Charter-Standardrouten'}},
-   {d:'So 13.9.', route:['ARENAL','CAPBLANC','CALAPI','ESTRENC','CSJORDI'],
-    note:'Um Cap Blanc, Badestopp Cala Pi, dann an den 6 km Naturstrand von Es Trenc entlang zum Salinenort.'},
-   {d:'Mo 14.9.', route:['CSJORDI','SALINES','CFIGS','PPETRO','PCOLOM'],
-    note:'Rundung Cap de ses Salines, Fotostopps Cala Màrmols und vor Cala Figuera, abends größter Naturhafen der Ostküste.'},
-   {d:'Di 15.9.', route:['PCOLOM','PCRISTO'],
-    note:'Kurztag mit Badeschleife Cala Varques; nachmittags Coves del Drach (Tickets vorab!) oder morgen früh.'},
-   {d:'Mi 16.9.', route:['PCRISTO','PCOLOM','PPETRO','CFIGS'],
-    note:'Zurück nach Süden mit Badestopps (Cala Sa Nau, Cala Mitjana), abends der Postkarten-Fischerhafen.'},
-   {d:'Do 17.9.', route:['CFIGS','SALINES','CABRERA'],
-    note:'Um ses Salines in den Nationalpark: Kastell, Museum, Blaue Grotte — Bojennacht (reserviert, Buchung ab 28.8.!).',
-    k:{lv:'ok',t:'Cabrera Do — Flottenrhythmus ist Sa (abgeleitet)'}},
-   {d:'Fr 18.9.', route:['CABRERA','CAPBLANC','PALMA'],
-    note:'Bewusster Transfertag: 8 Uhr ablegen, ~4 h Motor um Cap Blanc zurück zur Basis.',
-    prax:'Rückgabetag: vor der Basis tanken, Boot klarieren — Rückgabe/Check-out am Nachmittag.'}
-  ]},
- {id:'west', name:'C · Tramuntana & Westen', color:'#c2452e',
-  claim:'Steilküste und Sóller ohne Inselrunde: Stadthäfen Andratx und Colònia de Sant Jordi, Sóller-Boje, eine Ankernacht vor Sant Elm — und ein fester Hafentag am Es Trenc mit optionalem Cabrera-Tagesausflug. Keine Marina.',
-  pro:'Tramuntana-Kulisse inklusive; entspanntester Rhythmus (Hafentag); alle Nächte Stadthafen/Verein/Boje/Anker.',
-  con:'Samstag 16 sm nach später Übernahme (Ankunft zur Dämmerung); keine Ostküsten-Calas; Ankernacht wetterabhängig; Freitag 26 sm.',
-  days:[
-   {d:'Sa 12.9.', route:['PALMA','CCF','MALGRATS','ANDRATX'],
-    note:'Sportlicher Auftakt: ~2¼ h Fahrt, Ankunft gegen Sonnenuntergang (~19:50) — früh startklar machen.'},
-   {d:'So 13.9.', route:['ANDRATX','DRAGONERA','PTALMONJA','BANYALBUFAR','FORADADA','SOLLER'],
-    note:'Dragonera-Kanal und die ganze Steilküste, Mittagsstopp Sa Foradada, Boje in Sóller; abends Tram nach Sóller.'},
-   {d:'Mo 14.9.', route:['SOLLER','FORADADA','BANYALBUFAR','PTALMONJA','SANTELM'],
-    note:'Zurück unter den Klippen (Badestopp Cala Deià), Ankernacht vor Sant Elm mit Dragonera-Sonnenuntergang.'},
-   {d:'Di 15.9.', route:['SANTELM','MALGRATS','CCF','ARENAL'],
-    note:'Durch den Malgrats-Kanal und quer über die Bucht; Badestopps Portals Vells/Illetes unterwegs.'},
-   {d:'Mi 16.9.', route:['ARENAL','CAPBLANC','CALAPI','ESTRENC','CSJORDI'],
-    note:'Um Cap Blanc mit Badestopp Cala Pi, an Es Trenc entlang zum Salinenort.'},
-   {d:'Do 17.9.', route:['CSJORDI'],
-    note:'Hafentag: Salinen, Es-Trenc-Strand, Markt — optional Cabrera-Tagesausflug (Ausflugsboot ab dem Hafen oder eigener Kiel mit Tagesgenehmigung).',
-    prax:'Liegeplatz bleibt — zweite Nacht im selben Hafen ist mit dem Hafenamt anzumelden.'},
-   {d:'Fr 18.9.', route:['CSJORDI','ESTRENC','CALAPI','CAPBLANC','PALMA'],
-    note:'Früh los (~25 sm, ~3,5 h) zurück zur Basis.',
-    prax:'Rückgabetag: vor der Basis tanken, Boot klarieren — Rückgabe/Check-out am Nachmittag.'}
-  ]},
- {id:'menorca', name:'D · Menorca-Abstecher (sportlich)', color:'#0b6aa8',
-  claim:'Über die Ostküste nach Cala Ratjada, 22 sm über den Menorca-Kanal nach Ciutadella — Abend und Vormittag in einer der schönsten Altstädte der Balearen — und über Porto Cristo zurück. Nur Stadthäfen und der Vereinshafen s’Arenal, aber klar gesagt: Das 25-sm-Limit wird an drei Tagen überschritten (So und Mi je ~36 sm, Do ~27 sm), gesamt ~176 sm.',
-  pro:'Zwei Inseln in einer Woche; Ciutadella als Höhepunkt; beide Kanalquerungen kurz (je 22 sm) und bei Tageslicht.',
-  con:'~23 h Motorfahrt gesamt; So und Mi je ~36 sm (5 h); Kanal nur bei stabiler Wetterlage (bei N-Wind ruppig — Umkehrplan: Variante B ab Portocolom); kein Cabrera; Ciutadella-Hafen für Kat-Breite eng (klären, Rissaga-Phänomen beachten).',
-  days:[
-   {d:'Sa 12.9.', route:['PALMA','ARENAL'],
-    note:'Kurzer Auftakt über die Bucht — Kräfte sparen für den langen Sonntag.'},
-   {d:'So 13.9.', route:['ARENAL','CAPBLANC','CALAPI','ESTRENC','CSJORDI','SALINES','CFIGS','PPETRO','PCOLOM'],
-    note:'Langer Schlag um den ganzen Süden (8 Uhr ablegen, ~5 h): Cap Blanc, ses Salines, kurzer Badestopp Cala Màrmols — Abend im Naturhafen.'},
-   {d:'Mo 14.9.', route:['PCOLOM','PCRISTO','CRATJADA'],
-    note:'Die Calas-Küste hinauf (Badestopp Cala Varques), abends Ostspitze — früh schlafen, morgen Kanal.'},
-   {d:'Di 15.9.', route:['CRATJADA','CAPDEPERA','CIUTADELLA'],
-    note:'Bei Tagesanbruch über den Menorca-Kanal (22 sm, ~3 h) — Nachmittag und Abend in der Altstadt von Ciutadella.',
-    k:{lv:'warn',t:'Kanalquerung — nur bei stabilem Wetter'}},
-   {d:'Mi 16.9.', route:['CIUTADELLA','OFFCAPD','PCRISTO'],
-    note:'Vormittag Markt und Kathedrale, mittags zurück über den Kanal und die Küste hinunter (~36 sm, ~5 h) nach Porto Cristo.',
-    k:{lv:'warn',t:'zweiter langer Tag — Reserve einplanen'}},
-   {d:'Do 17.9.', route:['PCRISTO','PCOLOM','PPETRO','CFIGS','SALINES','CSJORDI'],
-    note:'Um ses Salines zurück in den Süden; Badestopp nach Wahl, Abend beim Salinenort.'},
-   {d:'Fr 18.9.', route:['CSJORDI','ESTRENC','CALAPI','CAPBLANC','PALMA'],
-    note:'Früh los (~25 sm, ~3,5 h) zurück zur Basis.',
-    prax:'Rückgabetag: vor der Basis tanken, Boot klarieren — Rückgabe/Check-out am Nachmittag.'}
-  ]},
- {id:'menorcawest', name:'E · Menorca über den Westen (Maximalroute)', color:'#0d8a8a',
-  claim:'Die Kombination aus allem: Tramuntana-Steilküste mit Sóller, Rundung Cap Formentor, Querung von Pollença nach Ciutadella (~35 sm) und Rückweg über die Ostküste — faktisch Inselrunde plus Menorca. Ehrlich gesagt: ~196 sm, vier Tage über dem 25-sm-Limit (33–36 sm), ~26 h Motor, kein Puffertag — nur bei einer perfekten Wetterwoche vertretbar.',
-  pro:'Alles in einer Woche: Sóller, Formentor, Ciutadella, Ostküsten-Calas; keine Küste doppelt, durchgehend Stadthäfen/Boje.',
-  con:'Extremste Variante: Mo–Mi drei lange Tage in Folge (33/35/36 sm); doppelt wetterkritisch (Tramuntana UND Kanal); jede Störung kippt den Plan — Rückfallebenen: ab Pollença Variante A, ab Ciutadella Route wie D; kein Cabrera, wenig Badezeit.',
-  days:[
-   {d:'Sa 12.9.', route:['PALMA','CCF','MALGRATS','ANDRATX'],
-    note:'Sportlicher Auftakt (~2¼ h), Ankunft gegen Sonnenuntergang im Naturhafen.'},
-   {d:'So 13.9.', route:['ANDRATX','DRAGONERA','PTALMONJA','BANYALBUFAR','FORADADA','SOLLER'],
-    note:'Dragonera-Kanal und die ganze Steilküste, Mittagsstopp Sa Foradada, Boje in Sóller.'},
-   {d:'Mo 14.9.', route:['SOLLER','SACALOBRA','CALASTVIC','FORMENTOR','POLLENCA'],
-    note:'Sa Calobra und Rundung Cap Formentor (~33 sm) — früh schlafen, morgen Kanal.',
-    k:{lv:'warn',t:'kein Nachthafen zwischen Sóller und Pollença'}},
-   {d:'Di 15.9.', route:['POLLENCA','FORMENTOR','CIUTADELLA'],
-    note:'Bei Tagesanbruch noch einmal unter dem Formentor-Leuchtturm durch und über den Kanal (~35 sm, ~5 h) — Nachmittag und Abend in Ciutadella.',
-    k:{lv:'warn',t:'Kanalquerung — nur bei stabilem Wetter'}},
-   {d:'Mi 16.9.', route:['CIUTADELLA','OFFCAPD','PCRISTO'],
-    note:'Vormittag Altstadt und Markt, mittags zurück über den Kanal nach Porto Cristo (~36 sm, ~5 h).',
-    k:{lv:'warn',t:'dritter langer Tag in Folge'}},
-   {d:'Do 17.9.', route:['PCRISTO','PCOLOM','PPETRO','CFIGS','SALINES','CSJORDI'],
-    note:'Um ses Salines in den Süden — erster Tag mit Badestopp-Zeit; Abend beim Salinenort.'},
-   {d:'Fr 18.9.', route:['CSJORDI','ESTRENC','CALAPI','CAPBLANC','PALMA'],
-    note:'Früh los (~25 sm, ~3,5 h) zurück zur Basis.',
-    prax:'Rückgabetag: vor der Basis tanken, Boot klarieren — Rückgabe/Check-out am Nachmittag.'}
-  ]}
-];
-/* ===== Haversine ===== */
+   {d:'So 13.9.', ab:'10:00', an:'ca. 16:30', route:['PALMA','CCF','MALGRATS','ANDRATX','DRAGONERA','PTALMONJA','BANYALBUFAR','FORADADA','SOLLER'],
+    note:'Der große Auftakt: an den Malgrats-Inseln vorbei, durch den Dragonera-Kanal und dann die ganze Steilküste der Tramuntana entlang.',
+    stop:'Badestopp unter Sa Foradada (dem durchbohrten Felsen von Erzherzog Ludwig Salvator), ca. 1 Stunde.'},
+   {d:'Mo 14.9.', ab:'09:00', an:'ca. 14:30', route:['SOLLER','SACALOBRA','CALASTVIC','FORMENTOR','POLLENCA'],
+    note:'Weiter unter den höchsten Klippen der Insel und um das Cap Formentor mit seinem Leuchtturm — landschaftlich der stärkste Tag.',
+    stop:'Badestopp vor Sa Calobra am Ausgang des Torrent de Pareis, ca. 1 Stunde.'},
+   {d:'Di 15.9.', ab:'09:30', an:'ca. 14:00', route:['POLLENCA','CAPPINAR','FARRUTX','CRATJADA'],
+    note:'Um Cap des Pinar und Cap Farrutx an die Ostspitze der Insel. Kurze Etappe, viel Zeit an Land.',
+    stop:'Badestopp Cala Agulla oder Cala Mesquida, ca. 1½ Stunden.'},
+   {d:'Mi 16.9.', ab:'09:30', an:'ca. 15:00', route:['CRATJADA','CAPDEPERA','PCRISTO','PCOLOM'],
+    note:'Um die Punta de Capdepera und die Calas-Küste hinunter, vorbei an Porto Cristo.',
+    stop:'Badestopp Cala Varques oder Cala Sa Nau, ca. 2 Stunden.'},
+   {d:'Do 17.9.', ab:'09:30', an:'ca. 14:00', route:['PCOLOM','PPETRO','CFIGS','SALINES','CABRERA'],
+    note:'Vorbei am Fischerhafen Cala Figuera, um das Cap de ses Salines und hinüber in den Nationalpark. Früh ankommen lohnt: Kastell, Museum und die Blaue Grotte brauchen den Nachmittag.',
+    stop:'Fotostopp Cala Màrmols; Delfin-Chancen auf der Querung.'},
+   {d:'Fr 18.9.', ab:'09:00', an:'ca. 12:50', route:['CABRERA','CAPBLANC','PALMA'],
+    note:'Rückgabetag: Überstellungsschlag um Cap Blanc zurück in die Bucht von Palma. Frühstück unterwegs.',
+    stop:'Keine Stopps — danach tanken, Boot klarieren, 15:00 Rückgabe an der Basis.'}
+  ]
+};
+/* ===== Rechnen ===== */
 function hav(a,b){const R=3440.065,r=Math.PI/180;
   const s=Math.sin((b[0]-a[0])*r/2)**2+Math.cos(a[0]*r)*Math.cos(b[0]*r)*Math.sin((b[1]-a[1])*r/2)**2;
   return 2*R*Math.asin(Math.sqrt(s));}
 function dayDist(day){let d=0;for(let i=0;i<day.route.length-1;i++)d+=hav(WP[day.route[i]],WP[day.route[i+1]]);return d;}
 function fmt(x){return (Math.round(x*10)/10).toLocaleString('de-AT',{minimumFractionDigits:1,maximumFractionDigits:1});}
-function lvOf(d){return d<=25?'ok':(d<=28?'warn':'bad');}
+function hhmm(d){const t=d/7.5,h=Math.floor(t),m=Math.round((t-h)*60);
+  return h+':'+String(m).padStart(2,'0')+' h';}
 const LV={ok:'b-ok',warn:'b-warn',bad:'b-bad',grey:'b-grey'};
-const LIMIT=25;
+const COL='#0b6aa8';
 
 /* ===== Karte ===== */
 const map=L.map('map',{zoomSnap:0.25});
@@ -999,74 +889,61 @@ carto.on('tileerror',()=>{if(++tileErrors>5&&!esriOn){esriOn=true;map.removeLaye
     {maxZoom:18,attribution:'© Esri'}).addTo(map);
   document.getElementById('mapStatus').textContent='Karten-Fallback (Esri) aktiv';}});
 carto.addTo(map);
-let layer=L.layerGroup().addTo(map), labelLayer=L.layerGroup().addTo(map);
+const layer=L.layerGroup().addTo(map), labelLayer=L.layerGroup().addTo(map);
 
 function popupHtml(key){const s=STOPS[key];if(!s)return null;
-  return `<b class="t">${s.n}</b><br><span class="bdg ${LV[s.badge]}">${s.type}</span>`+
-    `<div>${s.ch}</div><div class="pop-prax"><b>Praxis:</b> ${s.px}</div>`;}
+  return '<b class="t">'+s.n+'</b><br><span class="bdg '+LV[s.badge]+'">'+s.type+'</span>'+
+    '<div>'+s.ch+'</div><div class="pop-prax"><b>Praxis:</b> '+s.px+'</div>';}
 
-function render(vi){
-  const v=VARIANTS[vi];
-  document.documentElement.style.setProperty('--tabc',v.color);
-  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('act',i===vi));
-  layer.clearLayers();labelLayer.clearLayers();
+function render(){
+  document.documentElement.style.setProperty('--tabc',COL);
   const all=[];
-  v.days.forEach((day,di)=>{
+  TOUR.days.forEach((day,di)=>{
     const pts=day.route.map(k=>WP[k]);all.push(...pts);
-    if(pts.length>1){
-      L.polyline(pts,{color:v.color,weight:4,opacity:0.85}).addTo(layer);
-      const mid=pts[Math.floor((pts.length-1)/2)];const nxt=pts[Math.min(Math.floor((pts.length-1)/2)+1,pts.length-1)];
-      const mp=[(mid[0]+nxt[0])/2,(mid[1]+nxt[1])/2];
-      L.marker(mp,{icon:L.divIcon({className:'',html:
-        `<span class="etq" style="--etc:${v.color}">Tag ${di+1} · ${fmt(dayDist(day))} sm</span>`,
-        iconSize:null}),interactive:false}).addTo(labelLayer);
-    }
+    L.polyline(pts,{color:COL,weight:4,opacity:0.85}).addTo(layer);
+    const i=Math.floor((pts.length-1)/2), mid=pts[i], nxt=pts[Math.min(i+1,pts.length-1)];
+    L.marker([(mid[0]+nxt[0])/2,(mid[1]+nxt[1])/2],{icon:L.divIcon({className:'',html:
+      '<span class="etq" style="--etc:'+COL+'">Tag '+(di+1)+' · '+fmt(dayDist(day))+' sm</span>',
+      iconSize:null}),interactive:false}).addTo(labelLayer);
   });
   const seen=new Set();
-  v.days.forEach(day=>{day.route.forEach(k=>{
+  TOUR.days.forEach(day=>{day.route.forEach(k=>{
     if(!STOPS[k]||seen.has(k))return;seen.add(k);
     const isBase=k==='PALMA';
     L.circleMarker(WP[k],{radius:isBase?9:7,color:'#fff',weight:2,
-      fillColor:isBase?'#e0356e':v.color,fillOpacity:1})
-      .bindPopup(popupHtml(k)).addTo(layer);
+      fillColor:isBase?'#e0356e':COL,fillOpacity:1}).bindPopup(popupHtml(k)).addTo(layer);
   });});
   map.fitBounds(L.latLngBounds(all).pad(0.12));
-  labelLayer[document.getElementById('cbLabels').checked?'addTo':'remove'](map);
-  document.getElementById('claim').innerHTML=
-    `<b>${v.name}</b> — ${v.claim}<div class="pc"><b>Dafür:</b> ${v.pro}<br><b>Dagegen:</b> ${v.con}</div>`;
-  const dists=v.days.map(dayDist),tot=dists.reduce((a,b)=>a+b,0),mx=Math.max(30,...dists);
+
+  document.getElementById('claim').innerHTML=TOUR.claim;
+
+  const dists=TOUR.days.map(dayDist),tot=dists.reduce((a,b)=>a+b,0),mx=Math.max(...dists);
   document.getElementById('budTot').textContent=
-    `Gesamt ${fmt(tot)} sm · größte Etappe ${fmt(Math.max(...dists))} sm · `+
-    `~${fmt(tot/7.5)} h Motorfahrt gesamt (7 Tage)`;
-  const bars=document.getElementById('bars');
-  bars.innerHTML=`<div class="lim" style="bottom:${LIMIT/mx*80}px">25 sm</div>`+
-    v.days.map((day,i)=>{const d=dists[i],lv=lvOf(d);
-      const col=lv==='ok'?'#1e8a4c':lv==='warn'?'#d97b00':'#c8352c';
-      return `<div class="bar"><span class="v">${fmt(d)}</span>`+
-        `<div class="col" style="height:${Math.max(4,d/mx*80)}px;background:${col}"></div>`+
-        `<span class="d">${day.d.split(' ')[0]}</span></div>`;}).join('');
-  document.getElementById('days').innerHTML=v.days.map((day,i)=>{
-    const d=dists[i],lv=lvOf(d);
+    'Gesamt '+fmt(tot)+' sm · längster Tag '+fmt(mx)+' sm · '+
+    'rund '+Math.round(tot/7.5)+' Stunden Motorfahrt in sechs Tagen';
+  document.getElementById('bars').innerHTML=
+    TOUR.days.map((day,i)=>{const d=dists[i];
+      const col=d<=25?'#1e8a4c':(d<=35?'#d97b00':'#c8352c');
+      return '<div class="bar"><span class="v">'+fmt(d)+'</span>'+
+        '<div class="col" style="height:'+Math.max(4,d/mx*80)+'px;background:'+col+'"></div>'+
+        '<span class="d">'+day.d.split(' ')[0]+'</span></div>';}).join('');
+
+  document.getElementById('days').innerHTML=TOUR.days.map((day,i)=>{
+    const d=dists[i];
     const from=STOPS[day.route[0]],to=STOPS[day.route[day.route.length-1]];
-    const stay=to?`<span class="bdg ${LV[to.badge]}">${to.type}</span>`:'';
-    const kb=day.k?`<span class="bdg ${LV[day.k.lv]}">${day.k.t}</span>`:'';
-    const hafentag=day.route.length===1;
-    return `<div class="day"><div class="top">`+
-      `<span class="rt">Tag ${i+1} · ${day.d} — ${hafentag?(to?to.n.replace(/ \(.*\)/,''):'')+' (Hafentag)':
-        (from?from.n.replace(/ \(.*\)/,''):'')+' → '+(to?to.n.replace(/ \(.*\)/,''):'')}</span>`+
-      `<span class="dd">${hafentag?'<span class="bdg b-ok">0 sm</span>':
-        `<span class="bdg ${LV[lv]}">${fmt(d)} sm</span> ~${fmt(d/7.5)} h`}</span></div>`+
-      `<div class="note">${day.note}</div>`+
-      `<div class="prax">${day.prax||(to?to.px:'')}</div><div>${stay}${kb}</div></div>`;
+    return '<div class="day"><div class="top">'+
+      '<span class="rt">Tag '+(i+1)+' · '+day.d+' — '+
+        (from?from.n.replace(/ \(.*\)/,''):'')+' → '+(to?to.n.replace(/ \(.*\)/,''):'')+'</span>'+
+      '<span class="dd"><span class="bdg b-grey">'+fmt(d)+' sm</span> '+hhmm(d)+'</span></div>'+
+      '<div class="zeile"><b>Ablegen '+day.ab+'</b> · Ankunft '+day.an+'</div>'+
+      '<div class="note">'+day.note+'</div>'+
+      '<div class="note stop">🏊 '+day.stop+'</div>'+
+      '<div class="prax">'+(to?to.px:'')+'</div>'+
+      '<div>'+(to?'<span class="bdg '+LV[to.badge]+'">'+to.type+'</span>':'')+'</div></div>';
   }).join('');
 }
-const tabs=document.getElementById('tabs');
-VARIANTS.forEach((v,i)=>{const d=v.days.map(dayDist).reduce((a,b)=>a+b,0);
-  const b=document.createElement('button');b.className='tab';b.style.setProperty('--tabc',v.color);
-  b.innerHTML=`<b>${v.name}</b><small>${fmt(d)} sm gesamt</small>`;
-  b.onclick=()=>render(i);tabs.appendChild(b);});
 document.getElementById('cbLabels').onchange=e=>labelLayer[e.target.checked?'addTo':'remove'](map);
-render(1); /* Start: Variante B (Stadthafen-Route) */
+render();
 
 </script>
 </body>

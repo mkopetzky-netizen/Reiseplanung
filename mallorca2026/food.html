@@ -716,8 +716,8 @@ footer{color:var(--mut);font-size:12.5px;line-height:1.6;padding:14px 2px 30px;
 </head>
 <body>
 <nav class="nav">
-  <a href="index.html">🗺️ Routen</a>
-  <a href="vote.html">🗳️ Abstimmung</a>
+  <a href="index.html">🗺️ Route</a>
+  <a href="plan.html">📋 Tagesplan</a>
   <a href="guide.html">🎧 Audio-Guide</a>
   <a href="tours.html">🚵 Ausflüge</a>
   <a href="food.html" class="act">🍽️ Essen</a>
@@ -725,8 +725,7 @@ footer{color:var(--mut);font-size:12.5px;line-height:1.6;padding:14px 2px 30px;
 </nav>
 <header>
   <h1>Restaurant-Guide · Abendorte</h1>
-  <div class="sub">MUSTER für Variante B — zwei Abendorte sind recherchiert (Colònia de Sant
-  Jordi, Portocolom), die übrigen folgen nach der Abstimmung.</div>
+  <div class="sub">Die Abendorte unserer Route — Auswahl nach den Kriterien unten.</div>
 </header>
 <div class="chips" id="chips"></div>
 <div class="wrap">
@@ -763,33 +762,74 @@ footer{color:var(--mut);font-size:12.5px;line-height:1.6;padding:14px 2px 30px;
 'use strict';
 /* ===== Abendorte (MUSTER: 2 recherchiert) ===== */
 const PLACES = [
- {id:'arenal', day:'Tag 1 · Sa', ort:'s’Arenal', ready:false},
- {id:'csjordi', day:'Tag 2 · So', ort:'Colònia de Sant Jordi', ready:true,
-  berth:[39.3158,2.9975], berthNote:'Hafen Colònia de Sant Jordi',
+ {id:'soller', day:'Tag 1 · So', ort:'Port de Sóller', ready:true,
+  berth:[39.7975,2.6905], berthNote:'Bojenfeld / Hafen Port de Sóller',
   rest:[
-   {n:'Es Marisol', typ:'lokal', preis:'€€', c:[39.3172,2.9962], geh:'ca. 5 min',
-    txt:'Fischrestaurant in erster Reihe an der Hafenmole — gegrillter Fang des Tages und Meeresfrüchte-Platten, seit Jahrzehnten die klassische Adresse des Orts.',
-    resv:'Für 9 unbedingt vorreservieren (Terrasse begehrt).',
-    links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.de/Restaurants-g580296-Colonia_de_Sant_Jordi_Majorca_Balearic_Islands.html'],
-           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Restaurante+Es+Marisol+Colonia+de+Sant+Jordi']]},
-   {n:'S’Escar (Hotel Colonial)', typ:'lokal', preis:'€€€', c:[39.3166,2.9957], geh:'ca. 5 min',
-    txt:'Restaurant in einem historischen Bootshaus am Hafen — gegrillter Oktopus und Arròs negre (schwarzer Reis) gelten als Spezialität des Hauses.',
-    resv:'Gruppentauglichkeit anfragen.',
-    links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.de/Restaurants-g580296-Colonia_de_Sant_Jordi_Majorca_Balearic_Islands.html'],
-           ['Google Maps','https://www.google.com/maps/search/?api=1&query=S%27Escar+Restaurant+Colonia+de+Sant+Jordi']]},
-   {n:'S’Arrosseria', typ:'lokal', preis:'€€', c:[39.3177,2.9951], geh:'ca. 5 min',
-    txt:'Bei Einheimischen beliebte Reis- und Paella-Adresse in der Seitenstraße am Hafen — mallorquinische Paella-Varianten. Achtung: nur mittags geöffnet (ca. 13–17 Uhr) — passt am So als spätes Mittagessen nach der Ankunft.',
+   {n:'Ses Oliveres', typ:'lokal', preis:'€€', c:[39.7967,2.6944], geh:'ca. 5 min (Dinghi + Promenade)',
+    txt:'Klassiker an der Hafenpromenade: fangfrischer Fisch, Meeresfrüchte und Reisgerichte nach Inselart — die unaufgeregte Adresse für den ersten Abend.',
+    resv:'Für 9 vorreservieren; Terrassentische sind begehrt.',
+    links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.de/Restaurants-g673585-Port_de_Soller_Soller_Majorca_Balearic_Islands.html'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Ses+Oliveres+Port+de+Soller']]},
+   {n:'Kingfisher', typ:'lokal', preis:'€€€', c:[39.7947,2.6928], geh:'ca. 4 min',
+    txt:'Direkt am Yachthafen, spezialisiert auf traditionell mallorquinische und mediterrane Gerichte mit Fisch aus der Bucht.',
+    resv:'Gruppentisch anfragen.',
+    links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.de/Restaurants-g673585-Port_de_Soller_Soller_Majorca_Balearic_Islands.html'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Kingfisher+Port+de+Soller']]},
+   {n:'Randemar', typ:'gehoben', preis:'€€€', c:[39.7957,2.6958], geh:'ca. 7 min',
+    txt:'Mediterrane Küche in einer alten Villa direkt am Wasser, Terrasse über der Bucht — der stimmungsvollste Rahmen am Hafen.',
+    resv:'Für 9 unbedingt vorab reservieren.',
+    links:[['Website','https://www.randemar.com/'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Randemar+Port+de+Soller']]},
+   {n:'Es Passeig', typ:'gehoben', preis:'€€€', c:[39.7961,2.6950], geh:'ca. 6 min',
+    txt:'Zeitgenössisch-mediterrane Karte mit Terrasse zur Promenade; die gehobene Alternative ohne Fine-Dining-Aufwand.',
     resv:'Reservierung empfohlen.',
-    links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.de/Restaurants-g580296-Colonia_de_Sant_Jordi_Majorca_Balearic_Islands.html'],
-           ['Google Maps','https://www.google.com/maps/search/?api=1&query=S%27Arrosseria+Colonia+de+Sant+Jordi']]},
-   {n:'Sal de Cocó', typ:'gehoben', preis:'€€€', c:[39.3159,2.9960], geh:'ca. 6 min',
-    txt:'Kreativküche mit mallorquinischen Wurzeln von Köchin Marta Rosselló am Fischermole — Degustationsmenü mit lokalem Fisch und Salz aus den nahen Salinen. Der besondere Abend der Woche.',
-    resv:'Für 9 früh reservieren; Menü-Option für Gruppen erfragen.',
-    links:[['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g580296-d3474438-Reviews-Sal_de_Coco-Colonia_de_Sant_Jordi_Majorca_Balearic_Islands.html'],
-           ['Website','https://saldecocorestaurante.com/'],
-           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Sal+de+Coco+Colonia+de+Sant+Jordi']]}
+    links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.de/Restaurants-g673585-Port_de_Soller_Soller_Majorca_Balearic_Islands.html'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Es+Passeig+Port+de+Soller']]}
   ]},
- {id:'pcolom', day:'Tag 3 · Mo', ort:'Portocolom', ready:true,
+ {id:'pollenca', day:'Tag 2 · Mo', ort:'Port de Pollença', ready:true,
+  berth:[39.9075,3.0845], berthNote:'Hafen Port de Pollença',
+  rest:[
+   {n:'La Llonja', typ:'gehoben', preis:'€€€', c:[39.9072,3.0857], geh:'ca. 3 min',
+    txt:'Im Gebäude des alten Fischmarkts direkt am Hafen: mediterran-mallorquinisch inspirierte Küche mit marktfrischen Zutaten, Terrasse mit Blick über die Boote.',
+    resv:'Für 9 früh reservieren — die Terrasse ist klein.',
+    links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.de/Restaurants-g1028722-Port_de_Pollenca_Majorca_Balearic_Islands.html'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=La+Llonja+Port+de+Pollenca']]},
+   {n:'Restaurant RCNPP (Club Nàutic)', typ:'lokal', preis:'€€', c:[39.9068,3.0852], geh:'ca. 3 min',
+    txt:'Das Vereinsrestaurant des Yachtclubs gleich neben La Llonja: lokaler Fisch und Meeresfrüchte, vernünftige Weinpreise, ganzjährig geöffnet — die pragmatische Wahl direkt am Liegeplatz.',
+    resv:'Meist auch für größere Runden machbar, trotzdem anmelden.',
+    links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.de/Restaurants-g1028722-Port_de_Pollenca_Majorca_Balearic_Islands.html'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Club+Nautico+Puerto+Pollensa+restaurante']]},
+   {n:'Zarzales', typ:'gehoben', preis:'€€€', c:[39.9061,3.0826], geh:'ca. 8 min',
+    txt:'Moderne mallorquinische Küche, familiengeführt seit den späten Neunzigern, Gartenterrasse eine Querstraße hinter der Promenade — ruhiger als die Hafenzeile.',
+    resv:'Reservierung nötig; nach dem Gartentisch fragen.',
+    links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.de/Restaurants-g1028722-Port_de_Pollenca_Majorca_Balearic_Islands.html'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Zarzales+Port+de+Pollenca']]},
+   {n:'Stay Restaurant', typ:'gehoben', preis:'€€€€', c:[39.9083,3.0860], geh:'ca. 5 min',
+    txt:'Die Institution am Ende des Stegs, seit den Siebzigern: asiatisch-mediterrane Karte, wöchentlich wechselndes Menü, Wasser auf drei Seiten.',
+    resv:'Für 9 mit Vorlauf reservieren.',
+    links:[['Website','https://www.stayrestaurant.com/'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Stay+Restaurant+Port+de+Pollenca']]}
+  ]},
+ {id:'cratjada', day:'Tag 3 · Di', ort:'Cala Ratjada', ready:true,
+  berth:[39.7118,3.4636], berthNote:'Hafen Cala Ratjada (Ports IB)',
+  rest:[
+   {n:'Restaurante Mamma Mia', typ:'gehoben', preis:'€€€', c:[39.7113,3.4630], geh:'ca. 3 min',
+    txt:'Terrasse direkt zum Hafen: Fisch des Tages, gute Fleischgerichte und hausgemachte Pasta — mediterran statt Touristenkarte.',
+    resv:'Für 9 reservieren, Hafenterrasse anfragen.',
+    links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.com/Restaurants-g580283-Cala_Ratjada_Majorca_Balearic_Islands.html'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Mamma+Mia+Cala+Ratjada']]},
+   {n:'O Sole Mio', typ:'lokal', preis:'€€', c:[39.7120,3.4641], geh:'ca. 2 min',
+    txt:'Fisch und Meeresfrüchte direkt von den örtlichen Fischern, unmittelbar am Hafen — kurze Wege nach einem langen Tag an Deck.',
+    resv:'Gruppengröße vorab durchgeben.',
+    links:[['TripAdvisor-Fischrestaurants','https://www.tripadvisor.com/Restaurants-g580283-c33-Cala_Ratjada_Majorca_Balearic_Islands.html'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=O+Sole+Mio+Cala+Ratjada']]},
+   {n:'Ses Rotges', typ:'gehoben', preis:'€€€€', c:[39.7136,3.4623], geh:'ca. 6 min',
+    txt:'Die klassische Feinschmecker-Adresse des Orts in einem Herrenhaus abseits der Promenade. Aktuellen Betrieb und Öffnungszeiten vor der Reservierung telefonisch prüfen.',
+    resv:'Nur mit Reservierung; Status vor Ort bestätigen lassen.',
+    links:[['Restaurant-Info','https://www.holamallorca.com/de/mallorca/reisefuehrer/restaurants/cala-rajada/ses-rotges.htm'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Ses+Rotges+Cala+Ratjada']]}
+  ]},
+ {id:'pcolom', day:'Tag 4 · Mi', ort:'Portocolom', ready:true,
   berth:[39.4172,3.2610], berthNote:'Kai/Bojenfeld Portocolom',
   rest:[
    {n:'Celler Sa Sínia', typ:'lokal', preis:'€€€', c:[39.4201,3.2592], geh:'ca. 8 min',
@@ -809,17 +849,15 @@ const PLACES = [
     links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.com/Restaurants-g580310-Portocolom_Majorca_Balearic_Islands.html'],
            ['Google Maps','https://www.google.com/maps/search/?api=1&query=Restaurant+Colon+Portocolom']]}
   ]},
- {id:'pcristo', day:'Tag 4 · Di', ort:'Porto Cristo', ready:false},
- {id:'cfigs', day:'Tag 5 · Mi', ort:'Cala Figuera', ready:false},
- {id:'cabrera', day:'Tag 6 · Do', ort:'Cabrera', ready:true,
+ {id:'cabrera', day:'Tag 5 · Do', ort:'Cabrera', ready:true,
   berth:[39.1480,2.9330], berthNote:'Bojenfeld Nationalpark',
   rest:[
    {n:'Bordküche (kein Restaurant an Land)', typ:'lokal', preis:'€', c:[39.1480,2.9330], geh:'—',
     txt:'Auf Cabrera gibt es nur eine kleine Cantina mit Snacks — der Nationalpark-Abend gehört der Bordküche. Empfehlung aus dem Audio-Guide: einfacher gegrillter Fisch, Sobrassada, dazu Hierbas als Sundowner unter dem dunkelsten Sternenhimmel der Reise.',
-    resv:'Proviant am Vortag in Colònia de Sant Jordi ergänzen.',
+    resv:'Proviant spätestens am Mittwoch in Portocolom auffüllen.',
     links:[['Nationalpark-Info','https://www.caib.es/sites/parcnacionaldecabrera/es/inicio/']]}
   ]},
- {id:'palma', day:'Tag 7 · Fr', ort:'Palma', ready:false}
+ {id:'palma', day:'Tag 6 · Fr', ort:'Palma (Rückgabe)', ready:false}
 ];
 const $=id=>document.getElementById(id);
 let act = PLACES.findIndex(p=>p.ready), filt='alle';

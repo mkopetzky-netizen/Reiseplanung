@@ -720,8 +720,8 @@ footer{color:var(--mut);font-size:12.5px;line-height:1.6;padding:14px 2px 30px;
 </head>
 <body>
 <nav class="nav">
-  <a href="index.html">🗺️ Routen</a>
-  <a href="vote.html">🗳️ Abstimmung</a>
+  <a href="index.html">🗺️ Route</a>
+  <a href="plan.html">📋 Tagesplan</a>
   <a href="guide.html" class="act">🎧 Audio-Guide</a>
   <a href="tours.html">🚵 Ausflüge</a>
   <a href="food.html">🍽️ Essen</a>
@@ -729,8 +729,8 @@ footer{color:var(--mut);font-size:12.5px;line-height:1.6;padding:14px 2px 30px;
 </nav>
 <header>
   <h1>Audio-Guide · Mallorca-Törn 2026</h1>
-  <div class="sub">MUSTER für Variante B — zwei Kapitel sind fertig vertont (Cabrera, Portocolom),
-  die übrigen folgen nach der Abstimmung für die Siegerroute. Kopfhörer oder Bordlautsprecher,
+  <div class="sub">Fertig vertont sind die Kapitel <b>Portocolom (Mi)</b> und <b>Cabrera (Do)</b>;
+  Sóller, Pollença, Cala Ratjada und Palma folgen. Kopfhörer oder Bordlautsprecher,
   ▶ startet die Wiedergabe (am iPhone ist der erste Tipp nötig).</div>
 </header>
 <div class="chips" id="chips"></div>
@@ -767,9 +767,10 @@ footer{color:var(--mut);font-size:12.5px;line-height:1.6;padding:14px 2px 30px;
 'use strict';
 /* ============ Kapitel & Stationen (MUSTER: Cabrera + Portocolom fertig) ============ */
 const CHAPTERS = [
- {id:'arenal', day:'Tag 1 · Sa', ort:'s’Arenal', ready:false},
- {id:'csjordi', day:'Tag 2 · So', ort:'Colònia de Sant Jordi', ready:false},
- {id:'pcolom', day:'Tag 3 · Mo', ort:'Portocolom', ready:true, stations:[
+ {id:'soller', day:'Tag 1 · So', ort:'Port de Sóller', ready:false},
+ {id:'pollenca', day:'Tag 2 · Mo', ort:'Port de Pollença', ready:false},
+ {id:'cratjada', day:'Tag 3 · Di', ort:'Cala Ratjada', ready:false},
+ {id:'pcolom', day:'Tag 4 · Mi', ort:'Portocolom', ready:true, stations:[
   {t:'Zum Einstieg: Portocolom — Geschichte & Küche', c:[39.4160,3.2660],
    kurz:'Willkommen im größten Naturhafen der Ostküste — eine fast geschlossene Bucht, in der schon Römer und Araber Schutz suchten. Portocolom hat sich seinen Fischerdorf-Charakter bewahrt wie kaum ein zweiter Ort der Insel: bunte Bootshäuser, eine Handvoll Gassen, ein Leuchtturm. Der Name? Der Überlieferung nach soll hier Christoph Kolumbus geboren sein — die Mallorquiner glauben es gern, bewiesen hat es nie jemand.',
    tief:'Dass dieser stille Hafen einst ein Welthafen im Kleinformat war, sieht man ihm kaum an: In der zweiten Hälfte des neunzehnten Jahrhunderts vernichtete die Reblaus die Weinberge Frankreichs — und das Hinterland von Felanitx wurde zum Weinlieferanten Europas. Von genau diesem Kai liefen Schoner voller Weinfässer Richtung Sète aus, in guten Jahren Zehntausende Hektoliter. Um achtzehnhunderteinundneunzig kam die Reblaus dann auf die Insel, der Boom brach zusammen, und viele Familien wanderten aus — eine Geschichte, die sich fast zeitgleich in österreichischen Weinregionen abspielte, als Reblaus und Zollstreit die Existenzen bedrohten. Kulinarische Merkliste für heute Abend: Portocolom ist Fischerhafen geblieben — fragt nach dem Fang des Tages. Ab September beginnt die Saison der Llampuga, der Goldmakrele, oft mit gebratenen Paprika serviert; dazu ein trockener Weißwein aus dem wiederauferstandenen Weinbaugebiet um Felanitx.'},
@@ -781,14 +782,12 @@ const CHAPTERS = [
    tief:'Die Carmen-Verehrung verbindet alle spanischen Küstenorte: Die Jungfrau vom Berge Karmel ist seit dem achtzehnten Jahrhundert offizielle Patronin der spanischen Marine und aller, die vom Meer leben. In Portocolom fällt ihr Fest mit dem Höhepunkt des Sommers zusammen — dann wird die Madonnenfigur auf einen geschmückten Llaut gehoben und von einem Korso aus Fischerbooten durch die Bucht begleitet, mit Sirenen, Blumen und abends Feuerwerk. Die Kirche selbst ist jung, gebaut für ein wachsendes Hafenviertel, als der Weinboom Ende des neunzehnten Jahrhunderts Arbeiter und Küfer in den Ort spülte. Ihre schlichte Form hat einen praktischen Grund: Gebaut wurde mit dem Marès-Sandstein der Umgebung, schnell und ohne Zierrat — das Geld steckte man lieber in Schiffe. Ein ehrliches Gotteshaus für einen ehrlichen Ort.'},
   {t:'Hafenpromenade & die Wein-Ära (ca. 10 min)', c:[39.4165,3.2630],
    kurz:'Zurück am großen Kai: Wo heute Ausflugsboote und Yachten liegen, stapelten sich vor hundertdreißig Jahren Weinfässer bis auf die Straße. Die stattlichen Bürgerhäuser an der Promenade — mit Balkonen und Jugendstil-Anklängen — sind die steinernen Zeugen dieser kurzen, goldenen Ära. Ein guter Ort für ein Eis mit Blick auf euer eigenes Boot.',
-   tief:'Der Rhythmus der Promenade erzählt Wirtschaftsgeschichte: unten Lagerhaus, oben Wohnung, davor der Kai — kürzer kann ein Handelsweg nicht sein. Als Frankreichs Weinberge nach der Reblaus-Katastrophe brachlagen, verdiente Felanitx an jedem Fass; die Duana, das alte Zollhaus, fertigte in Spitzenjahren Schiff um Schiff ab. Mit dem Zusammenbruch um achtzehnhunderteinundneunzig begann die große Auswanderung — viele Familien der Gegend gingen nach Südamerika, und noch heute tragen Cafés in Buenos Aires Namen aus dem Osten Mallorcas. Erst der Tourismus und zuletzt die Rückkehr des Weinbaus um Felanitx haben den Kreis geschlossen: Auf denselben Böden, die einst Frankreich versorgten, wachsen heute wieder preisgekrönte Weine. Morgen geht es übrigens nur eine Bucht weiter nach Norden — nach Porto Cristo, zu den berühmten Drach-Höhlen mit ihrem unterirdischen See.'},
+   tief:'Der Rhythmus der Promenade erzählt Wirtschaftsgeschichte: unten Lagerhaus, oben Wohnung, davor der Kai — kürzer kann ein Handelsweg nicht sein. Als Frankreichs Weinberge nach der Reblaus-Katastrophe brachlagen, verdiente Felanitx an jedem Fass; die Duana, das alte Zollhaus, fertigte in Spitzenjahren Schiff um Schiff ab. Mit dem Zusammenbruch um achtzehnhunderteinundneunzig begann die große Auswanderung — viele Familien der Gegend gingen nach Südamerika, und noch heute tragen Cafés in Buenos Aires Namen aus dem Osten Mallorcas. Erst der Tourismus und zuletzt die Rückkehr des Weinbaus um Felanitx haben den Kreis geschlossen: Auf denselben Böden, die einst Frankreich versorgten, wachsen heute wieder preisgekrönte Weine. Morgen geht es übrigens nach Süden: um das Cap de ses Salines herum und hinüber nach Cabrera, in den autofreien Inselnationalpark — die letzte Nacht der Reise, an einer Boje unter dem alten Kastell.'},
   {t:'Leuchtturm Punta de ses Crestes (optional, +35 min)', c:[39.4128,3.2723],
    kurz:'Wer noch Beine hat: Der Weg auf die Ostseite der Hafeneinfahrt führt zum weiß-gestreiften Leuchtturm auf der Punta de ses Crestes. Von der Felskante der Blick über die offene See, aus der ihr heute gekommen seid — und über die ganze Bucht, in der euer Katamaran wie ein Spielzeug liegt. Der klassische Sonnenuntergangs-Spaziergang von Portocolom.',
-   tief:'Der Leuchtturm stammt aus der Blütezeit des Weinhafens — als nachts schwer beladene Schoner die schmale Einfahrt finden mussten, wurde aus der Feuerstelle am Felsen ein richtiger Turm mit Linsenapparat. Seine Kennung, Blitze im Viererrhythmus, ist bis weit hinaus zu sehen; ihr habt sie vielleicht schon gestern Abend am Horizont bemerkt. Rund um den Turm liegt eine karstige Heidelandschaft mit wilden Olivenbäumen, in der es nach Rosmarin und Salz riecht — typische Ostküsten-Garriga, wie sie Erzherzog Ludwig Salvator in seinen Balearen-Bänden liebevoll kartierte. Der Habsburger ließ auf Mallorca Aussichtspunkte und Wege anlegen, die bis heute begangen werden; dieser Spaziergang hätte ihm gefallen. Lasst den Tag oben am Geländer ausklingen — morgen wartet Porto Cristo mit den Drach-Höhlen.'}
+   tief:'Der Leuchtturm stammt aus der Blütezeit des Weinhafens — als nachts schwer beladene Schoner die schmale Einfahrt finden mussten, wurde aus der Feuerstelle am Felsen ein richtiger Turm mit Linsenapparat. Seine Kennung, Blitze im Viererrhythmus, ist bis weit hinaus zu sehen; ihr habt sie vielleicht schon gestern Abend am Horizont bemerkt. Rund um den Turm liegt eine karstige Heidelandschaft mit wilden Olivenbäumen, in der es nach Rosmarin und Salz riecht — typische Ostküsten-Garriga, wie sie Erzherzog Ludwig Salvator in seinen Balearen-Bänden liebevoll kartierte. Der Habsburger ließ auf Mallorca Aussichtspunkte und Wege anlegen, die bis heute begangen werden; dieser Spaziergang hätte ihm gefallen. Lasst den Tag oben am Geländer ausklingen — morgen wartet Cabrera.'}
  ]},
- {id:'pcristo', day:'Tag 4 · Di', ort:'Porto Cristo', ready:false},
- {id:'cfigs', day:'Tag 5 · Mi', ort:'Cala Figuera', ready:false},
- {id:'cabrera', day:'Tag 6 · Do', ort:'Cabrera', ready:true, stations:[
+ {id:'cabrera', day:'Tag 5 · Do', ort:'Cabrera', ready:true, stations:[
   {t:'Zum Einstieg: Cabrera — Geschichte & Küche', c:[39.1480,2.9330],
    kurz:'Willkommen im Nationalpark Cabrera — ihr liegt an einer von rund fünfzig Bojen im besterhaltenen Naturhafen der Balearen. Kein Hotel, keine Straße: Auf der Insel leben heute nur Parkpersonal und ein paar Militärhistoriker-Träume. Über euch wacht das Kastell, um euch das klarste Wasser der Reise. Seit neunzehnhunderteinundneunzig ist das Archipel Spaniens erster kombinierter Land- und Meeres-Nationalpark.',
    tief:'Cabrera war nie richtig bewohnt und doch immer begehrt: Piratenversteck, Quarantänestation, Militärstützpunkt — und über Jahrhunderte Weidegrund für Ziegen, denen die Insel wohl ihren Namen verdankt, Cabrera heißt Ziegeninsel. Für österreichische Ohren interessant: Erzherzog Ludwig Salvator von Habsburg, der große Balearen-Chronist, beschrieb das Archipel in seinem monumentalen Werk „Die Balearen in Wort und Bild“ — neun Bände, geschrieben zwischen achtzehnhundertneunundsechzig und achtzehnhunderteinundneunzig. Der Habsburger verliebte sich so sehr in diese Inselwelt, dass er an der Westküste Mallorcas ganze Landstriche kaufte, um sie vor Verbauung zu schützen — Naturschutz, Jahrzehnte bevor es das Wort gab. Kulinarische Merkliste für heute: An Land gibt es nur eine kleine Cantina — heute kocht die Bordküche. Dazu passt, was die Insel-Fischer früher schätzten: einfacher gegrillter Fisch, Sobrassada aufs Brot und als Sundowner ein Hierbas, der mallorquinische Kräuterlikör.'},
@@ -805,7 +804,7 @@ const CHAPTERS = [
    kurz:'Zum Abschluss ein Naturwunder, das man nicht zu Fuß erreicht: Sa Cova Blava, die Blaue Grotte, an der Nordostecke der Insel. Am späten Nachmittag fällt das Licht so in die Höhle, dass das Wasser von innen elektrisch blau leuchtet. Wenn die Parkverwaltung die Zufahrt freigibt, ist das der Badestopp eures Lebens — fragt beim Personal am Steg nach.',
    tief:'Die Höhle ist gut hundertsechzig Meter tief in den Fels gewaschen, ihr Gewölbe hoch genug für Ausflugsboote. Das Leuchten entsteht wie beim berühmten Vorbild auf Capri: Sonnenlicht fällt durch den Unterwasser-Eingang, das Wasser filtert alle warmen Farbtöne heraus, übrig bleibt reines Blau, das von unten heraufstrahlt. Erzherzog Ludwig Salvator, der Habsburger Balearen-Chronist, hat übrigens beide Grotten gekannt und beschrieben — die Capri-Grotte machte er mit seinem Buch „Die Grotte von Capri“ europaweit berühmt. Dass sein geliebtes Balearen-Archipel ein eigenes blaues Wunder besitzt, hätte ihn gefreut. Und damit: Morgen heißt es früh ablegen — der lange Überstellungsschlag zurück nach Palma, Rückgabe am Nachmittag. Genießt vorher einen der dunkelsten Sternenhimmel des Mittelmeers.'}
  ]},
- {id:'palma', day:'Tag 7 · Fr', ort:'Palma', ready:false}
+ {id:'palma', day:'Tag 6 · Fr', ort:'Palma', ready:false}
 ];
 /* ============ Player-Engine ============ */
 const $=id=>document.getElementById(id);
