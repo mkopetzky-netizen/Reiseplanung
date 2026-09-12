@@ -763,48 +763,48 @@ footer{color:var(--mut);font-size:12.5px;line-height:1.6;padding:14px 2px 30px;
 /* ===== Abendorte (MUSTER: 2 recherchiert) ===== */
 const PLACES = [
  {id:'soller', day:'Tag 1 · So', ort:'Port de Sóller', ready:true,
-  berth:[39.7975,2.6905], berthNote:'Bojenfeld / Hafen Port de Sóller',
+  berth:[39.79722,2.69224], berthNote:'Bojenfeld / Hafen Port de Sóller (Club Nàutic)',
   rest:[
-   {n:'Ses Oliveres', typ:'lokal', preis:'€€', c:[39.7967,2.6944], geh:'ca. 5 min (Dinghi + Promenade)',
+   {n:'Ses Oliveres', typ:'lokal', preis:'€€', c:[39.79405,2.69697], geh:'ca. 5 min (Dinghi + Promenade)',
     txt:'Klassiker an der Hafenpromenade: fangfrischer Fisch, Meeresfrüchte und Reisgerichte nach Inselart — die unaufgeregte Adresse für den ersten Abend.',
     resv:'Für 9 vorreservieren; Terrassentische sind begehrt.',
     links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.de/Restaurants-g673585-Port_de_Soller_Soller_Majorca_Balearic_Islands.html'],
            ['Google Maps','https://www.google.com/maps/search/?api=1&query=Ses+Oliveres+Port+de+Soller']]},
-   {n:'Kingfisher', typ:'lokal', preis:'€€€', c:[39.7947,2.6928], geh:'ca. 4 min',
+   {n:'Kingfisher', typ:'lokal', preis:'€€€', c:[39.79782,2.69264], geh:'ca. 4 min',
     txt:'Direkt am Yachthafen, spezialisiert auf traditionell mallorquinische und mediterrane Gerichte mit Fisch aus der Bucht.',
     resv:'Gruppentisch anfragen.',
     links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.de/Restaurants-g673585-Port_de_Soller_Soller_Majorca_Balearic_Islands.html'],
            ['Google Maps','https://www.google.com/maps/search/?api=1&query=Kingfisher+Port+de+Soller']]},
-   {n:'Randemar', typ:'gehoben', preis:'€€€', c:[39.7957,2.6958], geh:'ca. 7 min',
+   {n:'Randemar', typ:'gehoben', preis:'€€€', c:[39.79379,2.69695], geh:'ca. 7 min',
     txt:'Mediterrane Küche in einer alten Villa direkt am Wasser, Terrasse über der Bucht — der stimmungsvollste Rahmen am Hafen.',
     resv:'Für 9 unbedingt vorab reservieren.',
     links:[['Website','https://www.randemar.com/'],
            ['Google Maps','https://www.google.com/maps/search/?api=1&query=Randemar+Port+de+Soller']]},
-   {n:'Es Passeig', typ:'gehoben', preis:'€€€', c:[39.7961,2.6950], geh:'ca. 6 min',
+   {n:'Es Passeig', typ:'gehoben', preis:'€€€', c:[39.79303,2.69640], geh:'ca. 6 min', ungenau:true,
     txt:'Zeitgenössisch-mediterrane Karte mit Terrasse zur Promenade; die gehobene Alternative ohne Fine-Dining-Aufwand.',
     resv:'Reservierung empfohlen.',
     links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.de/Restaurants-g673585-Port_de_Soller_Soller_Majorca_Balearic_Islands.html'],
            ['Google Maps','https://www.google.com/maps/search/?api=1&query=Es+Passeig+Port+de+Soller']]}
   ]},
  {id:'pollenca', day:'Tag 2 · Mo', ort:'Port de Pollença', ready:true,
-  berth:[39.9075,3.0845], berthNote:'Hafen Port de Pollença',
+  berth:[39.90550,3.08474], berthNote:'Hafen Port de Pollença (RCNPP)',
   rest:[
-   {n:'La Llonja', typ:'gehoben', preis:'€€€', c:[39.9072,3.0857], geh:'ca. 3 min',
+   {n:'La Llonja', typ:'gehoben', preis:'€€€', c:[39.90573,3.08429], geh:'ca. 3 min',
     txt:'Im Gebäude des alten Fischmarkts direkt am Hafen: mediterran-mallorquinisch inspirierte Küche mit marktfrischen Zutaten, Terrasse mit Blick über die Boote.',
     resv:'Für 9 früh reservieren — die Terrasse ist klein.',
     links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.de/Restaurants-g1028722-Port_de_Pollenca_Majorca_Balearic_Islands.html'],
            ['Google Maps','https://www.google.com/maps/search/?api=1&query=La+Llonja+Port+de+Pollenca']]},
-   {n:'Restaurant RCNPP (Club Nàutic)', typ:'lokal', preis:'€€', c:[39.9068,3.0852], geh:'ca. 3 min',
+   {n:'Restaurant RCNPP (Club Nàutic)', typ:'lokal', preis:'€€', c:[39.90550,3.08474], geh:'ca. 3 min',
     txt:'Das Vereinsrestaurant des Yachtclubs gleich neben La Llonja: lokaler Fisch und Meeresfrüchte, vernünftige Weinpreise, ganzjährig geöffnet — die pragmatische Wahl direkt am Liegeplatz.',
     resv:'Meist auch für größere Runden machbar, trotzdem anmelden.',
     links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.de/Restaurants-g1028722-Port_de_Pollenca_Majorca_Balearic_Islands.html'],
            ['Google Maps','https://www.google.com/maps/search/?api=1&query=Club+Nautico+Puerto+Pollensa+restaurante']]},
-   {n:'Zarzales', typ:'gehoben', preis:'€€€', c:[39.9061,3.0826], geh:'ca. 8 min',
+   {n:'Zarzales', typ:'gehoben', preis:'€€€', c:[39.90340,3.08002], geh:'ca. 8 min',
     txt:'Moderne mallorquinische Küche, familiengeführt seit den späten Neunzigern, Gartenterrasse eine Querstraße hinter der Promenade — ruhiger als die Hafenzeile.',
     resv:'Reservierung nötig; nach dem Gartentisch fragen.',
     links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.de/Restaurants-g1028722-Port_de_Pollenca_Majorca_Balearic_Islands.html'],
            ['Google Maps','https://www.google.com/maps/search/?api=1&query=Zarzales+Port+de+Pollenca']]},
-   {n:'Stay Restaurant', typ:'gehoben', preis:'€€€€', c:[39.9083,3.0860], geh:'ca. 5 min',
+   {n:'Stay Restaurant', typ:'gehoben', preis:'€€€€', c:[39.90402,3.08290], geh:'ca. 5 min',
     txt:'Die Institution am Ende des Stegs, seit den Siebzigern: asiatisch-mediterrane Karte, wöchentlich wechselndes Menü, Wasser auf drei Seiten.',
     resv:'Für 9 mit Vorlauf reservieren.',
     links:[['Website','https://www.stayrestaurant.com/'],
@@ -813,37 +813,32 @@ const PLACES = [
  {id:'cratjada', day:'Tag 3 · Di', ort:'Cala Ratjada', ready:true,
   berth:[39.7118,3.4636], berthNote:'Hafen Cala Ratjada (Ports IB)',
   rest:[
-   {n:'Restaurante Mamma Mia', typ:'gehoben', preis:'€€€', c:[39.7113,3.4630], geh:'ca. 3 min',
+   {n:'Restaurante Mamma Mia', typ:'gehoben', preis:'€€€', c:[39.71056,3.46231], geh:'ca. 3 min',
     txt:'Terrasse direkt zum Hafen: Fisch des Tages, gute Fleischgerichte und hausgemachte Pasta — mediterran statt Touristenkarte.',
     resv:'Für 9 reservieren, Hafenterrasse anfragen.',
     links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.com/Restaurants-g580283-Cala_Ratjada_Majorca_Balearic_Islands.html'],
            ['Google Maps','https://www.google.com/maps/search/?api=1&query=Mamma+Mia+Cala+Ratjada']]},
-   {n:'O Sole Mio', typ:'lokal', preis:'€€', c:[39.7120,3.4641], geh:'ca. 2 min',
+   {n:'O Sole Mio', typ:'lokal', preis:'€€', c:[39.71117,3.46280], geh:'ca. 2 min',
     txt:'Fisch und Meeresfrüchte direkt von den örtlichen Fischern, unmittelbar am Hafen — kurze Wege nach einem langen Tag an Deck.',
     resv:'Gruppengröße vorab durchgeben.',
     links:[['TripAdvisor-Fischrestaurants','https://www.tripadvisor.com/Restaurants-g580283-c33-Cala_Ratjada_Majorca_Balearic_Islands.html'],
-           ['Google Maps','https://www.google.com/maps/search/?api=1&query=O+Sole+Mio+Cala+Ratjada']]},
-   {n:'Ses Rotges', typ:'gehoben', preis:'€€€€', c:[39.7136,3.4623], geh:'ca. 6 min',
-    txt:'Die klassische Feinschmecker-Adresse des Orts in einem Herrenhaus abseits der Promenade. Aktuellen Betrieb und Öffnungszeiten vor der Reservierung telefonisch prüfen.',
-    resv:'Nur mit Reservierung; Status vor Ort bestätigen lassen.',
-    links:[['Restaurant-Info','https://www.holamallorca.com/de/mallorca/reisefuehrer/restaurants/cala-rajada/ses-rotges.htm'],
-           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Ses+Rotges+Cala+Ratjada']]}
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=O+Sole+Mio+Cala+Ratjada']]}
   ]},
  {id:'pcolom', day:'Tag 4 · Mi', ort:'Portocolom', ready:true,
   berth:[39.4172,3.2610], berthNote:'Kai/Bojenfeld Portocolom',
   rest:[
-   {n:'Celler Sa Sínia', typ:'lokal', preis:'€€€', c:[39.4201,3.2592], geh:'ca. 8 min',
+   {n:'Celler Sa Sínia', typ:'lokal', preis:'€€€', c:[39.42357,3.26104], geh:'ca. 8 min', ungenau:true,
     txt:'Die Institution des Orts nahe dem Riuetó-Viertel: Fisch- und Meeresfrüchteküche nach Inselart in Celler-Atmosphäre — die Fischsuppe und die Llagosta (Languste) haben der Adresse ihren Ruf weit über Portocolom hinaus eingetragen.',
     resv:'Für 9 früh reservieren — Haus ist regelmäßig voll.',
     links:[['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g580310-d985466-Reviews-Celler_Sa_Sinia-Portocolom_Majorca_Balearic_Islands.html'],
            ['Best of Mallorca','https://www.bestofmallorca.de/restaurants/portocolom/celler-sa-sinia'],
            ['Google Maps','https://www.google.com/maps/search/?api=1&query=Celler+Sa+Sinia+Portocolom']]},
-   {n:'Sa Llotja', typ:'gehoben', preis:'€€€€', c:[39.4184,3.2596], geh:'ca. 7 min',
+   {n:'Sa Llotja', typ:'gehoben', preis:'€€€€', c:[39.42164,3.26168], geh:'ca. 7 min',
     txt:'Das eleganteste Haus am Hafen, direkt über dem Wasser an der Calle Pescadors — mediterran-gehobene Küche, große Weinkarte, Blick über die Bucht auf den eigenen Liegeplatz.',
     resv:'Terrassenplätze für 9 nur mit Vorlauf.',
     links:[['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g580310-d1418228-Reviews-Sa_Llotja-Portocolom_Majorca_Balearic_Islands.html'],
            ['Google Maps','https://www.google.com/maps/search/?api=1&query=Sa+Llotja+Portocolom']]},
-   {n:'Restaurant Colón', typ:'gehoben', preis:'€€€€', c:[39.4190,3.2594], geh:'ca. 5 min',
+   {n:'Restaurant Colón', typ:'gehoben', preis:'€€€€', c:[39.42274,3.26143], geh:'ca. 5 min', ungenau:true,
     txt:'Feinschmecker-Adresse an der Hafenpromenade — saisonale Degustationsmenüs auf hohem Niveau. Aktuellen Status und Menüform vor Reservierung prüfen.',
     resv:'Nur mit Reservierung; Gruppenmenü anfragen.',
     links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.com/Restaurants-g580310-Portocolom_Majorca_Balearic_Islands.html'],
@@ -891,7 +886,7 @@ function render(){
     .bindPopup('<b>⚓ '+p.berthNote+'</b>').addTo(lay);
   rs.forEach(r=>{L.circleMarker(r.c,{radius:7,color:'#fff',weight:2,
     fillColor:r.typ==='gehoben'?'#7c3aed':'#0b8a4c',fillOpacity:1})
-    .bindPopup('<b>'+r.n+'</b><br>'+r.preis+' · '+r.geh).addTo(lay);});
+    .bindPopup('<b>'+r.n+'</b><br>'+r.preis+' · '+r.geh+(r.ungenau?'<br><i>Lage ca. (Strassenlage)</i>':'')).addTo(lay);});
   const all=[p.berth,...rs.map(r=>r.c)];
   map.fitBounds(L.latLngBounds(all).pad(0.35));
   $('list').innerHTML=rs.map(r=>`
@@ -899,7 +894,7 @@ function render(){
      <div class="rtop"><b>${r.n}</b>
        <span class="tags"><span class="tag t-${r.typ}">${r.typ==='gehoben'?'Gehoben':'Lokal-traditionell'}</span>
        <span class="tag t-p">${r.preis}</span></span></div>
-     <div class="rmeta">🚶 ${r.geh} vom Liegeplatz</div>
+     <div class="rmeta">🚶 ${r.geh} vom Liegeplatz${r.ungenau?' · <span title="Lokal ist in OpenStreetMap nicht erfasst; Marker auf Strassenlage gesetzt">Kartenposition ca.</span>':''}</div>
      <div class="rtxt">${r.txt}</div>
      <div class="rresv">👥 ${r.resv}</div>
      <div class="rlinks">${r.links.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${l[0]} ↗</a>`).join('')}</div>
