@@ -712,6 +712,8 @@ header .sub{color:var(--mut);font-size:13.5px;margin-top:4px;line-height:1.5}
 footer{color:var(--mut);font-size:12.5px;line-height:1.6;padding:14px 2px 30px;
   border-top:1px solid var(--line);margin-top:18px}
 
+.pnote{background:#fff7e6;border:1px solid #f0d9a8;border-radius:10px;padding:10px 12px;font-size:13.5px;line-height:1.5;margin:0 0 12px}
+
 </style>
 </head>
 <body>
@@ -730,9 +732,10 @@ footer{color:var(--mut);font-size:12.5px;line-height:1.6;padding:14px 2px 30px;
 <div class="chips" id="chips"></div>
 <div class="wrap">
   <div class="krit">
-    <b>Auswahlkriterien:</b> nur Lokale mit <b>autochthoner, lokaler Küche</b> (jedes
-    Preisniveau) oder <b>gehobenem Niveau</b> — kein Fastfood. Radius ≤ 1 km vom Liegeplatz;
-    Ausnahmen nur für Außergewöhnliches (dann Taxi). Für 9 Personen gilt überall:
+    <b>Auswahlkriterien:</b> fünf Lokale je Abendort, ausschließlich <b>Spitzenniveau und
+    oberes Mittelfeld</b> (€€€–€€€€) mit <b>autochthoner, lokaler Küche</b> oder <b>gehobener
+    Küche</b> — kein Fastfood. Ruhetag am jeweiligen Wochentag geprüft. Radius ≤ 1 km vom
+    Liegeplatz; Ausnahmen nur für Außergewöhnliches (dann Taxi). Für 9 Personen gilt überall:
     <b>früh reservieren und die Gruppengröße nennen</b> — Tischkapazität telefonisch klären.
   </div>
   <div class="filter">
@@ -743,10 +746,10 @@ footer{color:var(--mut);font-size:12.5px;line-height:1.6;padding:14px 2px 30px;
   <div id="map" class="fmap"></div>
   <div id="list"></div>
   <footer>
-    <b>Recherche-Stand 15.8.2026</b> — Öffnungszeiten, Ruhetage und Gruppenkapazität vor Ort
+    <b>Recherche-Stand 13.9.2026</b> — Öffnungszeiten, Ruhetage und Gruppenkapazität vor Ort
     bzw. telefonisch prüfen; Lokal-Koordinaten sind Ortslagen (± 100 m). Ohne Beleg wird nichts
     behauptet: fehlende Angaben (Telefon, Ruhetag) bewusst weggelassen. Quellen u. a.
-    TripAdvisor-Ortslisten, Best-of-Mallorca, lokale Guides.
+    TripAdvisor, Guide Michelin, Guía Repsol, mallorca.com, Websites der Lokale.
   </footer>
 </div>
 
@@ -760,89 +763,141 @@ footer{color:var(--mut);font-size:12.5px;line-height:1.6;padding:14px 2px 30px;
 </script>
 <script>
 'use strict';
-/* ===== Abendorte (MUSTER: 2 recherchiert) ===== */
+/* ===== Abendorte — 5 Lokale je Ort, Segment Spitzenniveau / oberes Mittelfeld (Recherche-Stand 13.09.2026) ===== */
 const PLACES = [
  {id:'soller', day:'Tag 1 · So', ort:'Port de Sóller', ready:true,
   berth:[39.79722,2.69224], berthNote:'Bojenfeld / Hafen Port de Sóller (Club Nàutic)',
+  note:'Sonntag: Sa Figuera, Kingfisher und Es Passeig haben Ruhetag — die fünf unten sind sonntags geöffnet (Stand 13.09.).',
   rest:[
-   {n:'Ses Oliveres', typ:'lokal', preis:'€€', c:[39.79405,2.69697], geh:'ca. 5 min (Dinghi + Promenade)',
-    txt:'Klassiker an der Hafenpromenade: fangfrischer Fisch, Meeresfrüchte und Reisgerichte nach Inselart — die unaufgeregte Adresse für den ersten Abend.',
-    resv:'Für 9 vorreservieren; Terrassentische sind begehrt.',
-    links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.de/Restaurants-g673585-Port_de_Soller_Soller_Majorca_Balearic_Islands.html'],
-           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Ses+Oliveres+Port+de+Soller']]},
-   {n:'Kingfisher', typ:'lokal', preis:'€€€', c:[39.79782,2.69264], geh:'ca. 4 min',
-    txt:'Direkt am Yachthafen, spezialisiert auf traditionell mallorquinische und mediterrane Gerichte mit Fisch aus der Bucht.',
-    resv:'Gruppentisch anfragen.',
-    links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.de/Restaurants-g673585-Port_de_Soller_Soller_Majorca_Balearic_Islands.html'],
-           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Kingfisher+Port+de+Soller']]},
-   {n:'Randemar', typ:'gehoben', preis:'€€€', c:[39.79379,2.69695], geh:'ca. 7 min',
-    txt:'Mediterrane Küche in einer alten Villa direkt am Wasser, Terrasse über der Bucht — der stimmungsvollste Rahmen am Hafen.',
-    resv:'Für 9 unbedingt vorab reservieren.',
-    links:[['Website','https://www.randemar.com/'],
-           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Randemar+Port+de+Soller']]},
-   {n:'Es Passeig', typ:'gehoben', preis:'€€€', c:[39.79303,2.69640], geh:'ca. 6 min', ungenau:true,
-    txt:'Zeitgenössisch-mediterrane Karte mit Terrasse zur Promenade; die gehobene Alternative ohne Fine-Dining-Aufwand.',
-    resv:'Reservierung empfohlen.',
-    links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.de/Restaurants-g673585-Port_de_Soller_Soller_Majorca_Balearic_Islands.html'],
-           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Es+Passeig+Port+de+Soller']]}
+   {n:'S’Amfora', typ:'gehoben', preis:'€€€€', c:[39.7916,2.6905], geh:'ca. 15 min (um die Bucht, Platja d’en Repic)', ungenau:true,
+    txt:'Derzeit bestbewertete Küche am Hafen: mallorquinische Reisküche — Hummerreis, Arròs negre, Meeresfrüchte-Paella, Garnelen mit Sobrassada und Honig. Direkt am Repic-Strand.',
+    resv:'Täglich 18–21:30; für 9 zwingend vorreservieren (Tel. +34 601 90 54 74).',
+    links:[['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g3607602-d25422447-Reviews-Restaurant_S_Amfora-Port_de_Soller_Soller_Majorca_Balearic_Islands.html'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Restaurant+S%27Amfora+Port+de+Soller']]},
+   {n:'Agapanto Flor del Amor', typ:'gehoben', preis:'€€€€', c:[39.7932,2.6886], geh:'ca. 6 min (Camí del Far)', ungenau:true,
+    txt:'Direkt am Wasser an der Leuchtturmstraße, Kräutergarten-Terrasse, abends Live-Musik; Steinbutt, Dorade, Thunfisch-Tataki, Rindertartar. Bewertungen 2026 bei Vollbetrieb gemischt (Service).',
+    resv:'So 12–24 Uhr; für 9 reservieren.',
+    links:[['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g3607602-d1059722-Reviews-Restaurante_Agapanto_Flor_del_Amor-Port_de_Soller_Soller_Majorca_Balearic_Island.html'],
+           ['Website','https://www.agapanto.com/en/'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Agapanto+Port+de+Soller']]},
+   {n:'Sa Barca', typ:'gehoben', preis:'€€€', c:[39.7930,2.6964], geh:'ca. 4 min (Passeig Es Través)', ungenau:true,
+    txt:'Fischrestaurant an der Hafenpromenade: ganzer Fisch in Salzkruste, Steinbutt, Wolfsbarsch, Ibérico-Schwein. Kürzester Weg vom Liegeplatz im gehobenen Segment.',
+    resv:'So 18:30–22 Uhr (Di/Mi Ruhetag); Reservierung empfohlen.',
+    links:[['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g3607602-d25715470-Reviews-Sa_Barca-Port_de_Soller_Soller_Majorca_Balearic_Islands.html'],
+           ['Website','http://www.sabarcasoller.com/'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Sa+Barca+Port+de+Soller']]},
+   {n:'Es Racó d’es Port', typ:'lokal', preis:'€€€', c:[39.7983,2.6942], geh:'ca. 6 min (Viertel Santa Catalina)',
+    txt:'Im alten Fischerviertel Santa Catalina: mallorquinische Fischküche — Wolfsbarsch in Salzkruste, Fisch „a la mallorquina“, Meeresfrüchte-Paella, Arròs negre. Sehr gute Bewertungen August 2026.',
+    resv:'Do–Di 12–22 Uhr (Mi Ruhetag); Reservierung empfohlen.',
+    links:[['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g319794-d1421724-Reviews-Es_Raco_des_Port-Soller_Majorca_Balearic_Islands.html'],
+           ['Website','https://www.esracodesport.com/en/'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Es+Raco+des+Port+Soller']]},
+   {n:'Ses Oliveres', typ:'lokal', preis:'€€€', c:[39.7940,2.6970], geh:'ca. 5 min (Passeig Es Través)',
+    txt:'Familiengeführter Klassiker an der Promenade mit Blick über die Bucht: mallorquinische Spezialitäten, Paellas (Meeresfrüchte, Ibérico), Seezunge, Wolfsbarsch. Solide, nicht spektakulär — die pragmatische Wahl.',
+    resv:'Täglich bis 22:30; online (sesoliveres.myrestoo.net) oder Tel. +34 971 634 168.',
+    links:[['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g3607602-d1142221-Reviews-Restaurant_Ses_Oliveres-Port_de_Soller_Soller_Majorca_Balearic_Islands.html'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Ses+Oliveres+Port+de+Soller']]}
   ]},
  {id:'pollenca', day:'Tag 2 · Mo', ort:'Port de Pollença', ready:true,
   berth:[39.90550,3.08474], berthNote:'Hafen Port de Pollença (RCNPP)',
+  note:'Montag: Terrae (Michelin-gelistet, Verge del Carme 28) hat Ruhetag — sonst erste Wahl. Alle fünf unten sind montags geöffnet (Stand 13.09.).',
   rest:[
-   {n:'La Llonja', typ:'gehoben', preis:'€€€', c:[39.90573,3.08429], geh:'ca. 3 min',
-    txt:'Im Gebäude des alten Fischmarkts direkt am Hafen: mediterran-mallorquinisch inspirierte Küche mit marktfrischen Zutaten, Terrasse mit Blick über die Boote.',
-    resv:'Für 9 früh reservieren — die Terrasse ist klein.',
-    links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.de/Restaurants-g1028722-Port_de_Pollenca_Majorca_Balearic_Islands.html'],
+   {n:'U Nàutic (Reial Club Nàutic)', typ:'gehoben', preis:'€€€€', c:[39.9055,3.0846], geh:'ca. 1 min (im Clubgebäude)',
+    txt:'Direkt im Hafenclub mit Hafenblick: Hummer aus dem eigenen Becken, am Tisch filetierte Seezunge, Paella, Chateaubriand. TripAdvisor-Rang 2 im Ort (Stand 09/2026).',
+    resv:'Täglich; für 9 vorab: Tel. +34 971 86 46 35, restaurante@rcnpp.net.',
+    links:[['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g1028722-d2175057-Reviews-Reial_Club_Nautic_Port_de_Pollenca_Restaurante-Port_de_Pollenca_Majorca_Balearic.html'],
+           ['Website','https://unautic.com/?lang=en'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=U+Nautic+Port+de+Pollenca']]},
+   {n:'La Llonja', typ:'gehoben', preis:'€€€€', c:[39.90573,3.08429], geh:'ca. 3 min',
+    txt:'Klassiker über der alten Fischerei-Mole: Fischsuppe, Hummereintopf, Wolfsbarsch, Seehecht mit Garnelen, lokale Garnelen in Knoblauch. Terrasse mit Blick über die Boote.',
+    resv:'Täglich; online über Website, unter 24 h nur Tel. +34 971 868 430.',
+    links:[['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g1028722-d1093981-Reviews-La_Llonja_Restaurant-Port_de_Pollenca_Majorca_Balearic_Islands.html'],
+           ['Website','https://restaurantlallonja.com/'],
            ['Google Maps','https://www.google.com/maps/search/?api=1&query=La+Llonja+Port+de+Pollenca']]},
-   {n:'Restaurant RCNPP (Club Nàutic)', typ:'lokal', preis:'€€', c:[39.90550,3.08474], geh:'ca. 3 min',
-    txt:'Das Vereinsrestaurant des Yachtclubs gleich neben La Llonja: lokaler Fisch und Meeresfrüchte, vernünftige Weinpreise, ganzjährig geöffnet — die pragmatische Wahl direkt am Liegeplatz.',
-    resv:'Meist auch für größere Runden machbar, trotzdem anmelden.',
-    links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.de/Restaurants-g1028722-Port_de_Pollenca_Majorca_Balearic_Islands.html'],
-           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Club+Nautico+Puerto+Pollensa+restaurante']]},
-   {n:'Zarzales', typ:'gehoben', preis:'€€€', c:[39.90340,3.08002], geh:'ca. 8 min',
-    txt:'Moderne mallorquinische Küche, familiengeführt seit den späten Neunzigern, Gartenterrasse eine Querstraße hinter der Promenade — ruhiger als die Hafenzeile.',
-    resv:'Reservierung nötig; nach dem Gartentisch fragen.',
-    links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.de/Restaurants-g1028722-Port_de_Pollenca_Majorca_Balearic_Islands.html'],
+   {n:'Zarzales', typ:'lokal', preis:'€€€', c:[39.90340,3.08002], geh:'ca. 8 min',
+    txt:'Autochthone mallorquinische Küche im Innenhof: Spanferkel, Lammschulter, Zicklein, Frit mallorquí, Tumbet; Paella auf Vorbestellung. Ruhiger als die Hafenzeile.',
+    resv:'Täglich 19–22:30; für 9 telefonisch: +34 687 49 84 54.',
+    links:[['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g1028722-d1804299-Reviews-Los_Zarzales_Restaurant-Port_de_Pollenca_Majorca_Balearic_Islands.html'],
            ['Google Maps','https://www.google.com/maps/search/?api=1&query=Zarzales+Port+de+Pollenca']]},
-   {n:'Stay Restaurant', typ:'gehoben', preis:'€€€€', c:[39.90402,3.08290], geh:'ca. 5 min',
-    txt:'Die Institution am Ende des Stegs, seit den Siebzigern: asiatisch-mediterrane Karte, wöchentlich wechselndes Menü, Wasser auf drei Seiten.',
-    resv:'Für 9 mit Vorlauf reservieren.',
-    links:[['Website','https://www.stayrestaurant.com/'],
-           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Stay+Restaurant+Port+de+Pollenca']]}
+   {n:'Stay Restaurant', typ:'gehoben', preis:'€€€', c:[39.90402,3.08290], geh:'ca. 5 min (Moll Nou)',
+    txt:'Institution auf der neuen Mole, Wasser auf drei Seiten: Lammschulter, Kabeljau, Ibérico, Garnelen-Linguine; Dreigangmenü mit Wein um 45 €. Bewertungen 2026 erwähnen reduzierte Karte.',
+    resv:'365 Tage geöffnet, Küche bis 21:30; online über Website.',
+    links:[['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g1028722-d1097961-Reviews-Stay_Restaurant-Port_de_Pollenca_Majorca_Balearic_Islands.html'],
+           ['Website','https://www.stayrestaurant.com/'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Stay+Restaurant+Port+de+Pollenca']]},
+   {n:'Arux Alma Mediterránea', typ:'gehoben', preis:'€€€', c:[39.9066,3.0825], geh:'ca. 3 min (Ecònom Torres)', ungenau:true,
+    txt:'Mediterrane Tapas- und Sharing-Küche eine Querstraße hinter dem Hafen; derzeit höchste Bewertung im Ort (4,8/5). Die Alternative, wenn die Gruppe lieber teilt als Menü isst.',
+    resv:'Mo 9–23:30 Uhr; für 9 vorab anfragen.',
+    links:[['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g1028722-d21345500-Reviews-Arux_Alma_Mediterranea-Port_de_Pollenca_Majorca_Balearic_Islands.html'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Arux+Alma+Mediterranea+Port+de+Pollenca']]}
   ]},
  {id:'cratjada', day:'Tag 3 · Di', ort:'Cala Ratjada', ready:true,
   berth:[39.7118,3.4636], berthNote:'Hafen Cala Ratjada (Ports IB)',
+  note:'Dienstag: Can Manolo hat Ruhetag. Ses Rotges ist als Abendrestaurant nicht mehr in Betrieb. Alle fünf unten sind dienstags geöffnet (Stand 13.09.).',
   rest:[
-   {n:'Restaurante Mamma Mia', typ:'gehoben', preis:'€€€', c:[39.71056,3.46231], geh:'ca. 3 min',
-    txt:'Terrasse direkt zum Hafen: Fisch des Tages, gute Fleischgerichte und hausgemachte Pasta — mediterran statt Touristenkarte.',
-    resv:'Für 9 reservieren, Hafenterrasse anfragen.',
-    links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.com/Restaurants-g580283-Cala_Ratjada_Majorca_Balearic_Islands.html'],
-           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Mamma+Mia+Cala+Ratjada']]},
-   {n:'O Sole Mio', typ:'lokal', preis:'€€', c:[39.71117,3.46280], geh:'ca. 2 min',
-    txt:'Fisch und Meeresfrüchte direkt von den örtlichen Fischern, unmittelbar am Hafen — kurze Wege nach einem langen Tag an Deck.',
-    resv:'Gruppengröße vorab durchgeben.',
-    links:[['TripAdvisor-Fischrestaurants','https://www.tripadvisor.com/Restaurants-g580283-c33-Cala_Ratjada_Majorca_Balearic_Islands.html'],
-           ['Google Maps','https://www.google.com/maps/search/?api=1&query=O+Sole+Mio+Cala+Ratjada']]}
+   {n:'Es Coll d’Os', typ:'gehoben', preis:'€€€', c:[39.7102,3.4537], geh:'ca. 10 min (Verge de l’Esperança)', ungenau:true,
+    txt:'Familiengeführtes Degustationsmenü-Restaurant in einer alten Finca mit Gartenterrasse; saisonal-mallorquinisch mit Gemüse aus dem eigenen Garten. Menü um 47–60 €; TripAdvisor-Rang 2 im Ort.',
+    resv:'Mo–Sa ab 19 Uhr, nur Menü, wenige Plätze — für 9 früh anfragen: +34 623 23 53 57, restaurant@escolldos.com.',
+    links:[['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g580283-d1181918-Reviews-Es_Coll_D_os-Cala_Ratjada_Majorca_Balearic_Islands.html'],
+           ['Website','https://escolldos.com'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Es+Coll+d%27Os+Cala+Ratjada']]},
+   {n:'Ses Àncores', typ:'lokal', preis:'€€€', c:[39.7117,3.4635], geh:'ca. 4 min (Elionor Servera)',
+    txt:'Familienbetrieb mit ausdrücklich „Fisch aus dem Hafen von Cala Ratjada“: Caldereta de Langosta, gegrillte Seezunge, Seeteufel, Paellas. Die Langusten-Adresse des Orts.',
+    resv:'Do–Di 18–22:30 (Mi Ruhetag); Tel. +34 971 56 58 48.',
+    links:[['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g580283-d2063954-Reviews-Ses_Ancores-Cala_Ratjada_Majorca_Balearic_Islands.html'],
+           ['Website','https://sesancores.com/en/menu/'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Ses+Ancores+Cala+Ratjada']]},
+   {n:'Los Arcos', typ:'lokal', preis:'€€€', c:[39.7146,3.4651], geh:'ca. 5 min (Carrer Monturiol)',
+    txt:'Seit 1997 familiengeführt, eigener Gemüsegarten; bekannt für Paella und Fideuà, ganzen Wolfsbarsch, Pulpo, Lammkoteletts. Richtet ausdrücklich Gruppen aus; TripAdvisor-Rang 4.',
+    resv:'Do–Di ab 18:15 (Mi Ruhetag); Paella vorbestellen: +34 971 56 56 12 oder TheFork.',
+    links:[['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g580283-d5895974-Reviews-Restaurante_Los_Arcos-Cala_Ratjada_Majorca_Balearic_Islands.html'],
+           ['TheFork','https://www.thefork.com/restaurant/los-arcos-r623383'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Los+Arcos+Cala+Ratjada']]},
+   {n:'Il Ministro', typ:'gehoben', preis:'€€€', c:[39.7112,3.4640], geh:'ca. 2 min (direkt am Hafen)', ungenau:true,
+    txt:'Terrasse am Wasser gleich beim Hafen: Dorade, Seezunge, Langusten- und Hummerreis auf Vorbestellung. Mediterran mit italienischem Anteil (Pasta) — nicht rein autochthon.',
+    resv:'Di–So bis 22:30 (Mo Ruhetag); Reisgerichte vorbestellen: +34 682 54 82 06.',
+    links:[['mallorca.com','https://www.mallorca.com/es/directorio/empresa/il-ministro-restaurant-cala-ratjada-sc51dmk'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Il+Ministro+Cala+Ratjada']]},
+   {n:'Xiringuito (Son Moll)', typ:'gehoben', preis:'€€€', c:[39.7064,3.4582], geh:'ca. 12 min (Strand Son Moll)',
+    txt:'Terrasse praktisch im Meer, Treppe ins Wasser: Paella, Austern, ganzer Grillfisch, Meeresfrüchte-Risotto. Eher Beach-Ambiente als Fine Dining; Betreiber touristisch geprägt.',
+    resv:'Täglich bis 22 Uhr; Reservierung möglich.',
+    links:[['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g580283-d12545915-Reviews-Xiringuito-Cala_Ratjada_Majorca_Balearic_Islands.html'],
+           ['Website','https://lafamiliasonmoll.com/xiringuito-restaurant-son-moll-cala-ratjada-mallorca/'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Xiringuito+Son+Moll+Cala+Ratjada']]}
   ]},
  {id:'pcolom', day:'Tag 4 · Mi', ort:'Portocolom', ready:true,
   berth:[39.4172,3.2610], berthNote:'Kai/Bojenfeld Portocolom',
+  note:'Mittwoch: Restaurante Colón hat Ruhetag. Celler Sa Sínia vor dem Gang anrufen — Öffnungstage nicht belegbar (Stand 13.09.).',
   rest:[
-   {n:'Celler Sa Sínia', typ:'lokal', preis:'€€€', c:[39.42357,3.26104], geh:'ca. 8 min', ungenau:true,
-    txt:'Die Institution des Orts nahe dem Riuetó-Viertel: Fisch- und Meeresfrüchteküche nach Inselart in Celler-Atmosphäre — die Fischsuppe und die Llagosta (Languste) haben der Adresse ihren Ruf weit über Portocolom hinaus eingetragen.',
-    resv:'Für 9 früh reservieren — Haus ist regelmäßig voll.',
-    links:[['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g580310-d985466-Reviews-Celler_Sa_Sinia-Portocolom_Majorca_Balearic_Islands.html'],
-           ['Best of Mallorca','https://www.bestofmallorca.de/restaurants/portocolom/celler-sa-sinia'],
-           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Celler+Sa+Sinia+Portocolom']]},
-   {n:'Sa Llotja', typ:'gehoben', preis:'€€€€', c:[39.42164,3.26168], geh:'ca. 7 min',
-    txt:'Das eleganteste Haus am Hafen, direkt über dem Wasser an der Calle Pescadors — mediterran-gehobene Küche, große Weinkarte, Blick über die Bucht auf den eigenen Liegeplatz.',
-    resv:'Terrassenplätze für 9 nur mit Vorlauf.',
-    links:[['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g580310-d1418228-Reviews-Sa_Llotja-Portocolom_Majorca_Balearic_Islands.html'],
+   {n:'Sa Llotja', typ:'gehoben', preis:'€€€€', c:[39.42164,3.26168], geh:'ca. 7 min (Hafengebäude)',
+    txt:'Marktküche im Fischereihafen-Gebäude mit Blick auf das Bojenfeld: Wolfsbarsch-Ceviche, Languste, Degustationsmenü. Bestbewertetes Fine-Dining-Haus des Orts.',
+    resv:'Mi–So 19–22:30; Tel. +34 971 825 165, unter 24 h nur telefonisch; ab 10 Personen per E-Mail.',
+    links:[['Website','https://restaurantsallotjaportocolom.com/'],
+           ['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g580310-d1418228-Reviews-Sa_Llotja-Portocolom_Majorca_Balearic_Islands.html'],
            ['Google Maps','https://www.google.com/maps/search/?api=1&query=Sa+Llotja+Portocolom']]},
-   {n:'Restaurant Colón', typ:'gehoben', preis:'€€€€', c:[39.42274,3.26143], geh:'ca. 5 min', ungenau:true,
-    txt:'Feinschmecker-Adresse an der Hafenpromenade — saisonale Degustationsmenüs auf hohem Niveau. Aktuellen Status und Menüform vor Reservierung prüfen.',
-    resv:'Nur mit Reservierung; Gruppenmenü anfragen.',
-    links:[['TripAdvisor-Ortsliste','https://www.tripadvisor.com/Restaurants-g580310-Portocolom_Majorca_Balearic_Islands.html'],
-           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Restaurant+Colon+Portocolom']]}
+   {n:'Bocoi Portocolom', typ:'gehoben', preis:'€€€€', c:[39.4203,3.2618], geh:'ca. 5 min (Cristòfor Colom)', ungenau:true,
+    txt:'Modernes Fine Dining am Hafenufer: Fideuà, Paella, Wolfsbarsch in Salzkruste, Jakobsmuschel-Carpaccio, geschmorte Lammschulter. Bewertungen bis September 2026 sehr gut.',
+    resv:'Di–Sa bis 23 Uhr; online (bocoiportocolom.myrestoo.net) oder +34 871 252 680 — Bestätigung für 9 einholen.',
+    links:[['Website','https://www.bocoiportocolom.com/'],
+           ['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g580310-d25440007-Reviews-Bocoi_Portocolom-Portocolom_Majorca_Balearic_Islands.html'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Bocoi+Portocolom']]},
+   {n:'Ses Portadores', typ:'gehoben', preis:'€€€', c:[39.4148,3.2609], geh:'ca. 4 min (Ronda Creuer Balear)',
+    txt:'Familienbetrieb direkt am Wasser, nur abends: Steinbutt mit Tintenfisch-Risotto, Meeresfrüchte-Paella, Jakobsmuscheln, Lamm. 4,6/5 bei TripAdvisor.',
+    resv:'Mi–Mo 18–23 Uhr (Di Ruhetag); für 9 vorab reservieren.',
+    links:[['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g580310-d985475-Reviews-Ses_Portadores-Portocolom_Majorca_Balearic_Islands.html'],
+           ['Website','https://www.restaurantsesportadores.com/ses-portadores'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Ses+Portadores+Portocolom']]},
+   {n:'Celler Sa Sínia', typ:'lokal', preis:'€€€', c:[39.42357,3.26104], geh:'ca. 8 min (Carrer dels Pescadors)', ungenau:true,
+    txt:'Die Institution des Orts: Fischer-Celler an der Hafenstraße, seit Jahrzehnten Referenz für Fischsuppe, Languste, Paella und Meeresfrüchte mit großer mallorquinischer Weinkarte.',
+    resv:'Öffnungstage nicht belegbar — vorher anrufen: +34 971 824 323.',
+    links:[['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g580310-d985466-Reviews-Celler_Sa_Sinia-Portocolom_Majorca_Balearic_Islands.html'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Celler+Sa+Sinia+Portocolom']]},
+   {n:'Restaurante HPC (Hostal Porto Colom)', typ:'gehoben', preis:'€€€', c:[39.4200,3.2617], geh:'ca. 5 min (Cristòfor Colom)', ungenau:true,
+    txt:'Elegante Hafenterrasse, Reisgerichte, frischer Fisch, Languste, Thunfisch-Tataki, mallorquinische Weinkarte; ausdrücklich Gruppenmenüs. Karte enthält auch Pizza/Pasta — die verlässliche Reserve.',
+    resv:'Täglich 12–23 Uhr, Küche durchgehend; Gruppenmenü anfragen.',
+    links:[['Website','https://hpcportocolom.com/en/'],
+           ['TripAdvisor-Ortsliste','https://www.tripadvisor.com/Restaurants-g580310-Portocolom_Majorca_Balearic_Islands.html'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Restaurante+HPC+Portocolom']]}
   ]},
  {id:'cabrera', day:'Tag 5 · Do', ort:'Cabrera', ready:true,
   berth:[39.1480,2.9330], berthNote:'Bojenfeld Nationalpark',
@@ -852,7 +907,41 @@ const PLACES = [
     resv:'Proviant spätestens am Mittwoch in Portocolom auffüllen.',
     links:[['Nationalpark-Info','https://www.caib.es/sites/parcnacionaldecabrera/es/inicio/']]}
   ]},
- {id:'palma', day:'Tag 6 · Fr', ort:'Palma (Rückgabe)', ready:false}
+ {id:'palma', day:'Tag 6 · Fr', ort:'Palma (Abschluss)', ready:true,
+  berth:[39.5665,2.6390], berthNote:'Moll Vell / Passeig Sagrera — Gehzeiten ab hier; je nach Charterbasis anpassen',
+  note:'Freitag: Alle fünf sind freitags geöffnet (Stand 13.09.). Sterneküchen nur mit Vorlauf; Gruppen ab 6 meist per E-Mail anzufragen.',
+  rest:[
+   {n:'Marc Fosh', typ:'gehoben', preis:'€€€€', c:[39.5736,2.6513], geh:'ca. 18 min (Carrer de la Missió)',
+    txt:'Ein Michelin-Stern; zeitgenössisch-mediterrane Degustationsmenüs (139/159 €) aus balearischen Zutaten im Konvent des 17. Jahrhunderts. Privatraum bis 10 Personen — passt für 9.',
+    resv:'Di–Sa 19:30–21:00 Einlass; +34 971 72 01 14, info@marcfosh.com.',
+    links:[['Guide Michelin','https://guide.michelin.com/en/islas-baleares/palma/restaurant/marc-fosh'],
+           ['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g187463-d1498368-Reviews-Marc_Fosh-Palma_de_Mallorca_Majorca_Balearic_Islands.html'],
+           ['Website','https://www.marcfosh.com/']]},
+   {n:'DINS Santi Taura', typ:'gehoben', preis:'€€€€', c:[39.5658,2.6529], geh:'ca. 15 min (La Calatrava, Hotel El Llorenç)',
+    txt:'Ein Michelin-Stern, zwei Soles Repsol: elf Gänge „Orígens“ (um 115 €) aus historischen mallorquinischen Rezepten — Frit mallorquí, Oktopus-Bällchen, Spanferkel. Inselküche auf Sterneniveau.',
+    resv:'Di–Fr ab 19:30; Gruppen ab 6 nur per E-Mail reserves@santitaura.com, Kreditkartengarantie, ab 16 Jahren.',
+    links:[['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g187463-d18968451-Reviews-DINS_Santi_Taura-Palma_de_Mallorca_Majorca_Balearic_Islands.html'],
+           ['Website','https://www.santitaura.com/'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=DINS+Santi+Taura+Palma']]},
+   {n:'Adrián Quetglas', typ:'gehoben', preis:'€€€', c:[39.5715,2.6414], geh:'ca. 10 min (Passeig de Mallorca)', ungenau:true,
+    txt:'Bestes Preis-Leistungs-Verhältnis der Spitzenklasse: Siebengangmenü 85 € (Weinbegleitung 35 €), kreativ-mediterran; Repsol-empfohlen 2026, Michelin-gelistet. Privatraum für 6–10 Personen.',
+    resv:'Fr Einlass 20–21 Uhr; nur Menü; +34 971 78 11 19, Kreditkartengarantie ab 4 Personen.',
+    links:[['Guía Repsol','https://www.guiarepsol.com/es/fichas/restaurante/adrian-quetglas-39920/'],
+           ['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g187463-d8332971-Reviews-Adrian_Quetglas-Palma_de_Mallorca_Majorca_Balearic_Islands.html'],
+           ['Website','https://adrianquetglas.es/']]},
+   {n:'Sadrassana', typ:'lokal', preis:'€€€', c:[39.5692,2.6440], geh:'ca. 6 min (Plaça de la Drassana)',
+    txt:'Restauriertes Herrenhaus des 19. Jahrhunderts im Viertel Sa Llotja: traditionelle mallorquinische Gerichte und Neukreationen, Cocktailbar mit Insel-Likören. Mehrere Räume, gruppentauglich.',
+    resv:'Fr 18:30–01:00; für 9 telefonisch: +34 971 728 515.',
+    links:[['TripAdvisor','https://www.tripadvisor.com/Restaurant_Review-g187463-d4603153-Reviews-Sadrassana_Organic_Restaurant-Palma_de_Mallorca_Majorca_Balearic_Islands.html'],
+           ['Website','https://www.sadrassana.com/'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Sadrassana+Palma']]},
+   {n:'Ca n’Eduardo', typ:'lokal', preis:'€€€', c:[39.5688,2.6410], geh:'ca. 4 min (Fischauktionshalle Es Mollet)',
+    txt:'Seit rund achtzig Jahren an der Fischauktionshalle im Hafen, Blick auf Kathedrale und Bucht: Fang des Tages, Hummerpaella, Wolfsbarsch in Salzkruste. Eigenes Gruppenmenü 2026.',
+    resv:'Di–So 13–22 Uhr durchgehend; +34 971 72 11 82, info@caneduardo.com.',
+    links:[['Website','https://www.caneduardo.com/en/'],
+           ['TripAdvisor-Ortsliste','https://www.tripadvisor.com/Restaurants-g187463-Palma_de_Mallorca_Majorca_Balearic_Islands.html'],
+           ['Google Maps','https://www.google.com/maps/search/?api=1&query=Ca+n%27Eduardo+Contramoll+Mollet+Palma']]}
+  ]}
 ];
 const $=id=>document.getElementById(id);
 let act = PLACES.findIndex(p=>p.ready), filt='alle';
@@ -889,7 +978,7 @@ function render(){
     .bindPopup('<b>'+r.n+'</b><br>'+r.preis+' · '+r.geh+(r.ungenau?'<br><i>Lage ca. (Strassenlage)</i>':'')).addTo(lay);});
   const all=[p.berth,...rs.map(r=>r.c)];
   map.fitBounds(L.latLngBounds(all).pad(0.35));
-  $('list').innerHTML=rs.map(r=>`
+  $('list').innerHTML=(p.note?`<div class="pnote">${p.note}</div>`:'')+rs.map(r=>`
    <div class="rcard ${r.typ}">
      <div class="rtop"><b>${r.n}</b>
        <span class="tags"><span class="tag t-${r.typ}">${r.typ==='gehoben'?'Gehoben':'Lokal-traditionell'}</span>
